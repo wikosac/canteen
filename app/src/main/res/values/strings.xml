@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">canteen</string>
+    <string name="login">Login</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="login_sub">
+        <font color="#938D8D"><b>Selamat datang kembali</b></font>
+    </string>
+    <string name="email">Email</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="lupa_sandi">Lupa Kata sandi</string>
+    <string name="tidak_ada_akun">Tidak Punya Akun
+        <font color="7D6C2E"><b> Buat Akun </b></font>
+    </string>
+    <string name="daftar">Daftar Akun</string>
+    <string name="sub_daftar">Daftar Akun Anda Sekarang</string>
+    <string name="nama">Nama</string>
+    <string name="no_telepon">No Telepon</string>
+    <string name="buat_akun">Buat Akun</string>
+    <string name="btn_mulai">Ayo Mulai</string>
+    <string name="welcome">Hi, Rini</string>
+    <string name="pilih_kantin">Pilih Kantin mu</string>
+    <string name="kantin_1">Kantin 1</string>
+    <string name="kantin_2">Kantin 2</string>
+    <string name="kantin_3">Kantin 3</string>
+    <string name="kantin_4">Kantin 4</string>
+    <string name="favoritmu">Favoritmu</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="bayar">Bayar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorit">Favorit</string>
+    <string name="menu">menu</string>
+    <string name="kategori">Kategori</string>
+    <string name="minuman">Minuman</string>
+    <string name="mie">Mie</string>
+    <string name="gorengan">Gorengan</string>
+    <string name="pilih_menu">Pilih Menu Andalan Kamu</string>
+    <string name="pilih_semua">Pilih Semua</string>
+    <string name="nama_item">Nama Item</string>
+    <string name="deskripsi_singkat">Deskripsi Singkat</string>
+    <string name="harga">Harga</string>
+    <string name="kuantitas">Kuantitas</string>
+    <string name="default_quantity">0</string>
+    <string name="pesananmu">Pesananmu</string>
+    <string name="order_details">Detail Pesanan</string>
+    <string name="total_price">Total Harga</string>
+    <string name="default_price">Harga Standar</string>
+    <string name="sub_total">Sub Total</string>
+    <string name="waktu_proses">Waktu Proses Makanan</string>
+    <string name="Bayar">bayar</string>
+    <string name="rate">4.2</string>
+    <string name="waktu_order">10 menit</string>
+    <string name="payment_method">Pilih Pembayaran</string>
+    <string name="cash_payment">Cash</string>
+    <string name="confirm_payment">konfirmasi</string>
+    <string name="account">Akun</string>
+    <string name="food_menu">Menu</string>
+    <string name="my_orders">Pesanan</string>
+    <string name="orders_history">Riwayat Pemesanan</string>
+    <string name="log_out">Log Out</string>
+    <string name="profile">Akun</string>
+    <string name="nothing_order">Tidak Ada Riwayat Pemesanan</string>
+    <string name="default_date_and_time">September 01, 2023 pukul 12.30</string>
+    <string name="order_id">Order ID:</string>
+    <string name="noPesanan">MQ61823</string>
+    <string name="order_status">Order Status:</string>
+    <string name="order_successful">Order Successful</string>
+    <string name="pembayaran">Payment:</string>
+    <string name="jenis_pembayaran">Pembayaran: Cash</string>
+    <string name="harga_order">Rp.15.000</string>
+    <string name="belum_ada_pesanan">Belum Ada Pesanan Apa-Apa</string>
+    <string name="waktu_pemesanan">Waktu Pemesanan</string>
+    <string name="jam">12.30</string>
+    <string name="pesanan_selesai">Pesanan Selesai</string>
+    <string name="cancel_order">Batalkan Pesanan</string>
+    <string name="menu_icon">menu_icon</string>
+    <string name="pesanan_berhasil">Pesanan Berhasil</string>
+    <string name="pending">"Pending: Cash "</string>
+    <string name="process">Diproses</string>
+    <string name="rupiah">Rp</string>
+    <string name="hi">Hi Rini</string>
+
+
+</resources>
