@@ -291,7 +291,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@color/purple_theme_color"
+        app:itemIconTint="@color/purple_200"
         app:itemTextColor="@color/text_light_color"
         app:headerLayout="@layout/nav_header"
         android:scrollbarThumbVertical="@android:color/transparent"

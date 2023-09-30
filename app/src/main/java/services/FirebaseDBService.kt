@@ -1,15 +1,17 @@
 package services
 
 import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
 import datamodels.MenuItem
 import interfaces.RequestType
+import org.d3if2101.canteen.MenuActivity
 
 class FirebaseDBService {
     private var databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference
 
     private val foodMenu = "food_menu"
 
-    fun readAllMenu(menuApi: menuActivity, requestType: RequestType) {
+    fun readAllMenu(menuApi: MenuActivity, requestType: RequestType) {
         val menuList = ArrayList<MenuItem>()
 
         val menuDbRef = databaseRef.child(foodMenu)
@@ -28,7 +30,7 @@ class FirebaseDBService {
                     menuList.add(item)
                 }
                 menuList.shuffle() //so that every time user can see different items on opening app
-                menuApi.onFetchSuccessListener(menuList, requestType)
+//                menuApi.onFetchSuccessListener(menuList, requestType)
             }
 
             override fun onCancelled(error: DatabaseError) {

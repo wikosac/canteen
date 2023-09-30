@@ -31,55 +31,55 @@ class OrderHistory : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         deleteRecordsIV = findViewById(R.id.order_history_delete_records_iv)
-        deleteRecordsIV.setOnClickListener { deleteOrderHistoryRecords() }
-
-        loadOrderHistoryListFromDatabase()
+//        deleteRecordsIV.setOnClickListener { deleteOrderHistoryRecords() }
+//
+//        loadOrderHistoryListFromDatabase()
     }
 
-    private fun loadOrderHistoryListFromDatabase() {
-        val db = FirebaseDBService(this)
-        val data = db.readOrderData()
-
-        if(data.size == 0) {
-            deleteRecordsIV.visibility = ViewGroup.INVISIBLE
-            return
-        }
-
-        findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.GONE
-        for(i in 0 until data.size) {
-            val item = OrderHistoryItem()
-            item.date = data[i].date
-            item.orderId = data[i].orderId
-            item.orderStatus = data[i].orderStatus
-            item.orderPayment = data[i].orderPayment
-            item.price = data[i].price
-            orderHistoryList.add(item)
-            orderHistoryList.reverse()
-            recyclerAdapter.notifyItemRangeInserted(0, data.size)
-        }
-    }
-
-    private fun deleteOrderHistoryRecords() {
-        AlertDialog.Builder(this)
-            .setMessage("Are you sure you want delete all your order history?")
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, _ ->
-                val db = DatabaseHandler(this)
-                db.dropOrderHistoryTable()
-                deleteRecordsIV.visibility = ViewGroup.INVISIBLE
-                findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.VISIBLE
-
-
-                val size = orderHistoryList.size
-                orderHistoryList.clear()
-                recyclerAdapter.notifyItemRangeRemoved(0, size)
-
-                dialogInterface.dismiss()
-            } )
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            })
-            .create().show()
-    }
+//    private fun loadOrderHistoryListFromDatabase() {
+//        val db = FirebaseDBService(this)
+//        val data = db.readOrderData()
+//
+//        if(data.size == 0) {
+//            deleteRecordsIV.visibility = ViewGroup.INVISIBLE
+//            return
+//        }
+//
+//        findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.GONE
+//        for(i in 0 until data.size) {
+//            val item = OrderHistoryItem()
+//            item.date = data[i].date
+//            item.orderId = data[i].orderId
+//            item.orderStatus = data[i].orderStatus
+//            item.orderPayment = data[i].orderPayment
+//            item.price = data[i].price
+//            orderHistoryList.add(item)
+//            orderHistoryList.reverse()
+//            recyclerAdapter.notifyItemRangeInserted(0, data.size)
+//        }
+//    }
+//
+//    private fun deleteOrderHistoryRecords() {
+//        AlertDialog.Builder(this)
+//            .setMessage("Are you sure you want delete all your order history?")
+//            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, _ ->
+//                val db = DatabaseHandler(this)
+//                db.dropOrderHistoryTable()
+//                deleteRecordsIV.visibility = ViewGroup.INVISIBLE
+//                findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.VISIBLE
+//
+//
+//                val size = orderHistoryList.size
+//                orderHistoryList.clear()
+//                recyclerAdapter.notifyItemRangeRemoved(0, size)
+//
+//                dialogInterface.dismiss()
+//            } )
+//            .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->
+//                dialogInterface.dismiss()
+//            })
+//            .create().show()
+//    }
 
     fun goBack(view: View) {onBackPressed()}
 }

@@ -80,6 +80,9 @@
     <string name="process">Diproses</string>
     <string name="rupiah">Rp</string>
     <string name="hi">Hi Rini</string>
+    <string name="total">Total</string>
+    <string name="hello">Hello\n</string>
+    <string name="name">Name\n</string>
 
 
 </resources>

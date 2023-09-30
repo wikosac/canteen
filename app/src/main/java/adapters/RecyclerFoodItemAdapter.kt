@@ -6,16 +6,16 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
 import java.util.*
 import kotlin.collections.ArrayList
 
 class RecyclerFoodItemAdapter (
     var context: Context,
-            private var itemList: ArrayList<MenuItem>,
-            private val loadDefaultImage: Int,
-            val listener: onItemClickListener ):
-
+    private var itemList: ArrayList<MenuItem>,
+    private val loadDefaultImage: Int,
+    val listener: onItemClickListener ):
         RecyclerView.Adapter<RecyclerFoodItemAdapter.ItemListViewHolder>(), Filterable {
 
     private var fullItemList = ArrayList<MenuItem>(itemList)
@@ -47,35 +47,35 @@ class RecyclerFoodItemAdapter (
     }
 
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
-        val currentItem = itemList[position]
-
-        if (loadDefaultImage == 1) holder.itemImageTv.setImageResource(R.drawable.default_item_image)
-        else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageTv)
-
-        holder.itemNameTv.text = currentItem.itemName
-        holder.itemPriceTv.text = "$${currentItem.itemPrice}"
-        holder.itemStarsTV.text = currentItem.itemStars.toString()
-        holder.itemShortDesc.text = currentItem.itemShortDesc
-        holder.itemQuantityTV.text = currentItem.quantity.toString()
-
-        holder.itemQuantityIncreaseIV.setOnClickListener {
-            val n = currentItem.quantity
-            holder.itemQuantityTV.text = (n + 1).toString()
-
-            listener.onPlusBtnClick(currentItem)
-        }
-
-        holder.itemQuantityDecreaseIV.setOnClickListener {
-            val n = currentItem.quantity
-            if (n == 0) return@setOnClickListener
-            holder.itemQuantityTV.text = (n - 1).toString()
-
-            listener.onMinusBtnClick(currentItem)
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(currentItem)
-        }
+//        val currentItem = itemList[position]
+//
+//        if (loadDefaultImage == 1) holder.itemImageTv.setImageResource(R.drawable.default_item_image)
+//        else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageTv)
+//
+//        holder.itemNameTv.text = currentItem.itemName
+//        holder.itemPriceTv.text = "$${currentItem.itemPrice}"
+//        holder.itemStarsTV.text = currentItem.itemStars.toString()
+//        holder.itemShortDesc.text = currentItem.itemShortDesc
+//        holder.itemQuantityTV.text = currentItem.quantity.toString()
+//
+//        holder.itemQuantityIncreaseIV.setOnClickListener {
+//            val n = currentItem.quantity
+//            holder.itemQuantityTV.text = (n + 1).toString()
+//
+//            listener.onPlusBtnClick(currentItem)
+//        }
+//
+//        holder.itemQuantityDecreaseIV.setOnClickListener {
+//            val n = currentItem.quantity
+//            if (n == 0) return@setOnClickListener
+//            holder.itemQuantityTV.text = (n - 1).toString()
+//
+//            listener.onMinusBtnClick(currentItem)
+//        }
+//
+//        holder.itemView.setOnClickListener {
+//            listener.onItemClick(currentItem)
+//        }
     }
 
     override fun getItemCount(): Int = itemList.size
@@ -98,9 +98,9 @@ class RecyclerFoodItemAdapter (
                 val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
 
                 for (item in fullItemList) {
-                    if (item.itemName.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-                        filteredList.add(item)
-                    }
+//                    if (item.itemName.toLowerCase(Locale.ROOT).contains(filterPattern)) {
+//                        filteredList.add(item)
+//                    }
                 }
             }
             val results = FilterResults()
@@ -108,12 +108,11 @@ class RecyclerFoodItemAdapter (
             return results
         }
 
-    override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults?) {
-        itemList.clear()
-        itemList.addAll(results!!.values as ArrayList<MenuItem>)
-        notifyDataSetChanged()
+        override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults?) {
+            itemList.clear()
+            itemList.addAll(results!!.values as ArrayList<MenuItem>)
+            notifyDataSetChanged()
+        }
     }
-
-}
 
 }
