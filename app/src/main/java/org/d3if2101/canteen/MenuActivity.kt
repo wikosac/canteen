@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
+import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import datamodels.CartItem
 import interfaces.RequestType
+import org.d3if2101.canteen.databinding.ActivityMenuBinding
 import services.FirebaseDBService
 
 class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.onItemClickListener{
@@ -41,6 +43,13 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.onItemClickLis
     private var doubleBackToExit = false
 
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var binding: ActivityMenuBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+    }
 
     override fun onBackPressed() {
         if (searchIsActive) {
