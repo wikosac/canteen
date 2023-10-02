@@ -1,4 +1,4 @@
-package org.d3if2101.canteenpenjual.riwayat
+package org.d3if2101.canteenpenjual.ui.riwayat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
