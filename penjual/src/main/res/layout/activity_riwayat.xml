@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".riwayat.RiwayatActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@color/white"
+        app:tabIndicatorColor="@color/blue_water"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/brown_sand" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/pager_riwayat"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
