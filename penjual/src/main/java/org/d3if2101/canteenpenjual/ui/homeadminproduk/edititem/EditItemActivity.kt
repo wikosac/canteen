@@ -19,7 +19,7 @@ class EditItemActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_item)
 
         val niceSpinner = findViewById<View>(R.id.nice_spinner) as NiceSpinner
-        val selectedCategoryText = findViewById<TextView>(R.id.selected_category_text)
+//        val selectedCategoryText = findViewById<TextView>(R.id.selected_category_text)
         val dataset: List<String> =
             LinkedList(mutableListOf("Pilih Kategori", "Makanan", "Minuman", "Camilan"))
         niceSpinner.attachDataSource(dataset)
@@ -29,9 +29,9 @@ class EditItemActivity : AppCompatActivity() {
             // This example uses String, but your type can be any
             val item = parent.getItemAtPosition(position) as String
 
-            if (selectedCategoryText != null) {
-                selectedCategoryText.text = "Kategori yang dipilih: $item"
-            }
+//            if (selectedCategoryText != null) {
+//                selectedCategoryText.text = "Kategori yang dipilih: $item"
+//            }
         }
 
     }
