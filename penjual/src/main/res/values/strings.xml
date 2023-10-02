@@ -26,5 +26,16 @@
     <string name="menu_icon">menu_icon</string>
     <string name="add_item">Add Item</string>
     <string name="menu">Menu</string>
+    <string name="tambah_item">Tambah Item</string>
+    <string name="edit_item">Edit Item</string>
+    <string-array name="data_dropdown">
+        <item>Makanan</item>
+        <item>Minuman</item>
+        <item>Camilan</item>
+    </string-array>
+
+    <string name="pilih_kategori">PILIH KATEGORI</string>
+
+
 
 </resources>
