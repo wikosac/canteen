@@ -1,8 +1,30 @@
 <resources>
     <string name="app_name">canteenPenjual</string>
     <string name="dashboard">Dashboard</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tolak">Tolak</string>
-    <string name="terima">Terima</string>
+    <string name="buat_akun">Buat Akun</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="no_telepon">No Telepon</string>
+    <string name="email">Email</string>
+    <string name="nama">Nama</string>
+    <string name="daftar">Daftar Akun</string>
+    <string name="sub_daftar">Daftar Akun Anda Sekarang</string>
+    <string name="login">Login</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="login_sub">
+        <font color="#938D8D"><b>Selamat datang kembali</b></font>
+    </string>
+    <string name="lupa_sandi">Lupa Kata sandi</string>
+    <string name="tidak_ada_akun">Tidak Punya Akun
+        <font color="7D6C2E"><b> Buat Akun </b></font>
+    </string>
+    <string name="produk">Produk</string>
+    <string name="pendapatan">Pendapatan</string>
+    <string name="order">Order</string>
+    <string name="ulasan_dan_rating">Ulasan dan Rating</string>
+    <string name="kantin_1">Kantin 1\n</string>
+    <string name="menu_icon">menu_icon</string>
+    <string name="add_item">Add Item</string>
+    <string name="menu">Menu</string>
+
 </resources>
