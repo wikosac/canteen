@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity">
+    tools:context=".ui.dashboard.DashboardActivity">
 
     <TextView
         android:id="@+id/txt_dashboard"
@@ -17,6 +17,7 @@
         android:layout_marginStart="50dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="103dp"
+        android:textStyle="bold"
         android:text="@string/dashboard"
         android:gravity="top"
         />
@@ -42,12 +43,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/checkout"/>
+                android:src="@drawable/fastfood"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Produk"
+                android:text="@string/produk"
                 android:textAlignment="center"/>
 
         </LinearLayout>
@@ -74,12 +75,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/checkout" />
+                android:src="@drawable/money" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Produk"
+                android:text="@string/pendapatan"
                 android:textAlignment="center" />
 
         </LinearLayout>
@@ -111,7 +112,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Produk"
+                android:text="@string/order"
                 android:textAlignment="center"/>
 
         </LinearLayout>
@@ -138,12 +139,12 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/checkout" />
+                android:src="@drawable/rating" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Produk"
+                android:text="@string/ulasan_dan_rating"
                 android:textAlignment="center" />
 
         </LinearLayout>

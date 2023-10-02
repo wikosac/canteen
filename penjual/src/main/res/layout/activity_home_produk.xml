@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".ui.homeadminproduk.HomeProduk">
+
+    <LinearLayout
+        android:id="@+id/id_Nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Top Nav-->
+        <LinearLayout
+            android:id="@+id/main_activity_top_header_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E6F8F8F8"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/top_wish_name_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/merriweather"
+                android:text="@string/kantin_1"
+                android:textColor="#1C213F"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:id="@+id/main_activity_search_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_search" />
+
+            <ImageView
+                android:id="@+id/nav_drawer_opener_iv"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/menu_icon"
+                android:src="@drawable/ic_bar"
+                app:tint="@color/text_dark_color" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_dashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:gravity="top"
+        android:text="@string/produk"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_Nav" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_HomeProduk"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_dashboard"
+        tools:listitem="@layout/item_produk" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAdd"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/rv_HomeProduk"
+        android:layout_width="150dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:text="@string/add_item"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
