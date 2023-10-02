@@ -8,6 +8,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Canteen">
         <activity
+            android:name=".riwayat.RiwayatActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity
