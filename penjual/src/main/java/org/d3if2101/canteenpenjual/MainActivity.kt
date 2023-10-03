@@ -5,6 +5,7 @@ package org.d3if2101.canteenpenjual
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.d3if2101.canteenpenjual.ui.daftar.DaftarActivity
 import org.d3if2101.canteenpenjual.ui.homeadminproduk.edititem.EditItemActivity
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startActivity(Intent(this@MainActivity, EditItemActivity::class.java))
+        startActivity(Intent(this@MainActivity, DaftarActivity::class.java))
     }
 }

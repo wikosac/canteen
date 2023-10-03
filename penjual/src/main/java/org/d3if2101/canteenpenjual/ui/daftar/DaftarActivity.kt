@@ -2,7 +2,13 @@ package org.d3if2101.canteenpenjual.ui.daftar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.d3if2101.canteenpenjual.databinding.ActivityDaftarBinding
+import org.d3if2101.canteenpenjual.ui.ViewModelFactory
 
 class DaftarActivity : AppCompatActivity() {
 
@@ -13,6 +19,13 @@ class DaftarActivity : AppCompatActivity() {
     private lateinit var noTelpon: String
     private lateinit var password: String
 
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this.application)
+    }
+    private val viewModel: DaftarViewModel by viewModels {
+        factory
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDaftarBinding.inflate(layoutInflater)
@@ -21,6 +34,17 @@ class DaftarActivity : AppCompatActivity() {
 
         binding.tvButtonLogin.setOnClickListener {
             getTextInput()
+
+            viewModel.signUpUser(email, password).observe(this) {
+                Log.d("DaftarActivity", it.message)
+                if (it.message.lowercase().equals("success")) {
+                    viewModel.insertToDB(email, nama, noTelpon)
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
 
     }
