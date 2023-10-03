@@ -33,7 +33,7 @@
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.homeadmin.HomeAdminActivity"
+            android:name=".ui.riwayat.RiwayatActivity"
             android:exported="false" />
         <activity
             android:name=".ui.daftar.DaftarActivity"

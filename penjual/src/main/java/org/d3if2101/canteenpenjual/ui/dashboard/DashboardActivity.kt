@@ -6,6 +6,9 @@ import android.os.Bundle
 import org.d3if2101.canteenpenjual.R
 import org.d3if2101.canteenpenjual.databinding.ActivityDashboardBinding
 import org.d3if2101.canteenpenjual.ui.homeadminproduk.HomeProduk
+import org.d3if2101.canteenpenjual.ui.pendapatan.PendapatanActivity
+import org.d3if2101.canteenpenjual.ui.rating.RatingActivity
+import org.d3if2101.canteenpenjual.ui.riwayat.RiwayatActivity
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -19,6 +22,18 @@ class DashboardActivity : AppCompatActivity() {
 
         binding.cardProduk.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, HomeProduk::class.java))
+        }
+
+        binding.cardPendapatan.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity, PendapatanActivity::class.java))
+        }
+
+        binding.cardOrder.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity, RiwayatActivity::class.java))
+        }
+
+        binding.cardRating.setOnClickListener {
+            startActivity(Intent(this@DashboardActivity, RatingActivity::class.java))
         }
     }
 }
