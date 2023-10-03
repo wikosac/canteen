@@ -15,6 +15,8 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         binding.cardProduk.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, HomeProduk::class.java))
         }

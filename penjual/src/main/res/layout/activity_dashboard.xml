@@ -16,9 +16,10 @@
         android:layout_alignParentLeft="true"
         android:layout_marginStart="50dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="60dp"
         android:textStyle="bold"
         android:text="@string/dashboard"
+        android:textSize="32sp"
         android:gravity="top"
         />
 
@@ -26,30 +27,31 @@
         android:id="@+id/card_produk"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/txt_dashboard"
-        app:layout_constraintStart_toStartOf="@+id/txt_dashboard"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/rectangle_6">
+        android:background="@drawable/rectangle_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_dashboard">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/fastfood"/>
+                android:src="@drawable/fastfood" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/produk"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,8 +60,10 @@
         android:id="@+id/card_pendapatan"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/rectangle_6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card_produk"
         app:layout_constraintTop_toTopOf="@+id/card_produk">
 
@@ -90,30 +94,31 @@
         android:id="@+id/card_order"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_produk"
-        app:layout_constraintStart_toStartOf="@+id/txt_dashboard"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/rectangle_6">
+        android:background="@drawable/rectangle_6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_produk">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/checkout"/>
+                android:src="@drawable/checkout" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/order"
-                android:textAlignment="center"/>
+                android:textAlignment="center" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -122,9 +127,12 @@
         android:id="@+id/card_rating"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/rectangle_6"
-        app:layout_constraintStart_toStartOf="@+id/card_pendapatan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/card_order"
         app:layout_constraintTop_toBottomOf="@+id/card_pendapatan">
 
         <LinearLayout

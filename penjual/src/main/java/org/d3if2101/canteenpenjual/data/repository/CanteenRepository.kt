@@ -38,14 +38,16 @@ class CanteenRepository private constructor(
     fun loginUser(email: String, pass: String): LiveData<Message> {
         val data = MutableLiveData<Message>()
         try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, pass)
-            if (result.isSuccessful) {
-                Log.d(TAG, "Login Berhasil")
-                data.value = Message("Success")
-            } else {
-                Log.d(TAG, "Login Gagal")
-                data.value = Message("Failed")
-            }
+            firebaseAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, task.result.toString())
+                        data.value = Message("Success")
+                    } else {
+                        Log.d(TAG, task.exception?.message.toString())
+                        data.value = Message("Failed")
+                    }
+                }
         } catch (e: Exception) {
             Log.e(TAG, e.printStackTrace().toString())
         }

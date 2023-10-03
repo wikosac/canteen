@@ -1,5 +1,6 @@
 package org.d3if2101.canteenpenjual.ui.daftar
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.d3if2101.canteenpenjual.databinding.ActivityDaftarBinding
 import org.d3if2101.canteenpenjual.ui.ViewModelFactory
+import org.d3if2101.canteenpenjual.ui.login.LoginActivity
 
 class DaftarActivity : AppCompatActivity() {
 
@@ -31,6 +33,7 @@ class DaftarActivity : AppCompatActivity() {
         binding = ActivityDaftarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
 
         binding.tvButtonLogin.setOnClickListener {
             getTextInput()
@@ -40,6 +43,7 @@ class DaftarActivity : AppCompatActivity() {
                 if (it.message.lowercase().equals("success")) {
                     viewModel.insertToDB(email, nama, noTelpon)
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this@DaftarActivity, LoginActivity::class.java))
                 } else {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.d3if2101.canteenpenjual.data.di.Injection
 import org.d3if2101.canteenpenjual.data.repository.CanteenRepository
 import org.d3if2101.canteenpenjual.ui.daftar.DaftarViewModel
+import org.d3if2101.canteenpenjual.ui.login.LoginViewModel
 
 class ViewModelFactory private constructor(private val canteenRepository: CanteenRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -14,9 +15,9 @@ class ViewModelFactory private constructor(private val canteenRepository: Cantee
         if (modelClass.isAssignableFrom(DaftarViewModel::class.java)) {
             return DaftarViewModel(canteenRepository) as T
         }
-//        else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-//            return HomeViewModel(smartFeedingRepository) as T
-//        }
+        else if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+            return LoginViewModel(canteenRepository) as T
+        }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 
