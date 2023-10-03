@@ -1,41 +1,63 @@
 {
   "project_info": {
-    "project_number": "364151664200",
-    "project_id": "fir-canteen-5c4c5",
-    "storage_bucket": "fir-canteen-5c4c5.appspot.com"
+    "project_number": "1075474989436",
+    "firebase_url": "https://canteen-pa-default-rtdb.firebaseio.com",
+    "project_id": "canteen-pa",
+    "storage_bucket": "canteen-pa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:364151664200:android:20391927b33b11c3faf27d",
+        "mobilesdk_app_id": "1:1075474989436:android:28b5598503c9e5656564f9",
         "android_client_info": {
           "package_name": "org.d3if2101.canteen"
         }
       },
       "oauth_client": [
         {
-          "client_id": "364151664200-eoiq51egolg0pe25k1ipi9breng4opmu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.d3if2101.canteen",
-            "certificate_hash": "f30b61d656815138677852424b90ab01db05a38c"
-          }
-        },
-        {
-          "client_id": "364151664200-622dpke5q8tq9h7oo2r2e4fui08hsscp.apps.googleusercontent.com",
+          "client_id": "1075474989436-anrvq5ttadv55agj25t8t5769mbsg39e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAQUX2I_gShv2pnaq1PqiD9s-5uakF6f8E"
+          "current_key": "AIzaSyAVAQ11qoQRwwiS_TejP5RSJQJK1J4b-CQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "364151664200-622dpke5q8tq9h7oo2r2e4fui08hsscp.apps.googleusercontent.com",
+              "client_id": "1075474989436-anrvq5ttadv55agj25t8t5769mbsg39e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075474989436:android:c376261f43e891be6564f9",
+        "android_client_info": {
+          "package_name": "org.d3if2101.canteenpenjual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075474989436-anrvq5ttadv55agj25t8t5769mbsg39e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVAQ11qoQRwwiS_TejP5RSJQJK1J4b-CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075474989436-anrvq5ttadv55agj25t8t5769mbsg39e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

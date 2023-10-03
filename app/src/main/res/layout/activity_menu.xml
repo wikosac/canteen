@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MenuActivity"
+    tools:context=".ui.menu.MenuActivity"
     android:background="#E6F8F8F8">
 
     <LinearLayout
@@ -66,13 +66,13 @@
             android:paddingVertical="8dp"
             android:clipToPadding="false">
 
-            <SearchView
-                android:id="@+id/search_menu_items"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:queryHint="eg, Mie, Gorengan"
-                android:iconifiedByDefault="false"
-                app:voiceIcon="@drawable/ic_user"/>
+<!--            <SearchView-->
+<!--                android:id="@+id/search_menu_items"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:queryHint="eg, Mie, Gorengan"-->
+<!--                android:iconifiedByDefault="false"-->
+<!--                app:voiceIcon="@drawable/ic_user"/>-->
 
         </LinearLayout>
 
@@ -257,7 +257,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/list_menu"
-                        android:paddingBottom="100dp"
+                        tools:itemCount="4"
                         android:clipToPadding="false"/>
 
                 </LinearLayout>

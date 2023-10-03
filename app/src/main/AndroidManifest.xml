@@ -18,31 +18,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".ui.menu.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".OrderDone"
+            android:name=".ui.OrderDone"
             android:exported="false" />
         <activity
-            android:name=".myCurrentOrder"
+            android:name=".ui.myCurrentOrder"
             android:exported="false" />
         <activity
-            android:name=".OrderHistory"
+            android:name=".ui.OrderHistory"
             android:exported="false" />
         <activity
-            android:name=".paymentActivity"
+            android:name=".ui.paymentActivity"
             android:exported="false" />
         <activity
-            android:name=".PembeliMenuOrder"
+            android:name=".ui.PembeliMenuOrder"
             android:exported="false" />
         <activity
-            android:name=".Daftar"
+            android:name=".ui.Daftar"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".ui.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

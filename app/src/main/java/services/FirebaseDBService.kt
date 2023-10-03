@@ -4,7 +4,7 @@ import com.google.firebase.database.*
 import com.google.firebase.database.DatabaseReference
 import datamodels.MenuItem
 import interfaces.RequestType
-import org.d3if2101.canteen.MenuActivity
+import org.d3if2101.canteen.ui.menu.MenuActivity
 
 class FirebaseDBService {
     private var databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference

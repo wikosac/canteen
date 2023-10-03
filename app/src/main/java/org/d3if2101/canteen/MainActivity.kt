@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.d3if2101.canteen.databinding.ActivityMainBinding
+import org.d3if2101.canteen.ui.Login
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnMulai?.setOnClickListener {
+        binding.btnMulai.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
         }
     }
