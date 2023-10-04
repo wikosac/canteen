@@ -1,12 +1,21 @@
 package org.d3if2101.canteenpenjual.ui.homeadminproduk.additem
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.d3if2101.canteenpenjual.R
+import androidx.appcompat.app.AppCompatActivity
+import org.d3if2101.canteenpenjual.databinding.ActivityAddItemBinding
 
 class AddItemActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityAddItemBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_item)
+        binding = ActivityAddItemBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportActionBar?.hide()
+
+
     }
+
+
 }

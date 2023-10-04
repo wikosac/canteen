@@ -1,13 +1,11 @@
 package org.d3if2101.canteenpenjual.ui.daftar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteenpenjual.databinding.ActivityDaftarBinding
 import org.d3if2101.canteenpenjual.ui.ViewModelFactory
 import org.d3if2101.canteenpenjual.ui.login.LoginActivity
