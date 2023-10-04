@@ -1,10 +1,10 @@
-package org.d3if2101.canteen
+package org.d3if2101.canteen.ui.dashboard
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
+import org.d3if2101.canteen.ui.menu.MenuActivity
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding

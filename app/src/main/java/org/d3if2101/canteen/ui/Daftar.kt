@@ -1,4 +1,4 @@
-package org.d3if2101.canteen
+package org.d3if2101.canteen.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
