@@ -1,10 +1,10 @@
 package org.d3if2101.canteen.ui
 
 import adapters.RecyclerOrderHistoryAdapter
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import datamodels.OrderHistoryItem

@@ -1,8 +1,8 @@
 package org.d3if2101.canteen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityMainBinding
 import org.d3if2101.canteen.ui.Login
 

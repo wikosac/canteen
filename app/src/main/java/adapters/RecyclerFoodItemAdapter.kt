@@ -1,7 +1,9 @@
 package adapters
 
 import android.content.Context
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
@@ -10,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.model.Produk
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 class RecyclerFoodItemAdapter (
     var context: Context,

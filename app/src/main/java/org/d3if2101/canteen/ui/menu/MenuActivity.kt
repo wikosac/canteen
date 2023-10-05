@@ -1,33 +1,16 @@
 package org.d3if2101.canteen.ui.menu
 
-import adapters.RecyclerFoodItemAdapter
-import android.app.ProgressDialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Handler
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.cardview.widget.CardView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import interfaces.RequestType
-import interfaces.produkList
-import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityMenuBinding
 import org.d3if2101.canteen.model.Produk
-import services.FirebaseDBService
 
 class MenuActivity : AppCompatActivity() {
 
@@ -59,30 +42,24 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.itemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        listProduk = produkList
-        Log.d(TAG, "dummy: $produkList")
-        binding.itemsRecyclerView.adapter = MenuAdapter(this@MenuActivity, listProduk)
+        listProduk = arrayListOf()
 
         databaseReference = FirebaseDatabase.getInstance().getReference("produk")
-        Log.d(TAG, "db: $databaseReference")
-//        databaseReference.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    for (dataSnapshot in snapshot.children) {
-//                        val list = dataSnapshot.getValue(Produk::class.java)
-//                        listProduk.add(list!!)
-//                    }
-//                    binding.itemsRecyclerView.adapter = MenuAdapter(this@MenuActivity, listProduk)
-//                    Log.d(TAG, "onDataChange: $listProduk")
-//                }
-//                Log.d(TAG, "onDataChange: $snapshot")
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Toast.makeText(this@MenuActivity, error.toString(), Toast.LENGTH_SHORT).show()
-//                Log.e(TAG, "onCancelled: ", error.toException())
-//            }
-//        })
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (dataSnapshot in snapshot.children) {
+                        val list = dataSnapshot.getValue(Produk::class.java)
+                        listProduk.add(list!!)
+                    }
+                    binding.itemsRecyclerView.adapter = MenuAdapter(this@MenuActivity, listProduk)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@MenuActivity, error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     companion object {
