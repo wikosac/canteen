@@ -1,9 +1,8 @@
 package org.d3if2101.canteenpenjual.ui.dashboard
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import org.d3if2101.canteenpenjual.R
+import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteenpenjual.databinding.ActivityDashboardBinding
 import org.d3if2101.canteenpenjual.ui.homeadminproduk.HomeProduk
 import org.d3if2101.canteenpenjual.ui.pendapatan.PendapatanActivity

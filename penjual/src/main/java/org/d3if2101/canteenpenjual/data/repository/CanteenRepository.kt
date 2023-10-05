@@ -91,6 +91,20 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun inputProdukToDatabase(): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        try {
+
+        } catch (e: Exception) {
+            Log.e(TAG, e.printStackTrace().toString())
+        }
+        return data
+    }
+
+    fun getProdukFromDB() {
+
+    }
+
 
     companion object {
         private const val TAG = "CanteenRepository"

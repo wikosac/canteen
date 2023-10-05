@@ -1,10 +1,10 @@
 package org.d3if2101.canteenpenjual.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteenpenjual.databinding.ActivityLoginBinding
 import org.d3if2101.canteenpenjual.ui.ViewModelFactory
 import org.d3if2101.canteenpenjual.ui.daftar.DaftarActivity
