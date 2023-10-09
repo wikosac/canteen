@@ -10,3 +10,5 @@ data class Produk(
     val jenis: String = "",
     val gambar: String = ""
 )
+
+
