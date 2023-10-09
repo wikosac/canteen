@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.d3if2101.canteen.ui.daftar.DaftarViewModel
 import org.d3if2101.canteen.ui.login.LoginViewModel
-import org.d3if2101.canteenpenjual.data.di.Injection
-import org.d3if2101.canteenpenjual.data.repository.CanteenRepository
+import org.d3if2101.canteen.data.di.Injection
+import org.d3if2101.canteen.data.repository.CanteenRepository
 
 class ViewModelFactory private constructor(private val canteenRepository: CanteenRepository) :
     ViewModelProvider.NewInstanceFactory() {

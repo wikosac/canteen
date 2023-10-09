@@ -35,7 +35,7 @@ class Login : AppCompatActivity() {
         val sandi = binding.addPassword.text.toString()
 
         viewModel.loginUser(email, sandi).observe(this) {
-            if (it.message.lowercase().equals("success")) {
+            if (it.message.lowercase() == "success") {
                 Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, DashboardActivity::class.java))
             } else {

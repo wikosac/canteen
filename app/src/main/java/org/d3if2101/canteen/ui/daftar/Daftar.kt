@@ -36,7 +36,7 @@ class Daftar : AppCompatActivity() {
         val sandi = binding.addPassword.text.toString()
 
         viewModel.signUpUser(email, sandi).observe(this) {
-            if (it.message.lowercase().equals("success")) {
+            if (it.message.lowercase() == "success") {
                 viewModel.insertToDB(email, nama, telp)
                 startActivity(Intent(this, Login::class.java))
             }

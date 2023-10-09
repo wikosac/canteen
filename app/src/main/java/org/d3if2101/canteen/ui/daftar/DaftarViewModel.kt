@@ -3,7 +3,7 @@ package org.d3if2101.canteen.ui.daftar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import org.d3if2101.canteen.data.model.Message
-import org.d3if2101.canteenpenjual.data.repository.CanteenRepository
+import org.d3if2101.canteen.data.repository.CanteenRepository
 
 class DaftarViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {
 

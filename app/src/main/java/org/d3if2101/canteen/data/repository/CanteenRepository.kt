@@ -1,15 +1,20 @@
-package org.d3if2101.canteenpenjual.data.repository
+package org.d3if2101.canteen.data.repository
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.data.model.UserModel
+import org.d3if2101.canteen.ui.menu.MenuAdapter
 
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
@@ -40,12 +45,36 @@ class CanteenRepository private constructor(
         return data
     }
 
+    private fun checkRole(uid: String): LiveData<String> {
+        val role = MutableLiveData<String>()
+        val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
+        databaseReference.child(uid).addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        role.value = snapshot.child("role").value.toString()
+                        Log.d(TAG, "onDataChange: ${role.value}")
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            }
+        )
+        Log.d(TAG, "rolecheck: ${role.value}")
+        return role
+    }
+
     fun loginUser(email: String, pass: String): LiveData<Message> {
         val data = MutableLiveData<Message>()
         try {
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val uid = firebaseAuth.currentUser?.uid.toString()
+                        Log.d(TAG, "loginUser: $uid")
+//                        if (checkRole(uid).value != "pembeli") {
+//                            data.value = Message("Failed")
+//                            return@addOnCompleteListener
+//                        }
                         Log.d(TAG, task.result.toString())
                         data.value = Message("Success")
                     } else {
