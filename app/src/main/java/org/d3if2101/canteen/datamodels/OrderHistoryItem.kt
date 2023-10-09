@@ -1,4 +1,4 @@
-package datamodels
+package org.d3if2101.canteen.datamodels
 
 data class OrderHistoryItem(
     var date: String = "DATE",

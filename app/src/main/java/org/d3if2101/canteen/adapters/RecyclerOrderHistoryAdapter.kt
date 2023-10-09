@@ -1,4 +1,4 @@
-package adapters
+package org.d3if2101.canteen.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import datamodels.OrderHistoryItem
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.R
 
 

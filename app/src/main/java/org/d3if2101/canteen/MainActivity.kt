@@ -2,9 +2,11 @@ package org.d3if2101.canteen
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityMainBinding
-import org.d3if2101.canteen.ui.Login
+import org.d3if2101.canteen.ui.login.Login
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,8 +16,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnMulai.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
-        }
+        Handler(Looper.getMainLooper())
+            .postDelayed(
+                { startActivity(Intent(this, Login::class.java)) },
+                3000
+            )
     }
 }

@@ -1,4 +1,4 @@
-package adapters
+package org.d3if2101.canteen.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,14 +11,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
-import org.d3if2101.canteen.model.Produk
+import org.d3if2101.canteen.data.model.Produk
 import java.util.Locale
 
 class RecyclerFoodItemAdapter (
     var context: Context,
     private var itemList: ArrayList<Produk>,
     private val loadDefaultImage: Int,
-    val listener: onItemClickListener ):
+    val listener: onItemClickListener
+):
         RecyclerView.Adapter<RecyclerFoodItemAdapter.ItemListViewHolder>(), Filterable {
 
     private var fullItemList = ArrayList<Produk>(itemList)

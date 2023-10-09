@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Daftar"
+    tools:context=".ui.daftar.Daftar"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -109,8 +109,19 @@
         style="@style/ButtonYellow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginTop="30dp"
         android:text="@string/buat_akun"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sudah_ada_akun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sudah_punya_akun_login"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        style="@style/SUbTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent" />
 </LinearLayout>

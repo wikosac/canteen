@@ -1,6 +1,6 @@
-package interfaces
+package org.d3if2101.canteen.interfaces
 
-import datamodels.MenuItem
+import org.d3if2101.canteen.datamodels.MenuItem
 
 enum class RequestType {
     READ, OFFLINE_UPDATE

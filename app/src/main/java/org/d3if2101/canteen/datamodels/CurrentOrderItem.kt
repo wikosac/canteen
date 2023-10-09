@@ -1,4 +1,4 @@
-package datamodels
+package org.d3if2101.canteen.datamodels
 
 data class CurrentOrderItem(
     var orderID: String = "ORDER_ID",

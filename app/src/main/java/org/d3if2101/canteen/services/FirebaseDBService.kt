@@ -1,12 +1,12 @@
-package services
+package org.d3if2101.canteen.services
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import datamodels.MenuItem
-import interfaces.RequestType
+import org.d3if2101.canteen.datamodels.MenuItem
+import org.d3if2101.canteen.interfaces.RequestType
 import org.d3if2101.canteen.ui.menu.MenuActivity
 
 class FirebaseDBService {

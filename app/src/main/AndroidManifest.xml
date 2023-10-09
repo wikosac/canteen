@@ -39,10 +39,10 @@
             android:name=".ui.PembeliMenuOrder"
             android:exported="false" />
         <activity
-            android:name=".ui.Daftar"
+            android:name=".ui.daftar.Daftar"
             android:exported="false" />
         <activity
-            android:name=".ui.Login"
+            android:name=".ui.login.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

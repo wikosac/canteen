@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.d3if2101.canteen.R
+import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.databinding.ListMenuBinding
-import org.d3if2101.canteen.model.Produk
 
 class MenuAdapter(
     private val context: Context,
