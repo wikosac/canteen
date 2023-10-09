@@ -8,11 +8,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import org.d3if2101.canteenpenjual.R
 import org.d3if2101.canteenpenjual.data.model.Produk
 import org.d3if2101.canteenpenjual.databinding.ActivityPilihMenuBinding
@@ -45,7 +48,27 @@ class PilihMenuActivity : AppCompatActivity() {
         // Set the layout manager for the recyclerview
         binding.rv.layoutManager = LinearLayoutManager(this)
 
-        val adapter = PilihMenuAdapter(viewModel.produkList,
+        // Run RV
+        viewModel.getDataFromDB().observe(this) {
+            it.forEach { produk ->
+                Log.d("PilihMenu", produk.jenis)
+                if (stringReceived == produk.jenis) {
+                    recyclerViewOn(it)
+                } else {
+                    // Tampilkan Warning ! Jika Data Empty
+                }
+            }
+        }
+
+
+        binding.btnAdd.setOnClickListener {
+            startActivity(Intent(this@PilihMenuActivity, AddItemActivity::class.java))
+        }
+    }
+
+    private fun recyclerViewOn(produk: List<Produk>) {
+        val adapter = PilihMenuAdapter(
+            produk,
             object : PilihMenuAdapter.OnItemClickCallback {
                 override fun onItemClick(data: Produk) {
                     val dialogBuilder = AlertDialog.Builder(this@PilihMenuActivity)
@@ -58,12 +81,16 @@ class PilihMenuActivity : AppCompatActivity() {
                     alertDialog.show()
 
 
-//                    val photoViewPopup = dialogView.findViewById<ImageView>(R.id.photoViewPopup)
-//                    Glide.with(this@BelajarActivity).asGif().load(data.gif).into(photoViewPopup)
-//
-//                    val textTitle = dialogView.findViewById<TextView>(R.id.textTitle)
-//
-//                    textTitle.text = data.text.uppercase()
+                    val photoViewPopup = dialogView.findViewById<ImageView>(R.id.iv_Produk)
+                    Picasso.get()
+                        .load(data.gambar)
+                        .into(photoViewPopup)
+
+                    val textTitle = dialogView.findViewById<TextView>(R.id.tv_Produk)
+                    textTitle.text = data.nama
+
+                    val textHarga = dialogView.findViewById<TextView>(R.id.tv_ProdukHarga)
+                    textHarga.text = data.harga.toString()
 
                     val btnEdit = dialogView.findViewById<Button>(R.id.btnEdit)
                     btnEdit.setOnClickListener {
@@ -84,26 +111,21 @@ class PilihMenuActivity : AppCompatActivity() {
                 }
             })
         binding.rv.adapter = adapter
-
-        binding.btnAdd.setOnClickListener {
-            startActivity(Intent(this@PilihMenuActivity, AddItemActivity::class.java))
-        }
-
-
     }
 
     private fun showDeleteConfirmationSnackbar() {
         val rootView = findViewById<View>(android.R.id.content)
-        val snackbar = Snackbar.make(rootView, "Delete this item?", Snackbar.LENGTH_LONG)
-            .setAction("DELETE") {
-                Snackbar.make(rootView, "Item deleted.", Snackbar.LENGTH_SHORT).show()
+        val snackbar = Snackbar.make(rootView, "Undo Delete this item?", Snackbar.LENGTH_LONG)
+            .setAction("YES") {
+                Snackbar.make(rootView, "Undo Deleted Item !", Snackbar.LENGTH_SHORT).show()
+                // Run Insert Data
             }
-
         snackbar.show()
     }
 
     private fun getStringIntent() {
         stringReceived = intent.getStringExtra("produk") ?: ""
+        Log.d("PilihMenuActivity", stringReceived)
     }
 
 

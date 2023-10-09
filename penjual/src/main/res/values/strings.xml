@@ -37,6 +37,9 @@
     <string name="pilih_kategori">PILIH KATEGORI</string>
     <string name="tolak">Tolak</string>
     <string name="terima">Terima</string>
+    <string name="upload_image"><u>Upload Image</u></string>
+    <string name="nama_item">Nama Item</string>
+    <string name="harga">Harga</string>
 
 
 </resources>
