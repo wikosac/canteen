@@ -4,9 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteenpenjual.databinding.ActivityAddItemBinding
+import org.d3if2101.canteenpenjual.ui.ViewModelFactory
+import org.d3if2101.canteenpenjual.ui.daftar.DaftarViewModel
+import org.d3if2101.canteenpenjual.utils.staticDataSetKategori
 
 class AddItemActivity : AppCompatActivity() {
 
@@ -14,12 +19,34 @@ class AddItemActivity : AppCompatActivity() {
     private lateinit var image: Uri
     private lateinit var namaItem: String
     private lateinit var harga: String
+    private var kategori: String = "Pilih Kategori"
+    private lateinit var stock: String
+
+
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this.application)
+    }
+    private val viewModel: AddItemViewModel by viewModels {
+        factory
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        val niceSpinner = binding.pilihKategori
+
+
+        niceSpinner.attachDataSource(staticDataSetKategori)
+
+
+        niceSpinner.setOnSpinnerItemSelectedListener { parent, view, position, id ->
+            // This example uses String, but your type can be any
+            kategori = parent.getItemAtPosition(position) as String
+        }
 
 
 
@@ -53,11 +80,27 @@ class AddItemActivity : AppCompatActivity() {
     private fun uploadProduk() {
         namaItem = binding.namaItem.text.toString()
         harga = binding.namaHarga.text.toString()
+        stock = binding.stockInput.text.toString()
 
-        if (namaItem != null && harga != null) {
+        if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && stock.isNotEmpty()) {
+            Log.d("AddItem", namaItem + harga + kategori)
 
+            viewModel.inputProduktoDB(namaItem, kategori, harga, image, stock)
+                .observe(this) { message ->
+                    if (message.message.equals("Success")) {
+                        // If Sukses
+                        Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Upload Gagal ${message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
         } else {
-            Toast.makeText(this, "Data Tidak Boleh Kosong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Data Tidak Boleh Kosong atau Gambar belum dipilih",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

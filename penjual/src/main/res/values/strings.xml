@@ -40,6 +40,7 @@
     <string name="upload_image"><u>Upload Image</u></string>
     <string name="nama_item">Nama Item</string>
     <string name="harga">Harga</string>
+    <string name="stock">Stock</string>
 
 
 </resources>
