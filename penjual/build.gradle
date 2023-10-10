@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
 }
@@ -8,16 +8,6 @@ android {
 
     namespace 'org.d3if2101.canteenpenjual'
     compileSdk 34
-
-    defaultConfig {
-        applicationId "org.d3if2101.canteenpenjual"
-        minSdk 21
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     buildTypes {
         release {
