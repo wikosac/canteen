@@ -141,6 +141,14 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun editProductByID(id: String) {
+
+    }
+
+    fun deleteProductByID(id:String) {
+
+    }
+
 
     fun getProdukFromDB(): LiveData<List<Produk>> {
         val data = MutableLiveData<List<Produk>>()

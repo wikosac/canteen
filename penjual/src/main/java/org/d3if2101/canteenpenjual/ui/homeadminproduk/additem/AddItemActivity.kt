@@ -38,17 +38,10 @@ class AddItemActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val niceSpinner = binding.pilihKategori
-
-
         niceSpinner.attachDataSource(staticDataSetKategori)
-
-
         niceSpinner.setOnSpinnerItemSelectedListener { parent, view, position, id ->
-            // This example uses String, but your type can be any
             kategori = parent.getItemAtPosition(position) as String
         }
-
-
 
         binding.previewImageView.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -58,7 +51,6 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         binding.footer.setOnClickListener {
-            // Send image to repository
             uploadProduk()
         }
 
@@ -83,12 +75,9 @@ class AddItemActivity : AppCompatActivity() {
         stock = binding.stockInput.text.toString()
 
         if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && stock.isNotEmpty()) {
-            Log.d("AddItem", namaItem + harga + kategori)
-
             viewModel.inputProduktoDB(namaItem, kategori, harga, image, stock)
                 .observe(this) { message ->
                     if (message.message.equals("Success")) {
-                        // If Sukses
                         Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {

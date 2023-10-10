@@ -3,8 +3,6 @@ package org.d3if2101.canteen.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavDestination
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import org.d3if2101.canteenpenjual.MainActivity

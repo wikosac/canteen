@@ -10,4 +10,6 @@ class LoginViewModel(private val canteenRepository: CanteenRepository) : ViewMod
     fun loginUser(email: String, pass: String): LiveData<Message> {
         return canteenRepository.loginUser(email, pass)
     }
+
+    fun checkRole() : LiveData<String> = canteenRepository.checkRole()
 }

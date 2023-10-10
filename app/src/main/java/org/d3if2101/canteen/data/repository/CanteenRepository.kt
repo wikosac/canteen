@@ -45,22 +45,30 @@ class CanteenRepository private constructor(
         return data
     }
 
-    private fun checkRole(uid: String): LiveData<String> {
+    fun checkRole(): LiveData<String> {
+        val uid = firebaseAuth.uid
         val role = MutableLiveData<String>()
         val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
-        databaseReference.child(uid).addValueEventListener(
-            object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        role.value = snapshot.child("role").value.toString()
-                        Log.d(TAG, "onDataChange: ${role.value}")
+        if (uid != null) {
+            databaseReference.child(uid).addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            role.value = snapshot.child("role").value.toString()
+                            Log.d(TAG, "onDataChange: ${role.value}")
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(TAG, error.message)
                     }
                 }
-                override fun onCancelled(error: DatabaseError) {}
-            }
-        )
-        Log.d(TAG, "rolecheck: ${role.value}")
+            )
+        } else {
+            Log.e(TAG, "Error in Check Role")
+        }
         return role
+
     }
 
     fun loginUser(email: String, pass: String): LiveData<Message> {

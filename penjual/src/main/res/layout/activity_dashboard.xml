@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,20 +10,19 @@
         android:id="@+id/txt_dashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="50dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
-        android:textStyle="bold"
+        android:gravity="top"
         android:text="@string/dashboard"
         android:textSize="32sp"
-        android:gravity="top"
-        />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_produk"
+        android:id="@+id/penjual_card_produk"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="32dp"
@@ -50,6 +48,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/produk"
                 android:textAlignment="center" />
 
@@ -57,15 +56,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_pendapatan"
+        android:id="@+id/penjual_card_pendapatan"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/rectangle_6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/card_produk"
-        app:layout_constraintTop_toTopOf="@+id/card_produk">
+        app:layout_constraintStart_toEndOf="@+id/penjual_card_produk"
+        app:layout_constraintTop_toTopOf="@+id/penjual_card_produk">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,6 +83,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/pendapatan"
                 android:textAlignment="center" />
 
@@ -91,14 +91,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_order"
+        android:id="@+id/penjual_card_order"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/rectangle_6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_produk">
+        app:layout_constraintTop_toBottomOf="@+id/penjual_card_produk">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,6 +117,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/order"
                 android:textAlignment="center" />
 
@@ -124,7 +125,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_rating"
+        android:id="@+id/penjual_card_rating"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
@@ -132,8 +133,8 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/rectangle_6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/card_order"
-        app:layout_constraintTop_toBottomOf="@+id/card_pendapatan">
+        app:layout_constraintStart_toEndOf="@+id/penjual_card_order"
+        app:layout_constraintTop_toBottomOf="@+id/penjual_card_pendapatan">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,6 +153,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/ulasan_dan_rating"
                 android:textAlignment="center" />
 

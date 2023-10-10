@@ -13,6 +13,7 @@ import org.d3if2101.canteen.ui.dashboard.DashboardActivity
 class Login : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
@@ -36,11 +37,29 @@ class Login : AppCompatActivity() {
 
         viewModel.loginUser(email, sandi).observe(this) {
             if (it.message.lowercase() == "success") {
-                Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, DashboardActivity::class.java))
+                viewModel.checkRole().observe(this) {
+                    if (it == "penjual") {
+                        Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
+                        moveToPenjual()
+                    } else {
+                        Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                    }
+
+                }
+
             } else {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun moveToPenjual() {
+        startActivity(
+            Intent(
+                this,
+                org.d3if2101.canteenpenjual.ui.dashboard.DashboardActivity::class.java
+            )
+        )
     }
 }

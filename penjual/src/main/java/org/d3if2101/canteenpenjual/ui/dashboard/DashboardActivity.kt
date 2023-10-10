@@ -19,19 +19,19 @@ class DashboardActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        binding.cardProduk.setOnClickListener {
+        binding.penjualCardProduk.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, HomeProduk::class.java))
         }
 
-        binding.cardPendapatan.setOnClickListener {
+        binding.penjualCardPendapatan.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, PendapatanActivity::class.java))
         }
 
-        binding.cardOrder.setOnClickListener {
+        binding.penjualCardOrder.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, RiwayatActivity::class.java))
         }
 
-        binding.cardRating.setOnClickListener {
+        binding.penjualCardRating.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, RatingActivity::class.java))
         }
     }

@@ -30,11 +30,13 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.riwayat.RiwayatActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.daftar.DaftarActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.riwayat.RiwayatActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
