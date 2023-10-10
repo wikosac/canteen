@@ -3,7 +3,7 @@ package org.d3if2101.canteenpenjual.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteenpenjual.databinding.ActivityDashboardBinding
+import org.d3if2101.canteenpenjual.databinding.ActivityDashboardBaruBinding
 import org.d3if2101.canteenpenjual.ui.homeadminproduk.HomeProduk
 import org.d3if2101.canteenpenjual.ui.pendapatan.PendapatanActivity
 import org.d3if2101.canteenpenjual.ui.rating.RatingActivity
@@ -11,10 +11,10 @@ import org.d3if2101.canteenpenjual.ui.riwayat.RiwayatActivity
 
 class DashboardActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityDashboardBinding
+    private lateinit var binding: ActivityDashboardBaruBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        binding = ActivityDashboardBaruBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
