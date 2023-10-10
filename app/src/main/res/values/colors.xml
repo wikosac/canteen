@@ -15,7 +15,7 @@
 
     <color name="sub_primary">#938D8D</color>
     <color name="light_green">#11C971</color>
-
+    <color name="grey_bg">#80000000</color>
 
     <color name="akun">#7D6C2E</color>
     <color name="underline">#FF000000</color>

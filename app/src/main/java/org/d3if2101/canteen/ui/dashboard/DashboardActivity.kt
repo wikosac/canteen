@@ -3,6 +3,8 @@ package org.d3if2101.canteen.ui.dashboard
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDestination
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
 import org.d3if2101.canteen.ui.menu.MenuActivity
 
@@ -14,8 +16,17 @@ class DashboardActivity : AppCompatActivity() {
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       binding.btnKantin1.setOnClickListener {
-           startActivity(Intent(this, MenuActivity::class.java))
-       }
+        with(binding) {
+            btnKantin1.setOnClickListener { navTo("kantin1") }
+            btnKantin2.setOnClickListener { navTo("kantin2") }
+            btnKantin3.setOnClickListener { navTo("kantin3") }
+            btnKantin4.setOnClickListener { navTo("kantin4") }
+        }
+    }
+
+    private fun navTo(idKantin: String) {
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra("idKantin", idKantin)
+        startActivity(intent)
     }
 }
