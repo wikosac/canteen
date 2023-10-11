@@ -48,6 +48,9 @@
             android:name=".ui.penjual.login.LoginPenjualActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.penjual.dashboard.DashboardPenjualActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity"
             android:exported="false" />
         <activity

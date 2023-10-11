@@ -1,7 +1,6 @@
 package org.d3if2101.canteen.ui.menu
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -35,8 +34,6 @@ class MenuAdapter(
         Glide.with(context)
             .load(listImages[position].gambar)
             .into(holder.imageView)
-
-        Log.d("testo", "onBindViewHolder: test")
     }
 
     override fun getItemCount(): Int = listImages.size

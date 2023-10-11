@@ -2,8 +2,8 @@ package org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import org.d3if2101.canteenpenjual.data.model.Produk
-import org.d3if2101.canteenpenjual.data.repository.CanteenRepository
+import org.d3if2101.canteen.data.model.Produk
+import org.d3if2101.canteen.data.repository.CanteenRepository
 
 class PilihMenuViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {
 

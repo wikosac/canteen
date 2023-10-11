@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
-import org.d3if2101.canteenpenjual.data.model.Produk
+import org.d3if2101.canteen.data.model.Produk
 
 class PilihMenuAdapter(
     private val data: List<Produk>,

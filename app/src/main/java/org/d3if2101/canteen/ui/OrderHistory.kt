@@ -1,14 +1,14 @@
 package org.d3if2101.canteen.ui
 
-import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.R
+import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class OrderHistory : AppCompatActivity() {
     private var orderHistoryList = ArrayList<OrderHistoryItem>()

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityDaftarPenjualBinding
-import org.d3if2101.canteen.ui.penjual.ViewModelFactory
+import org.d3if2101.canteen.ui.ViewModelFactory
 
 class DaftarPenjualActivity : AppCompatActivity() {
 
