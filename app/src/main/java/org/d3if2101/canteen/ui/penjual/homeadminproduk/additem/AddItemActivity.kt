@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteenpenjual.databinding.ActivityAddItemBinding
+import org.d3if2101.canteen.databinding.ActivityAddItemBinding
 import org.d3if2101.canteen.ui.penjual.ViewModelFactory
 import org.d3if2101.canteen.utils.staticDataSetKategori
 

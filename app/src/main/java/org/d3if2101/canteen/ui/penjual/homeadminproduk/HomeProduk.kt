@@ -3,7 +3,7 @@ package org.d3if2101.canteen.ui.penjual.homeadminproduk
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteenpenjual.databinding.ActivityHomeProdukBinding
+import org.d3if2101.canteen.databinding.ActivityHomeProdukBinding
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity
 
 class HomeProduk : AppCompatActivity() {

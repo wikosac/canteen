@@ -5,12 +5,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteenpenjual.databinding.ActivityDaftarBinding
+import org.d3if2101.canteen.databinding.ActivityDaftarPenjualBinding
 import org.d3if2101.canteen.ui.penjual.ViewModelFactory
 
 class DaftarPenjualActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDaftarBinding
+    private lateinit var binding: ActivityDaftarPenjualBinding
 
     private lateinit var nama: String
     private lateinit var email: String
@@ -26,7 +26,7 @@ class DaftarPenjualActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDaftarBinding.inflate(layoutInflater)
+        binding = ActivityDaftarPenjualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()

@@ -16,9 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import org.d3if2101.canteenpenjual.R
+import org.d3if2101.canteen.R
+import org.d3if2101.canteen.databinding.ActivityPilihMenuBinding
 import org.d3if2101.canteenpenjual.data.model.Produk
-import org.d3if2101.canteenpenjual.databinding.ActivityPilihMenuBinding
 import org.d3if2101.canteen.ui.penjual.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemActivity
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.edititem.EditItemActivity

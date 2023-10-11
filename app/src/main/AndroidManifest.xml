@@ -45,6 +45,36 @@
             android:name=".ui.login.Login"
             android:exported="false" />
         <activity
+            android:name=".ui.penjual.login.LoginPenjualActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.pendapatan.PendapatanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.rating.RatingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.riwayat.RiwayatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.daftar.DaftarPenjualActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainPenjualActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.homeadminproduk.additem.AddItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.homeadminproduk.HomeProduk"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.homeadminproduk.edititem.EditItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

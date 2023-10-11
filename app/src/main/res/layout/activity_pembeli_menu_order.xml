@@ -75,7 +75,7 @@
                 android:clipToPadding="false"
                 android:layout_marginHorizontal="10dp"
                 tools:itemCount="3"
-                tools:listitem="@layout/list_menu_item"
+                tools:listitem="@layout/list_menu"
                 android:nestedScrollingEnabled="false"/>
 
             <TextView

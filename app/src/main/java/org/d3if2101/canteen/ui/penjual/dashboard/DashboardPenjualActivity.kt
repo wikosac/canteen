@@ -10,12 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
-import org.d3if2101.canteenpenjual.R
+import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
+import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
 import org.d3if2101.canteen.ui.penjual.login.LoginPenjualActivity
-import org.d3if2101.canteen.ui.penjual.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
 import org.d3if2101.canteen.ui.penjual.rating.RatingActivity
 import org.d3if2101.canteen.ui.penjual.riwayat.RiwayatActivity
@@ -33,7 +34,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDashboardBaruBinding.inflate(layoutInflater)
+        binding = ActivityDashboardPenjualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         loadNavigationDrawer()

@@ -1,13 +1,11 @@
 package org.d3if2101.canteen.ui.penjual.homeadminproduk.edititem
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.angmarch.views.NiceSpinner
-import org.d3if2101.canteenpenjual.R
+import org.d3if2101.canteen.R
 import java.util.LinkedList
-
 
 class EditItemActivity : AppCompatActivity() {
 

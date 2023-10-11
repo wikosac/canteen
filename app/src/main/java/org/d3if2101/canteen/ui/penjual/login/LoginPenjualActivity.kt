@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteenpenjual.databinding.ActivityLoginBinding
+import org.d3if2101.canteen.databinding.ActivityLoginPenjualBinding
 import org.d3if2101.canteen.ui.penjual.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.daftar.DaftarPenjualActivity
 import org.d3if2101.canteen.ui.penjual.dashboard.DashboardPenjualActivity
 
 class LoginPenjualActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginPenjualBinding
     private lateinit var email: String
     private lateinit var password: String
 
@@ -25,7 +25,7 @@ class LoginPenjualActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginPenjualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
