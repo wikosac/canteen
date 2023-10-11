@@ -39,7 +39,7 @@
             android:name=".ui.riwayat.RiwayatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.DashboardActivity"
+            android:name=".ui.dashboard.DashboardPenjual"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

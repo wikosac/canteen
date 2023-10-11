@@ -33,15 +33,17 @@ class DaftarActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        binding.tvSudahAdaAkun.setOnClickListener { finish() }
+
         binding.tvButtonLogin.setOnClickListener {
             getTextInput()
 
             viewModel.signUpUser(email, password).observe(this) {
                 Log.d("DaftarActivity", it.message)
-                if (it.message.lowercase().equals("success")) {
+                if (it.message.lowercase() == "success") {
                     viewModel.insertToDB(email, nama, noTelpon)
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@DaftarActivity, LoginActivity::class.java))
+                    finish()
                 } else {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }

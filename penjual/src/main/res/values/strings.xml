@@ -41,6 +41,9 @@
     <string name="nama_item">Nama Item</string>
     <string name="harga">Harga</string>
     <string name="stock">Stock</string>
+    <string name="sudah_punya_akun_login">Sudah punya akun? Login\n</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 
 </resources>

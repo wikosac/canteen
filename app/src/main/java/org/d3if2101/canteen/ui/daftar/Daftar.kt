@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityDaftarBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
+import org.d3if2101.canteenpenjual.ui.daftar.DaftarActivity
 
 class Daftar : AppCompatActivity() {
 
@@ -26,7 +27,12 @@ class Daftar : AppCompatActivity() {
             startActivity(Intent(this, Login::class.java))
         }
 
+        binding.txtDaftarPenjual.setOnClickListener {
+            startActivity(Intent(this, DaftarActivity::class.java))
+        }
+
         binding.tvButtonLogin.setOnClickListener { login() }
+
     }
 
     private fun login() {

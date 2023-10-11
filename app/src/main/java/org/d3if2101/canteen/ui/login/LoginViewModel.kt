@@ -39,4 +39,11 @@ class LoginViewModel(
         }
         Log.d("testo", "saveTokenPref: token saved!")
     }
+
+    fun deleteTokenPref() {
+        viewModelScope.launch {
+            pref.deleteToken()
+        }
+    }
+
 }

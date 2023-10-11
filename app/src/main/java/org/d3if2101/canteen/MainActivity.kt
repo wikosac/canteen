@@ -4,22 +4,46 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityMainBinding
+import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.dashboard.DashboardActivity
 import org.d3if2101.canteen.ui.login.Login
+import org.d3if2101.canteen.ui.login.LoginViewModel
+import org.d3if2101.canteenpenjual.ui.dashboard.DashboardPenjual
+import org.d3if2101.canteenpenjual.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this.application)
+    }
+    private val viewModel: LoginViewModel by viewModels { factory }
+    private lateinit var token: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Handler(Looper.getMainLooper())
-            .postDelayed(
-                { startActivity(Intent(this, Login::class.java)) },
-                3000
-            )
+        token = viewModel.getTokenPref().value.toString()
+
+        Handler(Looper.getMainLooper()).postDelayed({ navigate() }, 3000)
+    }
+
+    private fun navigate() {
+        if (token != null) {
+            viewModel.checkRole().observe(this) { role ->
+                if (role == "penjual") {
+                    startActivity(Intent(this, DashboardPenjual::class.java))
+                } else {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                }
+            }
+        }
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

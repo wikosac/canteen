@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteenpenjual.databinding.ActivityLoginBinding
 import org.d3if2101.canteenpenjual.ui.ViewModelFactory
 import org.d3if2101.canteenpenjual.ui.daftar.DaftarActivity
-import org.d3if2101.canteenpenjual.ui.dashboard.DashboardActivity
+import org.d3if2101.canteenpenjual.ui.dashboard.DashboardPenjual
 
 class LoginActivity : AppCompatActivity() {
 
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(
                         Intent(
                             this@LoginActivity,
-                            DashboardActivity::class.java
+                            DashboardPenjual::class.java
                         )
                     ) // Move to Dashboard Admin Activity
                 } else {

@@ -84,4 +84,7 @@
     <string name="hello">Hello\n</string>
     <string name="name">Name\n</string>
     <string name="sudah_punya_akun_login">Sudah punya akun? Login</string>
+    <string name="daftar_sebagai_penjual">Daftar sebagai penjual</string>
+    <string name="open">Open\n</string>
+    <string name="close">Close</string>
 </resources>

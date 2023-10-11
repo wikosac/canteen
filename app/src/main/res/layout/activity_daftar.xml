@@ -124,4 +124,15 @@
         style="@style/SUbTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_daftar_penjual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/daftar_sebagai_penjual"
+        android:layout_marginTop="48dp"
+        android:gravity="center"
+        style="@style/SUbTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent" />
 </LinearLayout>

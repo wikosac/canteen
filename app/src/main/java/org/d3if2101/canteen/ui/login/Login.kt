@@ -2,7 +2,6 @@ package org.d3if2101.canteen.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -60,7 +59,7 @@ class Login : AppCompatActivity() {
         startActivity(
             Intent(
                 this,
-                org.d3if2101.canteenpenjual.ui.dashboard.DashboardActivity::class.java
+                org.d3if2101.canteenpenjual.ui.dashboard.DashboardPenjual::class.java
             )
         )
     }

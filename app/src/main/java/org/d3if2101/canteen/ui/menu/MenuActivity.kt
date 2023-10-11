@@ -1,23 +1,37 @@
 package org.d3if2101.canteen.ui.menu
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.d3if2101.canteen.R
 import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.databinding.ActivityMenuBinding
+import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.login.Login
+import org.d3if2101.canteen.ui.login.LoginViewModel
 
 class MenuActivity : AppCompatActivity() {
 
-//    private lateinit var toggle: ActionBarDrawerToggle
-//    private lateinit var navView: NavigationView
-//    private lateinit var drawerLayout: DrawerLayout
-//
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var navView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+
 //    private var allItems = ArrayList<MenuItem>()
 //    private lateinit var recyclerFoodAdapter: RecyclerFoodItemAdapter
 //
@@ -35,11 +49,17 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var listProduk: ArrayList<Produk>
     private lateinit var databaseReference: DatabaseReference
     private lateinit var binding: ActivityMenuBinding
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this.application)
+    }
+    private val viewModel: LoginViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loadNavigationDrawer()
 
         binding.itemsRecyclerView.layoutManager = LinearLayoutManager(this)
         listProduk = arrayListOf()
@@ -65,6 +85,83 @@ class MenuActivity : AppCompatActivity() {
     companion object {
         const val TAG = "MenuActivity"
     }
+
+    private fun loadNavigationDrawer() {
+        navView = findViewById(R.id.nav_view)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        val drawerDelay: Long = 150 //delay of the drawer to close
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_food_menu -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+//                R.id.nav_profile -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    Handler(Looper.getMainLooper()).postDelayed({ openUserProfileActivity() }, drawerDelay)
+//                }
+//                R.id.nav_my_orders -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    Handler().postDelayed({
+//                        startActivity(Intent(this, MyCurrentOrdersActivity::class.java))
+//                    }, drawerDelay)
+//                }
+//                R.id.nav_orders_history -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    Handler().postDelayed({
+//                        startActivity(Intent(this, OrdersHistoryActivity::class.java))
+//                    }, drawerDelay)
+//                }
+//                R.id.nav_share_app -> {
+//                    shareApp()
+//                }
+//                R.id.nav_report_bug -> {
+//                    Toast.makeText(this, "Not Available", Toast.LENGTH_SHORT).show()
+//                }
+//                R.id.nav_contact_us -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    Handler().postDelayed({
+//                        startActivity(Intent(this, ContactUsActivity::class.java))
+//                    }, drawerDelay)
+//                }
+//                R.id.nav_update_menu -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    updateOfflineFoodMenu()
+//                }
+//                R.id.nav_settings -> {
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    Handler().postDelayed({
+//                        startActivity(Intent(this, SettingsActivity::class.java))
+//                    }, drawerDelay)
+//                }
+                R.id.nav_log_out -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    logout()
+                }
+            }
+            true
+        }
+
+        findViewById<ImageView>(R.id.nav_drawer_opener_iv).setOnClickListener {
+            if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+    }
+
+    private fun logout() {
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
+        viewModel.deleteTokenPref()
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+    }
+
 
 //    override fun onBackPressed() {
 //        if (searchIsActive) {
