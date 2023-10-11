@@ -2,6 +2,7 @@ package org.d3if2101.canteen.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,21 +36,22 @@ class Login : AppCompatActivity() {
         val email = binding.addEmail.text.toString()
         val sandi = binding.addPassword.text.toString()
 
-        viewModel.loginUser(email, sandi).observe(this) {
-            if (it.message.lowercase() == "success") {
-                viewModel.checkRole().observe(this) {
-                    if (it == "penjual") {
+        viewModel.loginUser(email, sandi).observe(this) { msg ->
+            if (msg.message.lowercase() == "success") {
+                viewModel.getUser().observe(this) { user ->
+                    viewModel.saveTokenPref(user.uid)
+                }
+                viewModel.checkRole().observe(this) { role ->
+                    if (role == "penjual") {
                         Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
                         moveToPenjual()
                     } else {
                         Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, DashboardActivity::class.java))
                     }
-
                 }
-
             } else {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, msg.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

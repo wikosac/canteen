@@ -21,6 +21,11 @@ class CanteenRepository private constructor(
     private val firebaseDatabase: FirebaseDatabase,
     private val storageReference: FirebaseStorage
 ) {
+    private val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
+    private val uid = firebaseAuth.uid
+
+//    private val _user = MutableLiveData<UserModel>()
+//    val user: LiveData<UserModel> = _user
 
     fun registUser(
         email: String,
@@ -45,10 +50,29 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun getUser(): LiveData<UserModel> {
+        val userData = MutableLiveData<UserModel>()
+        if (uid != null) {
+            databaseReference.child(uid).addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            userData.value = snapshot.getValue(UserModel::class.java)
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(TAG, error.message)
+                    }
+                }
+            )
+        }
+        Log.d(TAG, "getUser: ${userData.value}")
+        return userData
+    }
+
     fun checkRole(): LiveData<String> {
-        val uid = firebaseAuth.uid
         val role = MutableLiveData<String>()
-        val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
         if (uid != null) {
             databaseReference.child(uid).addValueEventListener(
                 object : ValueEventListener {
@@ -68,7 +92,6 @@ class CanteenRepository private constructor(
             Log.e(TAG, "Error in Check Role")
         }
         return role
-
     }
 
     fun loginUser(email: String, pass: String): LiveData<Message> {
