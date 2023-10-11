@@ -93,7 +93,7 @@ class CanteenRepository private constructor(
         namaProduk: String, jenis: String, harga: String, image: Uri, stock: String
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
-        val fileName = namaProduk + image + System.currentTimeMillis()
+        val fileName = namaProduk + System.currentTimeMillis()
         // Upload gambar ke Firebase Storage
         val uploadTask = storageReference.reference.child(jenis).child(fileName).putFile(image)
 
@@ -145,7 +145,7 @@ class CanteenRepository private constructor(
 
     }
 
-    fun deleteProductByID(id:String) {
+    fun deleteProductByID(id: String) {
 
     }
 

@@ -100,13 +100,6 @@ class CanteenRepository private constructor(
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val uid = firebaseAuth.currentUser?.uid.toString()
-                        Log.d(TAG, "loginUser: $uid")
-//                        if (checkRole(uid).value != "pembeli") {
-//                            data.value = Message("Failed")
-//                            return@addOnCompleteListener
-//                        }
-                        Log.d(TAG, task.result.toString())
                         data.value = Message("Success")
                     } else {
                         Log.d(TAG, task.exception?.message.toString())
