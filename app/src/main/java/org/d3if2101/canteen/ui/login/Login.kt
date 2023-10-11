@@ -9,6 +9,7 @@ import org.d3if2101.canteen.databinding.ActivityLoginBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.daftar.Daftar
 import org.d3if2101.canteen.ui.dashboard.DashboardActivity
+import org.d3if2101.canteen.ui.penjual.dashboard.DashboardPenjualActivity
 
 class Login : AppCompatActivity() {
 
@@ -59,7 +60,7 @@ class Login : AppCompatActivity() {
         startActivity(
             Intent(
                 this,
-                org.d3if2101.canteenpenjual.ui.dashboard.DashboardPenjual::class.java
+                DashboardPenjualActivity::class.java
             )
         )
     }

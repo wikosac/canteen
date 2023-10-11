@@ -27,7 +27,6 @@
     <string name="favoritmu">Favoritmu</string>
     <string name="keranjang">Keranjang</string>
     <string name="bayar">Bayar</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorit">Favorit</string>
     <string name="menu">menu</string>
@@ -87,4 +86,25 @@
     <string name="daftar_sebagai_penjual">Daftar sebagai penjual</string>
     <string name="open">Open\n</string>
     <string name="close">Close</string>
+
+    // penjual
+    <string name="dashboard">Dashboard</string>
+
+    <string name="produk">Produk</string>
+    <string name="pendapatan">Pendapatan</string>
+    <string name="order">Order</string>
+    <string name="ulasan_dan_rating">Ulasan dan Rating</string>
+    <string name="add_item">Add Item</string>
+    <string name="tambah_item">Tambah Item</string>
+    <string name="edit_item">Edit Item</string>
+    <string-array name="data_dropdown">
+        <item>Makanan</item>
+        <item>Minuman</item>
+        <item>Camilan</item>
+    </string-array>
+    <string name="pilih_kategori">PILIH KATEGORI</string>
+    <string name="tolak">Tolak</string>
+    <string name="terima">Terima</string>
+    <string name="upload_image"><u>Upload Image</u></string>
+    <string name="stock">Stock</string>
 </resources>

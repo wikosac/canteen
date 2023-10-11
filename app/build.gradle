@@ -71,6 +71,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+    implementation 'com.github.arcadefire:nice-spinner:1.4.4'
+
     // penjual app
     implementation project(':penjual')
 }

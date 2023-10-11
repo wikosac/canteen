@@ -4,16 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityMainBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.dashboard.DashboardActivity
-import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
-import org.d3if2101.canteenpenjual.ui.dashboard.DashboardPenjual
-import org.d3if2101.canteenpenjual.ui.login.LoginActivity
+import org.d3if2101.canteen.ui.penjual.dashboard.DashboardPenjualActivity
+import org.d3if2101.canteen.ui.penjual.login.LoginPenjualActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,12 +36,12 @@ class MainActivity : AppCompatActivity() {
         if (token != null) {
             viewModel.checkRole().observe(this) { role ->
                 if (role == "penjual") {
-                    startActivity(Intent(this, DashboardPenjual::class.java))
+                    startActivity(Intent(this, DashboardPenjualActivity::class.java))
                 } else {
                     startActivity(Intent(this, DashboardActivity::class.java))
                 }
             }
         }
-        startActivity(Intent(this, LoginActivity::class.java))
+        startActivity(Intent(this, LoginPenjualActivity::class.java))
     }
 }

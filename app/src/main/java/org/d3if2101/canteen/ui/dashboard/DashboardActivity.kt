@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
 import org.d3if2101.canteen.ui.menu.MenuActivity
-import org.d3if2101.canteenpenjual.MainActivity
+import org.d3if2101.canteen.MainPenjualActivity
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
@@ -20,7 +20,7 @@ class DashboardActivity : AppCompatActivity() {
             btnKantin2.setOnClickListener { navTo("kantin2") }
             btnKantin3.setOnClickListener { navTo("kantin3") }
             btnKantin4.setOnClickListener {
-                startActivity(Intent(this@DashboardActivity, MainActivity::class.java))
+                startActivity(Intent(this@DashboardActivity, MainPenjualActivity::class.java))
             }
         }
     }
