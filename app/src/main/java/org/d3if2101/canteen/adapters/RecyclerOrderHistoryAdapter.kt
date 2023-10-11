@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.R
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 
 class RecyclerOrderHistoryAdapter(var context: Context, private var orderHistoryList: ArrayList<OrderHistoryItem>) :

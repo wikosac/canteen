@@ -8,8 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityAddItemBinding
-import org.d3if2101.canteen.ui.penjual.ViewModelFactory
-import org.d3if2101.canteen.utils.staticDataSetKategori
+import org.d3if2101.canteen.ui.ViewModelFactory
 
 class AddItemActivity : AppCompatActivity() {
 
@@ -75,7 +74,7 @@ class AddItemActivity : AppCompatActivity() {
         if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && stock.isNotEmpty()) {
             viewModel.inputProduktoDB(namaItem, kategori, harga, image, stock)
                 .observe(this) { message ->
-                    if (message.message.equals("Success")) {
+                    if (message.message == "Success") {
                         Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {

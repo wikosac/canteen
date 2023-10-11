@@ -1,7 +1,9 @@
 package org.d3if2101.canteen.data.repository
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
-import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +16,6 @@ import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.data.model.UserModel
-import org.d3if2101.canteen.ui.menu.MenuAdapter
 
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
@@ -22,10 +23,9 @@ class CanteenRepository private constructor(
     private val storageReference: FirebaseStorage
 ) {
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
-    private val uid = firebaseAuth.uid
-
-//    private val _user = MutableLiveData<UserModel>()
-//    val user: LiveData<UserModel> = _user
+//    private val uid = firebaseAuth.uid
+    private val uidUser = MutableLiveData<String>()
+    private val uid: LiveData<String> = uidUser
 
     fun registUser(
         email: String,
@@ -50,48 +50,45 @@ class CanteenRepository private constructor(
         return data
     }
 
-    fun getUser(): LiveData<UserModel> {
+    fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
-        if (uid != null) {
-            databaseReference.child(uid).addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            userData.value = snapshot.getValue(UserModel::class.java)
+        uid.observe(lifecycleOwner) {
+            Log.d(TAG, "uid: $it")
+            if (it != null) {
+                databaseReference.child(it).addValueEventListener(
+                    object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                userData.value = snapshot.getValue(UserModel::class.java)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            Log.e(TAG, error.message)
                         }
                     }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e(TAG, error.message)
-                    }
-                }
-            )
+                )
+            }
         }
-        Log.d(TAG, "getUser: ${userData.value}")
         return userData
     }
 
-    fun checkRole(): LiveData<String> {
-        val role = MutableLiveData<String>()
-        if (uid != null) {
-            databaseReference.child(uid).addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            role.value = snapshot.child("role").value.toString()
-                            Log.d(TAG, "onDataChange: ${role.value}")
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e(TAG, error.message)
+    fun getUserWithToken(token: String): LiveData<UserModel> {
+        val userData = MutableLiveData<UserModel>()
+        databaseReference.child(token).addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        userData.value = snapshot.getValue(UserModel::class.java)
                     }
                 }
-            )
-        } else {
-            Log.e(TAG, "Error in Check Role")
-        }
-        return role
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, error.message)
+                }
+            }
+        )
+        return userData
     }
 
     fun loginUser(email: String, pass: String): LiveData<Message> {
@@ -100,6 +97,10 @@ class CanteenRepository private constructor(
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        uidUser.value = firebaseAuth.currentUser?.uid.toString()
+                        Log.d(TAG, "uidUser: ${uidUser.value}")
+
+                        Log.d(TAG, task.result.toString())
                         data.value = Message("Success")
                     } else {
                         Log.d(TAG, task.exception?.message.toString())
@@ -148,8 +149,115 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun inputProdukToDatabase(
+        namaProduk: String, jenis: String, harga: String, image: Uri, stock: String
+    ): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        val fileName = namaProduk + image + System.currentTimeMillis()
+        // Upload gambar ke Firebase Storage
+        val uploadTask = storageReference.reference.child(jenis).child(fileName).putFile(image)
+
+        uploadTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Dapatkan URL download dari gambar
+                uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
+                    if (downloadUrlTask.isSuccessful) {
+                        val downloadUrl = downloadUrlTask.result.toString()
+
+                        Log.d(TAG, downloadUrl)
+
+                        val uniqueID = firebaseDatabase.reference.push().key
+
+                        val produk = Produk(
+                            id = uniqueID.toString(),
+                            nama = namaProduk,
+                            harga = harga.toFloat(),
+                            stok = stock.toInt(),
+                            penjualId = firebaseAuth.uid.toString(),
+                            jenis = jenis, // Use the provided 'jenis' parameter
+                            gambar = downloadUrl
+                        )
+
+                        firebaseDatabase.getReference("produk").child(uniqueID.toString())
+                            .setValue(produk)
+                            .addOnCompleteListener { dbTask ->
+                                if (dbTask.isSuccessful) {
+                                    Log.d(TAG, "Data berhasil ditambahkan")
+                                    data.value = Message("Success")
+                                } else {
+                                    Log.e(TAG, "Data gagal ditambahkan")
+                                    data.value = Message("Failed")
+                                }
+                            }
+                    } else {
+                        data.value = Message("Failed to get download URL")
+                    }
+                }
+            } else {
+                data.value = Message("Failed to upload image")
+            }
+        }
+
+        return data
+    }
+
+    fun editProductByID(id: String) {
+
+    }
+
+    fun deleteProductByID(id:String) {
+
+    }
+
+    fun getProdukFromDB(): LiveData<List<Produk>> {
+        val data = MutableLiveData<List<Produk>>()
+        val produkRef = firebaseDatabase.getReference("produk")
+        val firebaseAuthID = firebaseAuth.uid.toString()
+
+        produkRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val produkList = mutableListOf<Produk>()
+                val dataSnapshot = task.result
+
+                // Periksa apakah DataSnapshot ada
+                if (dataSnapshot.exists()) {
+                    for (childSnapshot in dataSnapshot.children) {
+                        val id = childSnapshot.key ?: ""
+                        val gambar =
+                            childSnapshot.child("gambar").getValue(String::class.java) ?: ""
+                        val harga = childSnapshot.child("harga").getValue(Float::class.java) ?: 0.0f
+                        val jenis = childSnapshot.child("jenis").getValue(String::class.java) ?: ""
+                        val nama = childSnapshot.child("nama").getValue(String::class.java) ?: ""
+                        val penjualId =
+                            childSnapshot.child("penjualId").getValue(String::class.java) ?: ""
+                        val stok = childSnapshot.child("stok").getValue(Int::class.java) ?: 0
+
+                        if (firebaseAuthID == penjualId) {
+                            val produk = Produk(
+                                id,
+                                nama,
+                                harga,
+                                stok,
+                                penjualId,
+                                jenis,
+                                gambar
+                            )
+                            produkList.add(produk)
+                        }
+                    }
+                    data.value = produkList
+                } else {
+                    Log.e(TAG, "DataSnapshot tidak ada")
+                }
+            } else {
+                Log.e(TAG, "Gagal mengambil data")
+            }
+        }
+        return data
+    }
+
     companion object {
-        private const val TAG = "CanteenRepository"
+        private const val TAG = "testo"
 
         @Volatile
         private var instance: CanteenRepository? = null
