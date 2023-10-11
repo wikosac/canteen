@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "onCreateToken: $token")
             if (token == null) startActivity(Intent(this, Login::class.java))
 
-            viewModel.checkRole().observe(this) { role ->
-                if (role == "penjual") {
+            viewModel.getUserWithToken(token!!).observe(this) { user ->
+                if (user.role == "penjual") {
                     startActivity(Intent(this, DashboardPenjualActivity::class.java))
                 } else {
                     startActivity(Intent(this, DashboardActivity::class.java))
                 }
+                Log.d(TAG, "navigate user: $user")
             }
         }
     }

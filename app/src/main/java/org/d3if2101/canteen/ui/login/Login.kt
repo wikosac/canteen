@@ -2,9 +2,11 @@ package org.d3if2101.canteen.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.databinding.ActivityLoginBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.daftar.Daftar
@@ -14,6 +16,7 @@ import org.d3if2101.canteen.ui.penjual.dashboard.DashboardPenjualActivity
 class Login : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    var message: String = ""
 
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
@@ -30,6 +33,7 @@ class Login : AppCompatActivity() {
         }
 
         binding.tvButtonLogin.setOnClickListener { login() }
+
     }
 
     private fun login() {
@@ -37,31 +41,29 @@ class Login : AppCompatActivity() {
         val sandi = binding.addPassword.text.toString()
 
         viewModel.loginUser(email, sandi).observe(this) { msg ->
-            if (msg.message.lowercase() == "success") {
-                viewModel.getUser().observe(this) { user ->
-                    viewModel.saveTokenPref(user.uid)
+            message = msg.message
+            if (message == "Success") moveTo()
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun moveTo() {
+        viewModel.getUser(this).observe(this) { user ->
+            Log.d(TAG, "login: $user")
+            if (user != null) {
+                viewModel.saveTokenPref(user.uid)
+                if (user.role == "penjual") {
+                    startActivity(Intent(this, DashboardPenjualActivity::class.java))
+                } else {
+                    startActivity(Intent(this, DashboardActivity::class.java))
                 }
-                viewModel.checkRole().observe(this) { role ->
-                    if (role == "penjual") {
-                        Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
-                        moveToPenjual()
-                    } else {
-                        Toast.makeText(this, "Selamat Datang ${email}", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, DashboardActivity::class.java))
-                    }
-                }
-            } else {
-                Toast.makeText(this, msg.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Selamat Datang ${user.nama}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun moveToPenjual() {
-        startActivity(
-            Intent(
-                this,
-                DashboardPenjualActivity::class.java
-            )
-        )
+    companion object {
+        const val TAG = "testo"
     }
+
 }

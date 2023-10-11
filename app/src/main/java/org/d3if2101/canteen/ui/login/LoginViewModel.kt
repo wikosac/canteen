@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.ui.login
 
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -20,9 +21,9 @@ class LoginViewModel(
         return canteenRepository.loginUser(email, pass)
     }
 
-    fun getUser(): LiveData<UserModel> = canteenRepository.getUser()
+    fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> = canteenRepository.getUser(lifecycleOwner)
 
-    fun checkRole(): LiveData<String> = canteenRepository.checkRole()
+    fun getUserWithToken(token: String): LiveData<UserModel> = canteenRepository.getUserWithToken(token)
 
     fun getTokenPref(): LiveData<String?> = pref.getToken().asLiveData()
 

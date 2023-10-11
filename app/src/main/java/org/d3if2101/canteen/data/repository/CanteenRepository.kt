@@ -1,7 +1,9 @@
 package org.d3if2101.canteen.data.repository
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +23,9 @@ class CanteenRepository private constructor(
     private val storageReference: FirebaseStorage
 ) {
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
-    private val uid = firebaseAuth.uid
+//    private val uid = firebaseAuth.uid
+    private val uidUser = MutableLiveData<String>()
+    private val uid: LiveData<String> = uidUser
 
     fun registUser(
         email: String,
@@ -46,48 +50,45 @@ class CanteenRepository private constructor(
         return data
     }
 
-    fun getUser(): LiveData<UserModel> {
+    fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
-        if (uid != null) {
-            databaseReference.child(uid).addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            userData.value = snapshot.getValue(UserModel::class.java)
+        uid.observe(lifecycleOwner) {
+            Log.d(TAG, "uid: $it")
+            if (it != null) {
+                databaseReference.child(it).addValueEventListener(
+                    object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                userData.value = snapshot.getValue(UserModel::class.java)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            Log.e(TAG, error.message)
                         }
                     }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e(TAG, error.message)
-                    }
-                }
-            )
+                )
+            }
         }
-        Log.d(TAG, "getUser: ${userData.value}")
         return userData
     }
 
-    fun checkRole(): LiveData<String> {
-        val role = MutableLiveData<String>()
-        if (uid != null) {
-            databaseReference.child(uid).addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-                            role.value = snapshot.child("role").value.toString()
-                            Log.d(TAG, "onDataChange: ${role.value}")
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e(TAG, error.message)
+    fun getUserWithToken(token: String): LiveData<UserModel> {
+        val userData = MutableLiveData<UserModel>()
+        databaseReference.child(token).addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        userData.value = snapshot.getValue(UserModel::class.java)
                     }
                 }
-            )
-        } else {
-            Log.e(TAG, "Error in Check Role")
-        }
-        return role
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, error.message)
+                }
+            }
+        )
+        return userData
     }
 
     fun loginUser(email: String, pass: String): LiveData<Message> {
@@ -96,12 +97,9 @@ class CanteenRepository private constructor(
             firebaseAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val uid = firebaseAuth.currentUser?.uid.toString()
-                        Log.d(TAG, "loginUser: $uid")
-//                        if (checkRole(uid).value != "pembeli") {
-//                            data.value = Message("Failed")
-//                            return@addOnCompleteListener
-//                        }
+                        uidUser.value = firebaseAuth.currentUser?.uid.toString()
+                        Log.d(TAG, "uidUser: ${uidUser.value}")
+
                         Log.d(TAG, task.result.toString())
                         data.value = Message("Success")
                     } else {
@@ -259,7 +257,7 @@ class CanteenRepository private constructor(
     }
 
     companion object {
-        private const val TAG = "CanteenRepository"
+        private const val TAG = "testo"
 
         @Volatile
         private var instance: CanteenRepository? = null
