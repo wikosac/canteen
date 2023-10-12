@@ -3,10 +3,14 @@ package org.d3if2101.canteen.ui.menu
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,16 +36,16 @@ class MenuActivity : AppCompatActivity() {
 //    private var allItems = ArrayList<MenuItem>()
 //    private lateinit var recyclerFoodAdapter: RecyclerFoodItemAdapter
 //
-//    private lateinit var topHeaderLL: LinearLayout
-//    private lateinit var topSearchLL: LinearLayout
-//    private lateinit var searchBox: SearchView
-//    private lateinit var foodCategoryCV: CardView
-//    private lateinit var showAllLL: LinearLayout
-//
-//    private var searchIsActive = false
-//    private var doubleBackToExit = false
-//
-//    private lateinit var progressDialog: ProgressDialog
+    private lateinit var topHeaderLL: LinearLayout
+    private lateinit var topSearchLL: LinearLayout
+    private lateinit var searchBox: SearchView
+    private lateinit var foodCategoryCV: CardView
+    private lateinit var showAllLL: LinearLayout
+
+    private var searchIsActive = false
+    private var doubleBackToExit = false
+
+    private lateinit var progressDialog: ProgressBar
 
     private lateinit var listProduk: ArrayList<Produk>
     private lateinit var databaseReference: DatabaseReference
