@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             if (token == null) {
                 startActivity(Intent(this, Login::class.java))
             } else {
-                viewModel.getUserWithToken(token)?.observe(this) { user ->
+                viewModel.getUserWithToken(token).observe(this) { user ->
                     if (user?.role == "penjual") {
                         startActivity(Intent(this, DashboardPenjualActivity::class.java))
                     } else {

@@ -30,6 +30,24 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:onClick="openMenuActivity"/>
 
+            <ImageView
+                android:id="@+id/order_done_show_qr_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:src="@drawable/baseline_qr_code_24"
+                app:layout_constraintEnd_toStartOf="@id/order_done_share_iv"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/order_done_share_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:src="@drawable/baseline_share_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView

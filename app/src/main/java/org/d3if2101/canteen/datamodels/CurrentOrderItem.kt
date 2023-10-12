@@ -7,6 +7,7 @@ data class CurrentOrderItem(
     var orderItemNames: String = "ORDER_ITEM_NAMES",
     var orderItemQuantities: String = "ORDER_ITEM_QUANTITIES",
     var totalItemPrice: String = "TOTAL_ITEM_PRICE",
+    var tax: String = "TAX",
     var subTotal: String = "SUB_TOTAL",
     var id: Int = 0
 )
