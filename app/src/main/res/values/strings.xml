@@ -224,4 +224,6 @@
     <string name="xxx">XXX</string>
     <string name="default_card_number">2334 xxxx xxxx 6335</string>
     <string name="default_date">09/23</string>
+    <string name="makanan">Makanan</string>
+    <string name="camilan">Camilan</string>
 </resources>

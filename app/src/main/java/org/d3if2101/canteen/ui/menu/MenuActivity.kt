@@ -343,6 +343,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             }
         })
     }
+
     fun showTagItems(view: View) {
         //menampilkan kategori yang sama
         val container: LinearLayout = findViewById(R.id.food_categories_container_ll)
@@ -350,7 +351,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             ll.alpha = 1.0f
         }
         (view as LinearLayout).alpha = 0.5f
-        val tag = ((view as LinearLayout).getChildAt(1) as TextView).text.toString()
+        val tag = (view.getChildAt(1) as TextView).text.toString()
         val filterList = ArrayList<MenuItem>()
         for (item in allItems) {
             if (item.itemTag == tag) filterList.add(item)

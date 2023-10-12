@@ -181,7 +181,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="@string/mie"
+                                    android:text="@string/makanan"
                                     android:textSize="12sp"
                                     android:fontFamily="@font/montserrat_semi_bold"/>
 
@@ -206,7 +206,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="Burger"
+                                    android:text="@string/camilan"
                                     android:textSize="12sp"
                                     android:fontFamily="@font/montserrat_semi_bold"/>
 
