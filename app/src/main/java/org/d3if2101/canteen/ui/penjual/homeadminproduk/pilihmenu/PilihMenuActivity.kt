@@ -3,6 +3,7 @@ package org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -49,15 +52,9 @@ class PilihMenuActivity : AppCompatActivity() {
         binding.rv.layoutManager = LinearLayoutManager(this)
 
         // Run RV
-        viewModel.getDataFromDB().observe(this) {
-            it.forEach { produk ->
-                Log.d("PilihMenu", produk.jenis)
-                if (stringReceived == produk.jenis) {
-                    recyclerViewOn(it)
-                } else {
-                    // Tampilkan Warning ! Jika Data Empty
-                }
-            }
+        viewModel.getDataFromDB()
+        viewModel.getFilteredData().observe(this) {
+            recyclerViewOn(it)
         }
 
         binding.btnAdd.setOnClickListener {
@@ -65,8 +62,8 @@ class PilihMenuActivity : AppCompatActivity() {
         }
     }
 
-    private fun recyclerViewOn(produk: List<Produk>) {
 
+    private fun recyclerViewOn(produk: List<Produk>) {
         val adapter = PilihMenuAdapter(
             produk,
             object : PilihMenuAdapter.OnItemClickCallback {
@@ -105,7 +102,10 @@ class PilihMenuActivity : AppCompatActivity() {
                     val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
                     btnDelete.setOnClickListener {
                         viewModel.deleteProdukByID(data.id)
-                        showDeleteConfirmationSnackbar()
+                        viewModel.getDataFromDB()
+                        showDeleteConfirmationSnackbar(
+                            data
+                        )
                         alertDialog.cancel()
                     }
 
@@ -114,18 +114,36 @@ class PilihMenuActivity : AppCompatActivity() {
         binding.rv.adapter = adapter
     }
 
-    private fun showDeleteConfirmationSnackbar() {
+    private fun showDeleteConfirmationSnackbar(
+        deletedProduct: Produk
+    ) {
         val rootView = findViewById<View>(android.R.id.content)
         val snackbar = Snackbar.make(rootView, "Undo Delete this item?", Snackbar.LENGTH_LONG)
             .setAction("YES") {
                 Snackbar.make(rootView, "Undo Deleted Item !", Snackbar.LENGTH_SHORT).show()
                 // Run Insert Data
+                viewModel.inputProduktoDB(
+                    deletedProduct.nama,
+                    deletedProduct.jenis,
+                    deletedProduct.harga.toString(),
+                    deletedProduct.gambar,
+                    deletedProduct.stok.toString()
+                ).observe(this) {
+                    if (it.message == "Success") {
+                        viewModel.getDataFromDB()
+                    } else {
+                        Toast.makeText(this, "Failed Undo Deleted Produk", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
         snackbar.show()
     }
 
+
     private fun getStringIntent() {
         stringReceived = intent.getStringExtra("produk") ?: ""
+        viewModel.setStringReceived(stringReceived)
         Log.d("PilihMenuActivity", stringReceived)
     }
 

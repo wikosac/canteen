@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityAddItemBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
+import org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity
 
 class AddItemActivity : AppCompatActivity() {
 
@@ -76,6 +78,7 @@ class AddItemActivity : AppCompatActivity() {
                 .observe(this) { message ->
                     if (message.message == "Success") {
                         Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, HomeProduk::class.java))
                         finish()
                     } else {
                         Toast.makeText(this, "Upload Gagal ${message}", Toast.LENGTH_SHORT).show()
