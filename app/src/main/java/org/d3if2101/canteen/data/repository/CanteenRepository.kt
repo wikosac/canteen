@@ -147,6 +147,41 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun recoverProductDB(
+        namaProduk: String,
+        jenis: String,
+        harga: String,
+        image: String,
+        stock: String
+    ): LiveData<Message> {
+
+        val uniqueID = firebaseDatabase.reference.push().key
+        val data = MutableLiveData<Message>()
+
+        val produk = Produk(
+            id = uniqueID.toString(),
+            nama = namaProduk,
+            harga = harga.toFloat(),
+            stok = stock.toInt(),
+            penjualId = firebaseAuth.uid.toString(),
+            jenis = jenis, // Use the provided 'jenis' parameter
+            gambar = image
+        )
+
+        firebaseDatabase.getReference("produk").child(uniqueID.toString())
+            .setValue(produk)
+            .addOnCompleteListener { dbTask ->
+                if (dbTask.isSuccessful) {
+                    Log.d(TAG, "Data berhasil ditambahkan")
+                    data.value = Message("Success")
+                } else {
+                    Log.e(TAG, "Data gagal ditambahkan")
+                    data.value = Message("Failed")
+                }
+            }
+        return data
+    }
+
     fun inputProdukToDatabase(
         namaProduk: String, jenis: String, harga: String, image: Uri, stock: String
     ): LiveData<Message> {
