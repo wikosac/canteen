@@ -73,6 +73,6 @@ dependencies {
 
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
 
-    // penjual app
+//    // penjual app
     implementation project(':penjual')
 }

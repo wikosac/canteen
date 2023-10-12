@@ -1,6 +1,5 @@
 package org.d3if2101.canteen.data.repository
 
-import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
@@ -23,7 +22,6 @@ class CanteenRepository private constructor(
     private val storageReference: FirebaseStorage
 ) {
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
-//    private val uid = firebaseAuth.uid
     private val uidUser = MutableLiveData<String>()
     private val uid: LiveData<String> = uidUser
 
@@ -201,12 +199,73 @@ class CanteenRepository private constructor(
         return data
     }
 
-    fun editProductByID(id: String) {
+    fun editProductByID(
+        idProduk: String,
+        namaProduk: String,
+        jenis: String,
+        harga: String,
+        image: Uri,
+        stock: String
+    ): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        val fileName = namaProduk + image + System.currentTimeMillis()
+        val uploadTask = storageReference.reference.child(jenis).child(fileName).putFile(image)
 
+        uploadTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Dapatkan URL download dari gambar
+                uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
+                    if (downloadUrlTask.isSuccessful) {
+                        val downloadUrl = downloadUrlTask.result.toString()
+
+                        Log.d(TAG, downloadUrl)
+
+                        val uniqueID = firebaseDatabase.reference.push().key
+
+                        val produk = Produk(
+                            id = uniqueID.toString(),
+                            nama = namaProduk,
+                            harga = harga.toFloat(),
+                            stok = stock.toInt(),
+                            penjualId = firebaseAuth.uid.toString(),
+                            jenis = jenis, // Use the provided 'jenis' parameter
+                            gambar = downloadUrl
+                        )
+
+                        firebaseDatabase.getReference("produk").child(idProduk)
+                            .setValue(produk)
+                            .addOnCompleteListener { dbTask ->
+                                if (dbTask.isSuccessful) {
+                                    Log.d(TAG, "Data berhasil ditambahkan")
+                                    data.value = Message("Success")
+                                } else {
+                                    Log.e(TAG, "Data gagal ditambahkan")
+                                    data.value = Message("Failed")
+                                }
+                            }
+                    } else {
+                        data.value = Message("Failed to get download URL")
+                    }
+                }
+            } else {
+                data.value = Message("Failed to upload image")
+            }
+        }
+
+        return data
     }
 
-    fun deleteProductByID(id:String) {
-
+    fun deleteProductByID(idProduk: String): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        val produkRef = firebaseDatabase.getReference("produk")
+        produkRef.child(idProduk).removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                data.value = Message("Success")
+            } else {
+                data.value = Message("Failed")
+            }
+        }
+        return data
     }
 
     fun getProdukFromDB(): LiveData<List<Produk>> {

@@ -2,20 +2,16 @@ package org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.data.repository.CanteenRepository
 
 class PilihMenuViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {
 
-    val produkList = mutableListOf(
-        Produk("4291891248", "Pisang Goreng", 100000F, 10, "429249", "aaa", "makanan"),
-        Produk("4291891248x", "Pisang Gxoreng", 10000F, 10, "AAAA", "429x249", "makanan")
-    )
+    fun deleteProdukByID(idProduk: String): LiveData<Message> =
+        canteenRepository.deleteProductByID(idProduk)
 
     fun getDataFromDB(): LiveData<List<Produk>> = canteenRepository.getProdukFromDB()
 
-//    fun addProduk(produk: Produk) {
-//        produkList.add(produk)
-//    }
 
 }

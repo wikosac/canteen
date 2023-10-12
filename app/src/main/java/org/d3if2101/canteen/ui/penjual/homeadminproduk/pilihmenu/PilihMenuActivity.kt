@@ -28,6 +28,7 @@ class PilihMenuActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPilihMenuBinding
     private lateinit var stringReceived: String
 
+
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
@@ -39,7 +40,6 @@ class PilihMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPilihMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         supportActionBar?.hide()
 
         // Get the string from the intent
@@ -60,13 +60,13 @@ class PilihMenuActivity : AppCompatActivity() {
             }
         }
 
-
         binding.btnAdd.setOnClickListener {
             startActivity(Intent(this@PilihMenuActivity, AddItemActivity::class.java))
         }
     }
 
     private fun recyclerViewOn(produk: List<Produk>) {
+
         val adapter = PilihMenuAdapter(
             produk,
             object : PilihMenuAdapter.OnItemClickCallback {
@@ -104,6 +104,7 @@ class PilihMenuActivity : AppCompatActivity() {
 
                     val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
                     btnDelete.setOnClickListener {
+                        viewModel.deleteProdukByID(data.id)
                         showDeleteConfirmationSnackbar()
                         alertDialog.cancel()
                     }

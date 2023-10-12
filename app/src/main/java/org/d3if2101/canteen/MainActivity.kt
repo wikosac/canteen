@@ -33,17 +33,20 @@ class MainActivity : AppCompatActivity() {
     private fun navigate() {
         viewModel.getTokenPref().observe(this) { token ->
             Log.d(TAG, "onCreateToken: $token")
-            if (token == null) startActivity(Intent(this, Login::class.java))
-
-            viewModel.getUserWithToken(token!!).observe(this) { user ->
-                if (user.role == "penjual") {
-                    startActivity(Intent(this, DashboardPenjualActivity::class.java))
-                } else {
-                    startActivity(Intent(this, DashboardActivity::class.java))
+            if (token == null) {
+                startActivity(Intent(this, Login::class.java))
+            } else {
+                viewModel.getUserWithToken(token)?.observe(this) { user ->
+                    if (user?.role == "penjual") {
+                        startActivity(Intent(this, DashboardPenjualActivity::class.java))
+                    } else {
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                    }
+                    Log.d(TAG, "navigate user: $user")
                 }
-                Log.d(TAG, "navigate user: $user")
             }
         }
+
     }
 
     companion object {

@@ -2,7 +2,6 @@ package org.d3if2101.canteen.data.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -10,7 +9,7 @@ import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.repository.CanteenRepository
 import org.d3if2101.canteen.ui.SettingPreferences
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "login")
+private val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "login")
 
 object Injection {
     fun provideRepository(context: Context): CanteenRepository {

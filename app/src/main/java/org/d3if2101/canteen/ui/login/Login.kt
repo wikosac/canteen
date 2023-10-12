@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.databinding.ActivityLoginBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.daftar.Daftar
