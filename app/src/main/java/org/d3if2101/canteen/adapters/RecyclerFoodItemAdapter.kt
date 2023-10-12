@@ -11,23 +11,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
-import org.d3if2101.canteen.data.model.Produk
+import org.d3if2101.canteen.datamodels.MenuItem
 import java.util.Locale
 
 class RecyclerFoodItemAdapter (
     var context: Context,
-    private var itemList: ArrayList<Produk>,
+    private var itemList: ArrayList<MenuItem>,
     private val loadDefaultImage: Int,
-    val listener: onItemClickListener
-):
-        RecyclerView.Adapter<RecyclerFoodItemAdapter.ItemListViewHolder>(), Filterable {
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<RecyclerFoodItemAdapter.ItemListViewHolder>(), Filterable {
 
-    private var fullItemList = ArrayList<Produk>(itemList)
+    private var fullItemList = ArrayList<MenuItem>(itemList)
 
-    interface onItemClickListener {
-        fun onItemClick(item: Produk)
-        fun onPlusBtnClick(item: Produk)
-        fun onMinusBtnClick(item: Produk)
+    interface OnItemClickListener {
+        fun onItemClick(item: MenuItem)
+        fun onPlusBtnClick(item: MenuItem)
+        fun onMinusBtnClick(item: MenuItem)
     }
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,7 +45,7 @@ class RecyclerFoodItemAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.list_menu, parent, false)
-        fullItemList = ArrayList<Produk>(itemList)
+        fullItemList = ArrayList<MenuItem>(itemList)
         return ItemListViewHolder(itemView)
     }
 
@@ -54,23 +53,23 @@ class RecyclerFoodItemAdapter (
         val currentItem = itemList[position]
 
         if (loadDefaultImage == 1) holder.itemImageTv.setImageResource(R.drawable.default_item_image)
-        else Picasso.get().load(currentItem.gambar).into(holder.itemImageTv)
+        else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageTv)
 
-        holder.itemNameTv.text = currentItem.nama
-        holder.itemPriceTv.text = "$${currentItem.harga}"
-//        holder.itemStarsTV.text = currentItem.itemStars.toString()
-//        holder.itemShortDesc.text = currentItem.
-        holder.itemQuantityTv.text = currentItem.stok.toString()
+        holder.itemNameTv.text = currentItem.itemName
+        holder.itemPriceTv.text = "$${currentItem.itemPrice}"
+        holder.itemStarsTv.text = currentItem.itemStars.toString()
+        holder.itemShortDesc.text = currentItem.itemShortDesc
+        holder.itemQuantityTv.text = currentItem.quantity.toString()
 
         holder.itemQuantityIncreaseIV.setOnClickListener {
-            val n = currentItem.stok
+            val n = currentItem.quantity
             holder.itemQuantityTv.text = (n + 1).toString()
 
             listener.onPlusBtnClick(currentItem)
         }
 
         holder.itemQuantityDecreaseIV.setOnClickListener {
-            val n = currentItem.stok
+            val n = currentItem.quantity
             if (n == 0) return@setOnClickListener
             holder.itemQuantityTv.text = (n - 1).toString()
 
@@ -84,7 +83,7 @@ class RecyclerFoodItemAdapter (
 
     override fun getItemCount(): Int = itemList.size
 
-    fun filterList(filteredList: ArrayList<Produk>) {
+    fun filterList(filteredList: ArrayList<MenuItem>) {
         itemList = filteredList
         notifyDataSetChanged()
     }
@@ -95,16 +94,16 @@ class RecyclerFoodItemAdapter (
 
     private val searchFilter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList = ArrayList<Produk>()
+            val filteredList = ArrayList<MenuItem>()
             if (constraint!!.isEmpty()) {
                 filteredList.addAll(fullItemList)
             } else {
                 val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
 
                 for (item in fullItemList) {
-//                    if (item.itemName.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-//                        filteredList.add(item)
-//                    }
+                    if (item.itemName.lowercase(Locale.ROOT).contains(filterPattern)) {
+                        filteredList.add(item)
+                    }
                 }
             }
             val results = FilterResults()
@@ -114,7 +113,7 @@ class RecyclerFoodItemAdapter (
 
         override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults?) {
             itemList.clear()
-            itemList.addAll(results!!.values as ArrayList<Produk>)
+            itemList.addAll(results!!.values as ArrayList<MenuItem>)
             notifyDataSetChanged()
         }
     }

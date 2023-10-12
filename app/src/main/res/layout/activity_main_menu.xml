@@ -42,17 +42,27 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/kantin_1"
+                android:text="@string/hi"
                 android:textSize="22sp"
                 android:textColor="#1C213F"
-                android:fontFamily="@font/merriweather"/>
+                android:fontFamily="@font/montserrat_semi_bold"/>
 
             <ImageView
-                android:id="@+id/search_menu"
+                android:id="@+id/main_activity_search_iv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_search"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/menu_user_icon"
+                android:transitionName="userIconTransition"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_user"
+                android:elevation="2dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"/>
 
         </LinearLayout>
 
@@ -66,13 +76,13 @@
             android:paddingVertical="8dp"
             android:clipToPadding="false">
 
-<!--            <SearchView-->
-<!--                android:id="@+id/search_menu_items"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:queryHint="eg, Mie, Gorengan"-->
-<!--                android:iconifiedByDefault="false"-->
-<!--                app:voiceIcon="@drawable/ic_user"/>-->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_menu_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="eg, Mango Shake, Burger"
+                android:iconifiedByDefault="false"
+                app:voiceIcon="@drawable/ic_user"/>
 
         </LinearLayout>
 
@@ -111,7 +121,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/kategori"
                         android:textSize="12sp"
-                        android:textColor="@color/primary"
                         android:fontFamily="@font/montserrat_semi_bold"/>
 
                     <!--Quick Item Selection-->
@@ -197,7 +206,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
-                                    android:text="@string/gorengan"
+                                    android:text="Burger"
                                     android:textSize="12sp"
                                     android:fontFamily="@font/montserrat_semi_bold"/>
 
@@ -257,7 +266,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:listitem="@layout/list_menu"
-                        tools:itemCount="4"
+                        android:paddingBottom="100dp"
                         android:clipToPadding="false"/>
 
                 </LinearLayout>
@@ -291,7 +300,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@color/purple_200"
+        app:itemIconTint="@color/primary"
         app:itemTextColor="@color/text_light_color"
         app:headerLayout="@layout/nav_header"
         android:scrollbarThumbVertical="@android:color/transparent"
