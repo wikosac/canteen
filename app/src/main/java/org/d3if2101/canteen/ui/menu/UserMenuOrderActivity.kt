@@ -2,16 +2,15 @@ package org.d3if2101.canteen.ui.menu
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.TimePicker
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
@@ -20,10 +19,8 @@ import org.d3if2101.canteen.databinding.ActivityUserMenuOrderBinding
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.payment.PaymentActivity
-import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
 
 class UserMenuOrderActivity : AppCompatActivity(),
     RecyclerOrderItemAdapter.OnItemClickListener,

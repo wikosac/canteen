@@ -1,21 +1,21 @@
 package org.d3if2101.canteen.ui.payment
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.widget.SwitchCompat
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerSavedCardsAdapter
 import org.d3if2101.canteen.datamodels.SavedCardItem
-import org.d3if2101.canteen.services.DatabaseHandler
 
 class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemClickListener {
 

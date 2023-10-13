@@ -2,20 +2,23 @@ package org.d3if2101.canteen.ui.payment
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class OrderDoneActivity : AppCompatActivity() {
 

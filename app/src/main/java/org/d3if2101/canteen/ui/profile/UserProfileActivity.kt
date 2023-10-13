@@ -1,23 +1,18 @@
 package org.d3if2101.canteen.ui.profile
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
-import com.bumptech.glide.load.engine.Resource
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
-import java.lang.Exception
 import org.d3if2101.canteen.R
 
 

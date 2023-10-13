@@ -1,6 +1,5 @@
 package org.d3if2101.canteen.ui.payment
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
