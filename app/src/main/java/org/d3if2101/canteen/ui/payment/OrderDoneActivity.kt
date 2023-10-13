@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.R
+import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
@@ -24,6 +26,7 @@ class OrderDoneActivity : AppCompatActivity() {
 
     private lateinit var completeLL: LinearLayout
     private lateinit var processingLL: LinearLayout
+    private lateinit var databaseHandler: DatabaseHandler
 
     private lateinit var orderStatusTV: TextView
     private lateinit var orderIDTV: TextView
@@ -38,6 +41,8 @@ class OrderDoneActivity : AppCompatActivity() {
     private var orderID = ""
     private var orderDate = ""
 
+    private lateinit var binding: ActivityOrderDoneBinding
+
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, MenuActivity::class.java)
@@ -47,7 +52,8 @@ class OrderDoneActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_done)
+        binding = ActivityOrderDoneBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         completeLL = findViewById(R.id.order_done_complete_ll)
         processingLL = findViewById(R.id.order_done_processing_ll)
@@ -83,6 +89,11 @@ class OrderDoneActivity : AppCompatActivity() {
 //        findViewById<ImageView>(R.id.order_done_share_iv).setOnClickListener { shareOrder() }
         findViewById<LinearLayout>(R.id.order_done_cancel_order_ll).setOnClickListener { cancelCurrentOrder() }
         findViewById<LinearLayout>(R.id.order_done_contact_us_ll).setOnClickListener { contactUs() }
+
+        databaseHandler = DatabaseHandler(this)
+        databaseHandler.readOrderData()
+
+        binding.btnBack.setOnClickListener { openMainActivity() }
     }
 
     private fun generateOrderID() {
@@ -110,7 +121,13 @@ class OrderDoneActivity : AppCompatActivity() {
     }
 
     private fun saveOrderRecordToDatabase() {
-        val item = OrderHistoryItem(orderDate, orderID, "Order Successful", paymentMethod, "\$%.2f".format(subTotalPrice))
+        val item = OrderHistoryItem(
+            orderDate,
+            orderID,
+            "Order Successful",
+            paymentMethod,
+            "Rp%.2f".format(subTotalPrice)
+        )
         val db = DatabaseHandler(this)
         db.insertOrderData(item)
 
@@ -136,7 +153,7 @@ class OrderDoneActivity : AppCompatActivity() {
     private fun cancelCurrentOrder() {
         AlertDialog.Builder(this)
             .setTitle("Order Cancellation")
-            .setMessage("Are you sure you want to cancel this order?")
+            .setMessage("Apa kamu yakin membatalkan pesanan ini?")
             .setPositiveButton("Yes, Cancel Order", DialogInterface.OnClickListener { _, _ ->
                 val result = DatabaseHandler(this).deleteCurrentOrderRecord(orderID)
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
@@ -173,7 +190,10 @@ class OrderDoneActivity : AppCompatActivity() {
 //        startActivity(Intent(this, ContactUsActivity::class.java))
     }
 
-    fun openMainActivity(view: View) {onBackPressed()}
+    fun openMainActivity() {
+        startActivity(Intent(this, MenuActivity::class.java))
+        finish()
+    }
 
     private fun getOrderItemNames(): String {
         //stores all the item names in a single string separated by (;)

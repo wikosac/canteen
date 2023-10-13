@@ -23,6 +23,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.children
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerFoodItemAdapter
+import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.databinding.ActivityMainMenuBinding
 import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.datamodels.CartItem
@@ -96,14 +98,14 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
         drawerLayout = binding.drawerLayout
 
-        with (binding) {
-            topWishNameTv.text = user.displayName
-            btnCart.setOnClickListener { showBottomDialog() }
-            menuUserIcon.setOnClickListener { openUserProfileActivity() }
+        viewModel.getUserWithToken(user.uid).observe(this@MenuActivity) {
+            binding. topWishNameTv.text = it.nama
+            bindingNav.navHeaderUserName.text = it.nama
         }
 
-        with (bindingNav) {
-            navHeaderUserName.text
+        with (binding) {
+            btnCart.setOnClickListener { showBottomDialog() }
+            menuUserIcon.setOnClickListener { openUserProfileActivity() }
         }
 
         db.clearCartTable()

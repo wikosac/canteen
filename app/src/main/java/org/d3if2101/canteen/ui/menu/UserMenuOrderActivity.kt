@@ -88,10 +88,10 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     private fun loadOrderDetails() {
         totalItemsTV.text = "$totalItems items"
-        totalPriceTV.text = "\$%.2f".format(totalPrice)
-        totalTaxTV.text = "\$%.2f".format(totalTax)
-        subTotalTV.text = "\$%.2f".format(totalPrice+totalTax)
-        proceedToPayBtn.text = "Proceed to Pay \$%.2f".format(totalPrice+totalTax)
+        totalPriceTV.text = "Rp%.2f".format(totalPrice)
+        totalTaxTV.text = "Rp%.2f".format(totalTax)
+        subTotalTV.text = "Rp%.2f".format(totalPrice+totalTax)
+        proceedToPayBtn.text = "Bayar Rp%.2f".format(totalPrice+totalTax)
     }
 
     private fun loadRecyclerAdapter() {
@@ -146,7 +146,7 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     override fun emptyOrder() {
         AlertDialog.Builder(this)
-            .setMessage("Your order is now empty. Add some items from the food menu and place the order.")
+            .setMessage("Pesananmu masih kosong. Tambahkan beberapa menu.")
             .setPositiveButton("Ok") { _, _ ->
                 onBackPressed()
             }
@@ -161,5 +161,6 @@ class UserMenuOrderActivity : AppCompatActivity(),
         intent.putExtra("subTotalPrice", recyclerAdapter.getSubTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
+        finish()
     }
 }

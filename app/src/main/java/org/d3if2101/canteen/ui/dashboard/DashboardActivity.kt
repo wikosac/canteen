@@ -31,9 +31,7 @@ class DashboardActivity : AppCompatActivity() {
             btnKantin1.setOnClickListener { navTo("kantin1") }
             btnKantin2.setOnClickListener { navTo("kantin2") }
             btnKantin3.setOnClickListener { navTo("kantin3") }
-            btnKantin4.setOnClickListener {
-                startActivity(Intent(this@DashboardActivity, MainPenjualActivity::class.java))
-            }
+            btnKantin4.setOnClickListener { navTo("kantin4") }
         }
     }
 

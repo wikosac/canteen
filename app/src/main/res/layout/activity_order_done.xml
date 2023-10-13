@@ -6,7 +6,7 @@
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.OrderDone">
+    tools:context=".ui.payment.OrderDoneActivity">
 
     <LinearLayout
         android:id="@+id/order_done_complete_ll"
@@ -21,14 +21,14 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:src="@drawable/ic_arrow_upward"
                 android:rotation="-90"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="openMenuActivity"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/order_done_show_qr_iv"

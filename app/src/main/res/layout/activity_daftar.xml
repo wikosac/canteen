@@ -80,6 +80,7 @@
             android:id="@+id/add_telepon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             style="@style/TextInputEditText" />
     </com.google.android.material.textfield.TextInputLayout>
 

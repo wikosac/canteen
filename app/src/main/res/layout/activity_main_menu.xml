@@ -265,7 +265,7 @@
                         android:id="@+id/items_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:listitem="@layout/list_menu"
+                        tools:listitem="@layout/list_menu_item"
                         android:paddingBottom="100dp"
                         android:clipToPadding="false"/>
 

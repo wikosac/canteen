@@ -62,7 +62,7 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
 
         totalPaymentTV = findViewById(R.id.total_payment_tv)
-        totalPaymentTV.text = "\$%.2f".format(subTotalPrice)
+        totalPaymentTV.text = "Rp%.2f".format(subTotalPrice)
 
         cashPaymentRB = findViewById(R.id.cash_payment_radio_btn)
 

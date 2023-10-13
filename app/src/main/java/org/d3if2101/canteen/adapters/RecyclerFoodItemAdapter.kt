@@ -35,7 +35,7 @@ class RecyclerFoodItemAdapter (
         val itemPriceTv: TextView = itemView.findViewById(R.id.item_price)
         val itemStarsTv: TextView = itemView.findViewById(R.id.item_stars)
         val itemShortDesc: TextView = itemView.findViewById(R.id.item_short_desc)
-        val itemQuantityTv: TextView = itemView.findViewById(R.id.item_quantity)
+        val itemQuantityTv: TextView = itemView.findViewById(R.id.item_quantity_tv)
         val itemQuantityIncreaseIV: ImageView =
             itemView.findViewById(R.id.increase_item_quantity_iv)
         val itemQuantityDecreaseIV: ImageView =
@@ -44,8 +44,8 @@ class RecyclerFoodItemAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_menu, parent, false)
-        fullItemList = ArrayList<MenuItem>(itemList)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_menu_item, parent, false)
+        fullItemList = ArrayList(itemList)
         return ItemListViewHolder(itemView)
     }
 
@@ -56,7 +56,7 @@ class RecyclerFoodItemAdapter (
         else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageTv)
 
         holder.itemNameTv.text = currentItem.itemName
-        holder.itemPriceTv.text = "$${currentItem.itemPrice}"
+        holder.itemPriceTv.text = "Rp${currentItem.itemPrice}"
         holder.itemStarsTv.text = currentItem.itemStars.toString()
         holder.itemShortDesc.text = currentItem.itemShortDesc
         holder.itemQuantityTv.text = currentItem.quantity.toString()

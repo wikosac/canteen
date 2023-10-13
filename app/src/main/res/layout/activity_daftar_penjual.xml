@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:text="@string/daftar"
+        android:text="@string/daftar_akun_penjual"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,6 +80,7 @@
             android:id="@+id/add_telepon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             style="@style/TextInputEditText" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/buat_akun"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent" />
 

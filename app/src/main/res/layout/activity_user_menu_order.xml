@@ -29,6 +29,7 @@
             android:id="@+id/user_menu_order_help_iv"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:visibility="invisible"
             android:src="@drawable/ic_user"
             app:tint="@color/text_dark_color"
             app:layout_constraintEnd_toEndOf="parent"

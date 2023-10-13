@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
-
-class RecyclerOrderHistoryAdapter(var context: Context, private var orderHistoryList: ArrayList<OrderHistoryItem>) :
-    RecyclerView.Adapter<RecyclerOrderHistoryAdapter.ItemListViewHolder>() {
+class RecyclerOrderHistoryAdapter(
+    var context: Context,
+    private var orderHistoryList: ArrayList<OrderHistoryItem>
+) : RecyclerView.Adapter<RecyclerOrderHistoryAdapter.ItemListViewHolder>() {
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateTV = itemView.findViewById<TextView>(R.id.order_history_item_date_tv)
@@ -35,7 +36,6 @@ class RecyclerOrderHistoryAdapter(var context: Context, private var orderHistory
         holder.orderStatusTV.text = currentItem.orderStatus
         holder.orderPaymentTV.text = currentItem.orderPayment
         holder.priceTV.text = currentItem.price
-
     }
 
     override fun getItemCount(): Int = orderHistoryList.size

@@ -43,7 +43,7 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setContent() {
-        viewModel.getUser(this).observe(this) { user ->
+        viewModel.getUserWithToken(FirebaseAuth.getInstance().currentUser!!.uid).observe(this) { user ->
             with(binding) {
                 Glide.with(this@UserProfileActivity).load(user.foto).into(profileUserIcon)
                 profileTopNameTv.text = user.nama
