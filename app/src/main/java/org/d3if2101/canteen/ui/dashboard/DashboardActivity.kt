@@ -24,7 +24,9 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel.getTokenPref().observe(this) { token ->
-            Log.d(TAG, "onCreate: $token")
+            viewModel.getUserWithToken(token!!).observe(this) {
+                binding.txtGreeting.text = "Selamat datang, ${it.nama}"
+            }
         }
 
         with(binding) {

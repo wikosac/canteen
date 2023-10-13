@@ -43,14 +43,20 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     private fun setContent() {
-        viewModel.getUserWithToken(FirebaseAuth.getInstance().currentUser!!.uid).observe(this) { user ->
-            with(binding) {
-                Glide.with(this@UserProfileActivity).load(user.foto).into(profileUserIcon)
-                profileTopNameTv.text = user.nama
-                profileTopEmailTv.text = user.email
-                txtTelpProfile.text = user.noTelpon
-//                txtNameProfile.text
-            }
+        viewModel.getTokenPref().observe(this) {
+            viewModel.getUserWithToken(it!!)
+                .observe(this) { user ->
+                    with(binding) {
+                        Glide.with(this@UserProfileActivity)
+                            .load(user.foto)
+                            .error(R.drawable.default_item_image)
+                            .into(profileUserIcon)
+                        profileTopNameTv.text = user.nama
+                        profileTopEmailTv.text = user.email
+                        txtNameProfile.text = user.nama
+                        txtTelpProfile.text = user.noTelpon
+                    }
+                }
         }
     }
 

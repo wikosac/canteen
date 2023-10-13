@@ -99,7 +99,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         drawerLayout = binding.drawerLayout
 
         viewModel.getUserWithToken(user.uid).observe(this@MenuActivity) {
-            binding. topWishNameTv.text = it.nama
+            binding.topWishNameTv.text = it.nama
             bindingNav.navHeaderUserName.text = it.nama
         }
 
@@ -302,9 +302,9 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
     private fun logOutUser() {
         AlertDialog.Builder(this)
-            .setTitle("Attention")
-            .setMessage("Are you sure you want to Log Out ? You will lose all your Orders, as it is a demo App")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle("Peringatan")
+            .setMessage("Apa kamu yakin untuk Log Out?")
+            .setPositiveButton("Ya") { _, _ ->
                 Firebase.auth.signOut()
 
                 getSharedPreferences("settings", MODE_PRIVATE).edit().clear()
@@ -323,7 +323,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 startActivity(Intent(this, Login::class.java))
                 finish()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }.create().show()
     }
