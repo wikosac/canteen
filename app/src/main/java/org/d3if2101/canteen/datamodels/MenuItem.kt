@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.datamodels
 
 data class MenuItem(
+    var sellerID: String = "SELLER_ID",
     var itemID: String = "ITEM_ID",
     var imageUrl: String = "IMAGE_URL",
     var itemName: String = "ITEM_NAME",

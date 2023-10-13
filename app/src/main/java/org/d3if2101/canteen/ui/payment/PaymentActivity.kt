@@ -42,12 +42,12 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
             .setIcon(R.drawable.baseline_warning_amber_24)
             .setTitle("Alert!")
             .setMessage("Do you want to cancel the payment?")
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("Yes") { _, _ ->
                 super.onBackPressed()
-            })
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, _ ->
+            }
+            .setNegativeButton("No") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
+            }
             .create().show()
     }
 
@@ -67,15 +67,6 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
         cashPaymentRB = findViewById(R.id.cash_payment_radio_btn)
 
         setupPaymentButtons()
-
-        savedCardsRecyclerAdapter = RecyclerSavedCardsAdapter(
-            this,
-            savedCardItems,
-            subTotalPrice,
-            this
-        )
-        savedCardRecyclerView.adapter = savedCardsRecyclerAdapter
-        savedCardRecyclerView.layoutManager = LinearLayoutManager(this@PaymentActivity)
 
         findViewById<ImageView>(R.id.payment_go_back_iv).setOnClickListener { onBackPressed() }
     }

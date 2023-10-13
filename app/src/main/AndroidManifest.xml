@@ -80,6 +80,9 @@
         <activity
             android:name=".ui.penjual.homeadminproduk.edititem.EditItemActivity"
             android:exported="false" />
+        <activity android:name=".ui.menu.UserMenuOrderActivity"/>
+        <activity android:name=".ui.payment.PaymentActivity"/>
+        <activity android:name=".ui.payment.OrderDoneActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

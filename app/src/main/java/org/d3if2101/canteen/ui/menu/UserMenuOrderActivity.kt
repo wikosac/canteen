@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderItemAdapter
+import org.d3if2101.canteen.databinding.ActivityUserMenuOrderBinding
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.payment.PaymentActivity
@@ -24,7 +25,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UserMenuOrderActivity : AppCompatActivity(), RecyclerOrderItemAdapter.OnItemClickListener, TimePickerDialog.OnTimeSetListener {
+class UserMenuOrderActivity : AppCompatActivity(),
+    RecyclerOrderItemAdapter.OnItemClickListener,
+    TimePickerDialog.OnTimeSetListener {
 
     private lateinit var itemRecyclerView: RecyclerView
     private lateinit var recyclerAdapter: RecyclerOrderItemAdapter
@@ -40,23 +43,26 @@ class UserMenuOrderActivity : AppCompatActivity(), RecyclerOrderItemAdapter.OnIt
     private var totalItems: Int = 0
     private var totalTax: Float = 0F
 
+    private lateinit var binding: ActivityUserMenuOrderBinding
+
     override fun onBackPressed() {
         AlertDialog.Builder(this)
             .setIcon(R.drawable.baseline_warning_amber_24)
             .setTitle("Alert!")
             .setMessage("Do you want to cancel your order?")
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {_, _ ->
+            .setPositiveButton("Yes") { _, _ ->
                 super.onBackPressed()
-            })
-            .setNegativeButton("No", DialogInterface.OnClickListener {dialogInterface, _ ->
+            }
+            .setNegativeButton("No") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
+            }
             .create().show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_menu_order)
+        binding = ActivityUserMenuOrderBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         totalItemsTV = findViewById(R.id.order_total_items_tv)
         totalPriceTV = findViewById(R.id.order_total_price_tv)
@@ -79,6 +85,8 @@ class UserMenuOrderActivity : AppCompatActivity(), RecyclerOrderItemAdapter.OnIt
         findViewById<ImageView>(R.id.user_menu_order_help_iv).setOnClickListener {
 //            startActivity(Intent(this, ContactUsActivity::class.java))
         }
+
+        binding.proceedToPayBtn.setOnClickListener { openPaymentActivity() }
     }
 
     private fun loadOrderDetails() {
@@ -142,21 +150,19 @@ class UserMenuOrderActivity : AppCompatActivity(), RecyclerOrderItemAdapter.OnIt
     override fun emptyOrder() {
         AlertDialog.Builder(this)
             .setMessage("Your order is now empty. Add some items from the food menu and place the order.")
-            .setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("Ok") { _, _ ->
                 onBackPressed()
-            })
+            }
             .setCancelable(false)
             .create().show()
     }
 
-    fun openPaymentActivity(view: View) {
-
+    fun openPaymentActivity() {
         val intent = Intent(this, PaymentActivity::class.java)
         intent.putExtra("totalItemPrice", recyclerAdapter.getTotalItemPrice())
         intent.putExtra("totalTaxPrice", recyclerAdapter.getTotalTax())
         intent.putExtra("subTotalPrice", recyclerAdapter.getSubTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
-
     }
 }

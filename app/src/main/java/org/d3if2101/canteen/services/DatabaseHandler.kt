@@ -57,6 +57,7 @@ const val COL_SAVED_CARD_HOLDER_NAME = "card_holder_name"
 const val COL_SAVED_CARD_EXPIRY_DATE = "expiry_date"
 
 class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
+
     override fun onCreate(db: SQLiteDatabase?) {
 
         val createOfflineMenuTable = "CREATE TABLE $OFFLINE_FOOD_MENU_TABLE_NAME (" +
@@ -117,6 +118,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         onCreate(db)
     }
 
+//    cart
     fun insertCartItem(item: CartItem) {
         val db = this.writableDatabase
 
@@ -195,6 +197,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
+//    offline menu
     fun insertOfflineMenuData(item: MenuItem) {
         val db = this.writableDatabase
         val cv = ContentValues()
@@ -251,6 +254,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
+//    order
     fun insertCurrentOrdersData(item: CurrentOrderItem) {
         val db = this.writableDatabase
         val cv = ContentValues()
@@ -327,6 +331,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
+//    history
     fun insertOrderData(item: OrderHistoryItem) {
         val db = this.writableDatabase
         val cv = ContentValues()
@@ -380,6 +385,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
+//    card
     fun insertSavedCardDetails(item: SavedCardItem): Int {
         val db = this.writableDatabase
 

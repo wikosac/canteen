@@ -233,8 +233,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:fontFamily="@font/montserrat_semi_bold"
-                android:backgroundTint="@color/primary"
-                android:onClick="openPaymentActivity"/>
+                android:backgroundTint="@color/primary"/>
 
         </LinearLayout>
 

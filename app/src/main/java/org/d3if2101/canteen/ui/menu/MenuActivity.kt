@@ -85,7 +85,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
     private lateinit var progressDialog: ProgressDialog
 
-    private lateinit var listProduk: ArrayList<Produk>
+//    private lateinit var listProduk: ArrayList<Produk>
     private lateinit var databaseReference: DatabaseReference
     private lateinit var binding: ActivityMainMenuBinding
     private val factory: ViewModelFactory by lazy {
@@ -97,24 +97,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //
-        auth = FirebaseAuth.getInstance()
-        databaseRef = FirebaseDatabase.getInstance().reference
-
-        db.clearCartTable()
-        loadProfile()
-        loadNavigationDrawer()
-        loadSearchTask()
-
-        userIcon = findViewById(R.id.menu_user_icon)
-        userIcon.setOnClickListener {
-            openUserProfileActivity()
-        }
-        //
-
-//        binding.itemsRecyclerView.layoutManager = LinearLayoutManager(this)
-//        listProduk = arrayListOf()
 
         databaseReference = FirebaseDatabase.getInstance().getReference("produk")
         databaseReference.addValueEventListener(object : ValueEventListener {
@@ -133,6 +115,24 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 Toast.makeText(this@MenuActivity, error.toString(), Toast.LENGTH_SHORT).show()
             }
         })
+
+        //
+        auth = FirebaseAuth.getInstance()
+        databaseRef = FirebaseDatabase.getInstance().reference
+
+        db.clearCartTable()
+        loadProfile()
+        loadNavigationDrawer()
+        loadSearchTask()
+
+        userIcon = findViewById(R.id.menu_user_icon)
+        userIcon.setOnClickListener {
+            openUserProfileActivity()
+        }
+        //
+
+//        binding.itemsRecyclerView.layoutManager = LinearLayoutManager(this)
+//        listProduk = arrayListOf()
     }
 
     companion object {
@@ -338,7 +338,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                recyclerFoodAdapter.filter.filter(p0)
+//                recyclerFoodAdapter.filter.filter(p0)
                 return false
             }
         })
@@ -467,12 +467,35 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         db.insertCartItem (
             CartItem(
                 itemID = item.itemID,
-                itemName = item.itemName
+                itemName = item.itemName,
+                imageUrl = item.imageUrl,
+                itemPrice = item.itemPrice,
+                quantity = item.quantity,
+                itemStars = item.itemStars,
+                itemShortDesc = item.itemShortDesc
             )
         )
     }
 
     override fun onMinusBtnClick(item: MenuItem) {
+        if (item.quantity == 0) return
+        item.quantity -= 1
+
+        val cartItem = CartItem(
+            itemID = item.itemID,
+            itemName = item.itemName,
+            imageUrl = item.imageUrl,
+            itemPrice = item.itemPrice,
+            quantity = item.quantity,
+            itemStars = item.itemStars,
+            itemShortDesc = item.itemShortDesc
+        )
+
+        if (item.quantity == 0) {
+            db.deleteCartItem(cartItem)
+        } else {
+            db.insertCartItem(cartItem) // Update
+        }
     }
 }
 
