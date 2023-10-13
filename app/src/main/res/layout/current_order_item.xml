@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/waktu_pemesanan"
+                android:text="Take-away time"
                 android:textSize="13sp"
                 android:textColor="@color/text_light_color"/>
 
@@ -31,7 +31,7 @@
                 android:id="@+id/current_order_item_take_away_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/jam"
+                android:text="10:32 AM"
                 android:textSize="16sp"
                 android:textColor="@color/text_dark_color"
                 android:fontFamily="@font/montserrat_semi_bold"/>
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pembayaran"
+                android:text="Payment"
                 android:textSize="13sp"
                 android:textColor="@color/text_light_color"/>
 
@@ -54,7 +54,7 @@
                 android:id="@+id/current_order_item_payment_status_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pesanan_selesai"
+                android:text="Done"
                 android:textSize="16sp"
                 android:textColor="@color/text_dark_color"
                 android:fontFamily="@font/montserrat_semi_bold"/>
@@ -66,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="@string/noPesanan"
+            android:text="MQ6183"
             android:textSize="18sp"
             android:textColor="@color/primary"
             android:fontFamily="@font/montserrat_semi_bold"
@@ -93,14 +93,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/nama_item"
+                    android:text="Item Name"
                     android:singleLine="true"
                     android:textColor="@color/text_light_color"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/kuantitas"
+                    android:text="Qty"
                     android:textAlignment="textEnd"
                     android:textColor="@color/text_light_color"/>
 
@@ -146,6 +146,13 @@
             android:orientation="horizontal"
             android:layout_marginTop="5dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tax"
+                android:textSize="15sp"
+                android:textColor="@color/text_dark_color"
+                android:fontFamily="@font/montserrat_semi_bold"/>
 
             <TextView
                 android:id="@+id/current_order_item_total_tax_tv"
@@ -170,6 +177,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sub_total"
+                android:textSize="15sp"
+                android:textColor="@color/text_dark_color"
+                android:fontFamily="@font/montserrat_semi_bold"/>
 
             <TextView
                 android:id="@+id/current_order_item_sub_total_tv"
@@ -207,6 +221,25 @@
             android:textColor="@color/white"
             android:backgroundTint="#D83838"
             app:icon="@drawable/ic_cancel"
+            app:iconTint="@color/white"
+            app:iconSize="20dp"
+            app:iconPadding="0dp"
+            android:gravity="center"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/current_order_item_show_qr_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="0dp"
+            app:elevation="0dp"
+            android:minHeight="10dp"
+            android:text="Show QR"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:icon="@drawable/baseline_qr_code_24"
             app:iconTint="@color/white"
             app:iconSize="20dp"
             app:iconPadding="0dp"

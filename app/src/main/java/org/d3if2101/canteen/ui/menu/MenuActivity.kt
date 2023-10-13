@@ -23,7 +23,6 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.children
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -36,7 +35,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerFoodItemAdapter
-import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.databinding.ActivityMainMenuBinding
 import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.datamodels.CartItem
@@ -45,6 +43,8 @@ import org.d3if2101.canteen.interfaces.MenuApi
 import org.d3if2101.canteen.interfaces.RequestType
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.services.FirebaseDBService
+import org.d3if2101.canteen.ui.MyCurrentOrdersActivity
+import org.d3if2101.canteen.ui.OrdersHistoryActivity
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
@@ -148,44 +148,24 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 R.id.nav_food_menu -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
-//                R.id.nav_profile -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    Handler(Looper.getMainLooper()).postDelayed({ openUserProfileActivity() }, drawerDelay)
-//                }
-//                R.id.nav_my_orders -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    Handler().postDelayed({
-//                        startActivity(Intent(this, MyCurrentOrdersActivity::class.java))
-//                    }, drawerDelay)
-//                }
-//                R.id.nav_orders_history -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    Handler().postDelayed({
-//                        startActivity(Intent(this, OrdersHistoryActivity::class.java))
-//                    }, drawerDelay)
-//                }
-//                R.id.nav_share_app -> {
-//                    shareApp()
-//                }
-//                R.id.nav_report_bug -> {
-//                    Toast.makeText(this, "Not Available", Toast.LENGTH_SHORT).show()
-//                }
-//                R.id.nav_contact_us -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    Handler().postDelayed({
-//                        startActivity(Intent(this, ContactUsActivity::class.java))
-//                    }, drawerDelay)
-//                }
-//                R.id.nav_update_menu -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    updateOfflineFoodMenu()
-//                }
-//                R.id.nav_settings -> {
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    Handler().postDelayed({
-//                        startActivity(Intent(this, SettingsActivity::class.java))
-//                    }, drawerDelay)
-//                }
+                R.id.nav_profile -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        openUserProfileActivity()
+                    }, drawerDelay)
+                }
+                R.id.nav_my_orders -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startActivity(Intent(this, MyCurrentOrdersActivity::class.java))
+                    }, drawerDelay)
+                }
+                R.id.nav_orders_history -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startActivity(Intent(this, OrdersHistoryActivity::class.java))
+                    }, drawerDelay)
+                }
                 R.id.nav_log_out -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     logOutUser()

@@ -2,10 +2,8 @@ package org.d3if2101.canteen.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import org.d3if2101.canteen.MainPenjualActivity
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.LoginViewModel
