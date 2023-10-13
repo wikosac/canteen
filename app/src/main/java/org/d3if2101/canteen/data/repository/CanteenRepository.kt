@@ -119,7 +119,8 @@ class CanteenRepository private constructor(
         email: String,
         nama: String,
         noTelpon: String,
-        foto: String
+        foto: String,
+        role: String
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
         try {
@@ -130,7 +131,7 @@ class CanteenRepository private constructor(
                     foto = foto,
                     nama = nama,
                     noTelpon = noTelpon,
-                    role = "pembeli",
+                    role = role,
                 ),
             ).addOnCompleteListener { task ->
                 if (task.isSuccessful) {

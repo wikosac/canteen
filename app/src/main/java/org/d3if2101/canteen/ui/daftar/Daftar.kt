@@ -25,25 +25,28 @@ class Daftar : AppCompatActivity() {
 
         binding.tvSudahAdaAkun.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
+            finish()
         }
 
         binding.txtDaftarPenjual.setOnClickListener {
             startActivity(Intent(this, DaftarPenjualActivity::class.java))
+            finish()
         }
 
-        binding.tvButtonLogin.setOnClickListener { login() }
+        binding.tvButtonLogin.setOnClickListener { register() }
 
     }
 
-    private fun login() {
+    private fun register() {
         val nama = binding.addNama.text.toString()
         val email = binding.addEmail.text.toString()
         val telp = binding.addTelepon.text.toString()
         val sandi = binding.addPassword.text.toString()
+        val role = "Pembeli"
 
         viewModel.signUpUser(email, sandi).observe(this) {
             if (it.message.lowercase() == "success") {
-                viewModel.insertToDB(email, nama, telp)
+                viewModel.insertToDB(email, nama, telp, role)
                 startActivity(Intent(this, Login::class.java))
             }
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()

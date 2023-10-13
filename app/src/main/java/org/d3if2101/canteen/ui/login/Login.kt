@@ -53,8 +53,10 @@ class Login : AppCompatActivity() {
                 viewModel.saveTokenPref(user.uid)
                 if (user.role == "penjual") {
                     startActivity(Intent(this, DashboardPenjualActivity::class.java))
+                    finish()
                 } else {
                     startActivity(Intent(this, DashboardActivity::class.java))
+                    finish()
                 }
                 Toast.makeText(this, "Selamat Datang ${user.nama}", Toast.LENGTH_SHORT).show()
             }

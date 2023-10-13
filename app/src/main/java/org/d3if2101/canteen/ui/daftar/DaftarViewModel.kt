@@ -17,8 +17,9 @@ class DaftarViewModel(private val canteenRepository: CanteenRepository) : ViewMo
     fun insertToDB(
         email: String,
         nama: String,
-        noTelpon: String
+        noTelpon: String,
+        role: String
     ): LiveData<Message> {
-        return canteenRepository.inputUserToDatabase(email, nama, noTelpon, "foto")
+        return canteenRepository.inputUserToDatabase(email, nama, noTelpon, "foto", role)
     }
 }

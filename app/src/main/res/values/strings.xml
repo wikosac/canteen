@@ -226,4 +226,6 @@
     <string name="default_date">09/23</string>
     <string name="makanan">Makanan</string>
     <string name="camilan">Camilan</string>
+    <string name="daftar_akun_sebagai_penjual">Daftar akun sebagai penjual</string>
+    <string name="daftar_akun_sebagai_pembeli">Daftar akun sebagai pembeli</string>
 </resources>

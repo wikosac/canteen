@@ -130,7 +130,7 @@
                                     android:fontFamily="@font/montserrat_bold"
                                     android:textSize="12sp"/>
                                 <TextView
-                                    android:id="@+id/profile_reg_id_tv"
+                                    android:id="@+id/txt_name_profile"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Ijat785"
@@ -176,7 +176,7 @@
                                     android:fontFamily="@font/montserrat_bold"
                                     android:textSize="12sp"/>
                                 <TextView
-                                    android:id="@+id/profile_telp"
+                                    android:id="@+id/txt_telp_profile"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Ijat785"
