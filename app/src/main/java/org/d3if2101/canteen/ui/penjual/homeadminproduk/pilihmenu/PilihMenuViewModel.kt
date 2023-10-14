@@ -19,7 +19,7 @@ class PilihMenuViewModel(private val canteenRepository: CanteenRepository) : Vie
 
     fun getDataFromDB() {
         canteenRepository.getProdukFromDB().observeForever {
-            val filteredList = it.filter { produk -> stringReceived.value == produk.jenis }
+            val filteredList = it.filter { produk -> stringReceived.value == produk.itemTag }
             produkLiveData.postValue(filteredList)
         }
     }

@@ -78,14 +78,14 @@ class PilihMenuActivity : AppCompatActivity() {
 
                     val photoViewPopup = dialogView.findViewById<ImageView>(R.id.iv_Produk)
                     Picasso.get()
-                        .load(data.gambar)
+                        .load(data.imageUrl)
                         .into(photoViewPopup)
 
                     val textTitle = dialogView.findViewById<TextView>(R.id.tv_Produk)
-                    textTitle.text = data.nama
+                    textTitle.text = data.itemName
 
                     val textHarga = dialogView.findViewById<TextView>(R.id.tv_ProdukHarga)
-                    textHarga.text = data.harga.toString()
+                    textHarga.text = data.itemPrice.toString()
 
                     val btnEdit = dialogView.findViewById<Button>(R.id.btnEdit)
                     btnEdit.setOnClickListener {
@@ -99,7 +99,7 @@ class PilihMenuActivity : AppCompatActivity() {
 
                     val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
                     btnDelete.setOnClickListener {
-                        viewModel.deleteProdukByID(data.id)
+                        viewModel.deleteProdukByID(data.itemID)
                         viewModel.getDataFromDB()
                         showDeleteConfirmationSnackbar(
                             data
@@ -121,11 +121,11 @@ class PilihMenuActivity : AppCompatActivity() {
                 Snackbar.make(rootView, "Undo Deleted Item !", Snackbar.LENGTH_SHORT).show()
                 // Run Insert Data
                 viewModel.inputProduktoDB(
-                    deletedProduct.nama,
-                    deletedProduct.jenis,
-                    deletedProduct.harga.toString(),
-                    deletedProduct.gambar,
-                    deletedProduct.stok.toString()
+                    deletedProduct.itemName,
+                    deletedProduct.itemTag,
+                    deletedProduct.itemPrice.toString(),
+                    deletedProduct.imageUrl,
+                    deletedProduct.quantity.toString()
                 ).observe(this) {
                     if (it.message == "Success") {
                         viewModel.getDataFromDB()
