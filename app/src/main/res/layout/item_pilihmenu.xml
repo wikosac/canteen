@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
-    android:background="@color/white"
-    android:orientation="horizontal">
+    android:background="@drawable/bg_rounded"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_Produk"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/textContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/iv_Produk"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_ProdukRv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Pisang Goreng" />
 
         <TextView
             android:id="@+id/tv_SubProduk"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Rp.10.000" />
-
     </LinearLayout>
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/button_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:checked="false"
+        android:textColor="@color/bg_color"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="12sp"
+        android:thumbTint="@color/white"
+        android:trackTint="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_on"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:src="@drawable/off"
-            android:text="OFF"
-            android:textColor="@color/bg_color" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_off"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:background="@color/bg_color"
-            android:src="@drawable/on"
-            android:text="ON"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

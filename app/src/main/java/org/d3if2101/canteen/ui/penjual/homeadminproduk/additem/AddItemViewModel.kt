@@ -13,14 +13,14 @@ class AddItemViewModel(private val canteenRepository: CanteenRepository) : ViewM
         jenis: String,
         harga: String,
         image: Uri,
-        stock: String
+        deskripsi: String,
     ): LiveData<Message> {
         return canteenRepository.inputProdukToDatabase(
             namaProduk,
             jenis,
             harga,
             image,
-            stock
+            deskripsi,
         )
     }
 }

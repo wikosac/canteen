@@ -105,7 +105,7 @@
     <string name="pilih_kategori">PILIH KATEGORI</string>
     <string name="tolak">Tolak</string>
     <string name="terima">Terima</string>
-    <string name="upload_image"><u>Upload Image</u></string>
+    <string name="upload_image">Upload Image</string>
     <string name="stock">Stock</string>
     <string name="tax">Tax</string>
     <string name="show_this_qr_code_to_your_office_canteen">Show this qr\n</string>
@@ -235,4 +235,5 @@
     <string name="selesai">Selesai</string>
     <string name="riwayat_pesanan">Riwayat Pesanan</string>
     <string name="tanggal_pemesanan">Tanggal pemesanan</string>
+    <string name="deskripsi_produk">Deskripsi Produk</string>
 </resources>

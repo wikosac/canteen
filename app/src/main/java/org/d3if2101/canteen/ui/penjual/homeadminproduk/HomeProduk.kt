@@ -30,17 +30,10 @@ class HomeProduk : AppCompatActivity() {
 
     }
 
-    private fun searchNamaProduk() {
-
-    }
-
     private fun changeActivity(name: String) {
         val intent = Intent(this, PilihMenuActivity::class.java)
         intent.putExtra("produk", name)
         startActivity(intent)
     }
 
-    private fun menuBar() {
-
-    }
 }

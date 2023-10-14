@@ -18,7 +18,7 @@ class AddItemActivity : AppCompatActivity() {
     private lateinit var namaItem: String
     private lateinit var harga: String
     private var kategori: String = "Pilih Kategori"
-    private lateinit var stock: String
+    private lateinit var desc: String
 
 
     private val factory: ViewModelFactory by lazy {
@@ -48,7 +48,7 @@ class AddItemActivity : AppCompatActivity() {
 
         }
 
-        binding.footer.setOnClickListener {
+        binding.btnUpload.setOnClickListener {
             uploadProduk()
         }
 
@@ -70,10 +70,10 @@ class AddItemActivity : AppCompatActivity() {
     private fun uploadProduk() {
         namaItem = binding.namaItem.text.toString()
         harga = binding.namaHarga.text.toString()
-        stock = binding.stockInput.text.toString()
+        desc = binding.desc.text.toString()
 
-        if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && stock.isNotEmpty()) {
-            viewModel.inputProduktoDB(namaItem, kategori, harga, image, stock)
+        if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && desc.isNotEmpty()) {
+            viewModel.inputProduktoDB(namaItem, kategori, harga, image, desc)
                 .observe(this) { message ->
                     if (message.message == "Success") {
                         Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()

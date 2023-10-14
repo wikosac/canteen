@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
-import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.databinding.ActivityPilihMenuBinding
+import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemActivity
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.edititem.EditItemActivity
@@ -61,11 +61,39 @@ class PilihMenuActivity : AppCompatActivity() {
     }
 
 
-    private fun recyclerViewOn(produk: List<Produk>) {
+    private fun recyclerViewOn(produk: List<MenuItem>) {
         val adapter = PilihMenuAdapter(
             produk,
             object : PilihMenuAdapter.OnItemClickCallback {
-                override fun onItemClick(data: Produk) {
+                override fun onItemState(data: Boolean, dataProduct: MenuItem) {
+                    Log.d("Pilih", "Product $data")
+                    viewModel.editStateByID(
+                        dataProduct.itemID,
+                        dataProduct.itemName,
+                        dataProduct.itemTag,
+                        dataProduct.itemPrice.toString(),
+                        dataProduct.imageUrl,
+                        dataProduct.itemShortDesc,
+                        data
+                    ).observe(this@PilihMenuActivity) {
+                        if (it.message == "Success") {
+                            Toast.makeText(
+                                this@PilihMenuActivity,
+                                "Update Success",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this@PilihMenuActivity,
+                                "Update Failed",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                }
+
+                override fun onItemClick(data: MenuItem) {
                     val dialogBuilder = AlertDialog.Builder(this@PilihMenuActivity)
                     val inflater = LayoutInflater.from(this@PilihMenuActivity)
                     val dialogView = inflater.inflate(R.layout.popup_pilihmenu, null)
@@ -113,7 +141,7 @@ class PilihMenuActivity : AppCompatActivity() {
     }
 
     private fun showDeleteConfirmationSnackbar(
-        deletedProduct: Produk
+        deletedProduct: MenuItem
     ) {
         val rootView = findViewById<View>(android.R.id.content)
         val snackbar = Snackbar.make(rootView, "Undo Delete this item?", Snackbar.LENGTH_LONG)
@@ -125,7 +153,8 @@ class PilihMenuActivity : AppCompatActivity() {
                     deletedProduct.itemTag,
                     deletedProduct.itemPrice.toString(),
                     deletedProduct.imageUrl,
-                    deletedProduct.quantity.toString()
+                    deletedProduct.itemShortDesc,
+                    deletedProduct.status
                 ).observe(this) {
                     if (it.message == "Success") {
                         viewModel.getDataFromDB()

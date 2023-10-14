@@ -12,8 +12,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
-import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.data.model.UserModel
+import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class CanteenRepository private constructor(
@@ -150,22 +150,24 @@ class CanteenRepository private constructor(
         jenis: String,
         harga: String,
         image: String,
-        stock: String
+        desc: String,
+        state: Boolean
     ): LiveData<Message> {
 
         val uniqueID = firebaseDatabase.reference.push().key
         val data = MutableLiveData<Message>()
 
-        val produk = Produk(
+        val produk = MenuItem(
             sellerID = firebaseAuth.uid.toString(),
             itemID = uniqueID.toString(),
             imageUrl = image,
             itemName = namaProduk,
             itemPrice = harga.toFloat(),
-            itemShortDesc = "Deskripsi",
+            itemShortDesc = desc,
             itemTag = jenis,
             itemStars = 5.0F,
-            quantity = stock.toInt()
+            quantity = 0,
+            status = state
         )
 
         firebaseDatabase.getReference("produk").child(uniqueID.toString())
@@ -183,7 +185,7 @@ class CanteenRepository private constructor(
     }
 
     fun inputProdukToDatabase(
-        namaProduk: String, jenis: String, harga: String, image: Uri, stock: String
+        namaProduk: String, jenis: String, harga: String, image: Uri, deskripsi: String
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
         val fileName = namaProduk + image + System.currentTimeMillis()
@@ -201,16 +203,16 @@ class CanteenRepository private constructor(
 
                         val uniqueID = firebaseDatabase.reference.push().key
 
-                        val produk = Produk(
+                        val produk = MenuItem(
                             sellerID = firebaseAuth.uid.toString(),
                             itemID = uniqueID.toString(),
                             imageUrl = downloadUrl,
                             itemName = namaProduk,
                             itemPrice = harga.toFloat(),
-                            itemShortDesc = "Deskripsi",
+                            itemShortDesc = deskripsi,
                             itemTag = jenis,
                             itemStars = 5.0F,
-                            quantity = stock.toInt()
+                            quantity = 0
                         )
 
                         firebaseDatabase.getReference("produk").child(uniqueID.toString())
@@ -236,13 +238,51 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun editState(
+        idProduk: String,
+        namaProduk: String,
+        jenis: String,
+        harga: String,
+        image: String,
+        desc: String,
+        state: Boolean
+    ) : LiveData<Message> {
+        val data = MutableLiveData<Message>()
+
+        val produk = MenuItem(
+            sellerID = firebaseAuth.uid.toString(),
+            itemID = idProduk,
+            imageUrl = image,
+            itemName = namaProduk,
+            itemPrice = harga.toFloat(),
+            itemShortDesc = desc,
+            itemTag = jenis,
+            itemStars = 5.0F,
+            quantity = 0,
+            status = state
+        )
+
+        firebaseDatabase.getReference("produk").child(idProduk)
+            .setValue(produk)
+            .addOnCompleteListener { dbTask ->
+                if (dbTask.isSuccessful) {
+                    Log.d(TAG, "Data berhasil ditambahkan")
+                    data.value = Message("Success")
+                } else {
+                    Log.e(TAG, "Data gagal ditambahkan")
+                    data.value = Message("Failed")
+                }
+            }
+        return data
+    }
+
     fun editProductByID(
         idProduk: String,
         namaProduk: String,
         jenis: String,
         harga: String,
         image: Uri,
-        stock: String
+        desc: String
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
         val fileName = namaProduk + image + System.currentTimeMillis()
@@ -259,16 +299,16 @@ class CanteenRepository private constructor(
 
                         val uniqueID = firebaseDatabase.reference.push().key
 
-                        val produk = Produk(
+                        val produk = MenuItem(
                             sellerID = firebaseAuth.uid.toString(),
                             itemID = uniqueID.toString(),
                             imageUrl = downloadUrl,
                             itemName = namaProduk,
                             itemPrice = harga.toFloat(),
-                            itemShortDesc = "Deskripsi",
+                            itemShortDesc = desc,
                             itemTag = jenis,
                             itemStars = 5.0F,
-                            quantity = stock.toInt()
+                            quantity = 0
                         )
 
                         firebaseDatabase.getReference("produk").child(idProduk)
@@ -307,30 +347,37 @@ class CanteenRepository private constructor(
         return data
     }
 
-    fun getProdukFromDB(): LiveData<List<Produk>> {
-        val data = MutableLiveData<List<Produk>>()
+    fun getProdukFromDB(): LiveData<List<MenuItem>> {
+        val data = MutableLiveData<List<MenuItem>>()
         val produkRef = firebaseDatabase.getReference("produk")
         val firebaseAuthID = firebaseAuth.uid.toString()
 
         produkRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val produkList = mutableListOf<Produk>()
+                val produkList = mutableListOf<MenuItem>()
                 val dataSnapshot = task.result
 
                 // Periksa apakah DataSnapshot ada
                 if (dataSnapshot.exists()) {
                     for (childSnapshot in dataSnapshot.children) {
                         val id = childSnapshot.child("itemID").getValue(String::class.java) ?: ""
-                        val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java) ?: "IMAGE_URL"
-                        val itemPrice = childSnapshot.child("itemPrice").getValue(Float::class.java) ?: 0.0f
-                        val itemTag = childSnapshot.child("itemTag").getValue(String::class.java) ?: ""
-                        val itemShortDesc = childSnapshot.child("itemShortDesc").getValue(String::class.java) ?: ""
-                        val itemName = childSnapshot.child("itemName").getValue(String::class.java) ?: ""
-                        val sellerID = childSnapshot.child("sellerID").getValue(String::class.java) ?: ""
-                        val quantity = childSnapshot.child("quantity").getValue(Int::class.java) ?: 0
+                        val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
+                            ?: "IMAGE_URL"
+                        val itemPrice =
+                            childSnapshot.child("itemPrice").getValue(Float::class.java) ?: 0.0f
+                        val itemTag =
+                            childSnapshot.child("itemTag").getValue(String::class.java) ?: ""
+                        val itemShortDesc =
+                            childSnapshot.child("itemShortDesc").getValue(String::class.java) ?: ""
+                        val itemName =
+                            childSnapshot.child("itemName").getValue(String::class.java) ?: ""
+                        val sellerID =
+                            childSnapshot.child("sellerID").getValue(String::class.java) ?: ""
+                        val quantity =
+                            childSnapshot.child("quantity").getValue(Int::class.java) ?: 0
 
                         if (firebaseAuthID == sellerID) {
-                            val produk = Produk(
+                            val produk = MenuItem(
                                 sellerID,
                                 id,
                                 imageUrl,
