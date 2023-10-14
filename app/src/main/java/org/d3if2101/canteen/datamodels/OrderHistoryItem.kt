@@ -12,7 +12,6 @@ data class OrderHistoryItem(
     var sellerUid: String = "SELLER_UID",
     var rating: Float = 5.0F,
     var review: String = "REVIEW",
-    var productID: String = "PRODUCT_ID",
     var quantity: Int = 0
 )
 
