@@ -43,44 +43,29 @@ import org.d3if2101.canteen.interfaces.MenuApi
 import org.d3if2101.canteen.interfaces.RequestType
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.services.FirebaseDBService
-import org.d3if2101.canteen.ui.MyCurrentOrdersActivity
-import org.d3if2101.canteen.ui.OrdersHistoryActivity
+import org.d3if2101.canteen.ui.pesanan.MyCurrentOrdersActivity
+import org.d3if2101.canteen.ui.pesanan.OrdersHistoryActivity
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
-class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickListener, MenuApi {
+class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickListener {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
-
-    private val db = DatabaseHandler(this)
-
     private lateinit var toggle: ActionBarDrawerToggle
-//    private lateinit var navView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
-
-    private var allItems = ArrayList<MenuItem>()
     private lateinit var itemRecyclerView: RecyclerView
     private lateinit var recyclerFoodAdapter: RecyclerFoodItemAdapter
-
-//    private lateinit var userIcon: CircleImageView
     private lateinit var showAllSwitch: SwitchCompat
-
-//    private lateinit var topHeaderLL: LinearLayout
-//    private lateinit var topSearchLL: LinearLayout
-//    private lateinit var searchBox: SearchView
-//    private lateinit var foodCategoryCV: CardView
-//    private lateinit var showAllLL: LinearLayout
-
-    private var searchIsActive = false
-    private var doubleBackToExit = false
-
-    private lateinit var progressDialog: ProgressDialog
-
     private lateinit var binding: ActivityMainMenuBinding
     private lateinit var bindingNav: NavHeaderBinding
+
+    private var allItems = ArrayList<MenuItem>()
+    private var searchIsActive = false
+    private var doubleBackToExit = false
+    private val db = DatabaseHandler(this)
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
@@ -235,10 +220,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         }
     }
 
-    private fun loadOnlineMenu() {
-        FirebaseDBService().readAllMenu(this, RequestType.READ)
-    }
-
     private fun loadSearchTask() {
 
         binding.mainActivitySearchIv.setOnClickListener {
@@ -287,15 +268,13 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             .setPositiveButton("Ya") { _, _ ->
                 Firebase.auth.signOut()
 
-                getSharedPreferences("settings", MODE_PRIVATE).edit().clear()
-                    .apply() //deleting settings from offline
-                getSharedPreferences("user_profile_details", MODE_PRIVATE).edit().clear()
-                    .apply() //deleting user details from offline
+                getSharedPreferences("settings", MODE_PRIVATE).edit().clear().apply()
+                getSharedPreferences("user_profile_details", MODE_PRIVATE).edit().clear().apply()
 
                 viewModel.deleteTokenPref()
                 Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
 
-                //removing tables
+//                hapus table
                 db.dropCurrentOrdersTable()
                 db.dropOrderHistoryTable()
                 db.clearSavedCards()
@@ -330,7 +309,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
     private fun openUserProfileActivity() {
         val intent = Intent(this, UserProfileActivity::class.java)
-//        intent.putExtra("gender", this.empGender)
 
         val options = ActivityOptions.makeSceneTransitionAnimation(
             this,
@@ -338,26 +316,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             "userIconTransition"
         )
         startActivity(intent, options.toBundle())
-    }
-
-    override fun onFetchSuccessListener(list: ArrayList<MenuItem>, requestType: RequestType) {
-
-        if (requestType == RequestType.READ) {
-            for (item in list) {
-                allItems.add(item)
-            }
-            recyclerFoodAdapter.notifyItemRangeInserted(0, allItems.size)
-        }
-
-        if (requestType == RequestType.OFFLINE_UPDATE) {
-            for (item in list) {
-                db.insertOfflineMenuData(item)
-            }
-            Toast.makeText(applicationContext, "Offline Menu Updated", Toast.LENGTH_LONG).show()
-//            loadOfflineMenu()
-        }
-
-        progressDialog.dismiss()
     }
 
     override fun onItemClick(item: MenuItem) {

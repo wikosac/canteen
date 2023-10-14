@@ -12,12 +12,10 @@ import org.d3if2101.canteen.ui.menu.MenuActivity
 class FirebaseDBService {
     private var databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    private val foodMenu = "food_menu"
-
-    fun readAllMenu(menuApi: MenuActivity, requestType: RequestType) {
+    fun readAllMenu() {
         val menuList = ArrayList<MenuItem>()
 
-        val menuDbRef = databaseRef.child(foodMenu)
+        val menuDbRef = databaseRef.child("produk")
         menuDbRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (snap in snapshot.children) {
@@ -32,7 +30,7 @@ class FirebaseDBService {
                     )
                     menuList.add(item)
                 }
-                menuList.shuffle() //so that every time user can see different items on opening app
+                menuList.shuffle()
 //                menuApi.onFetchSuccessListener(menuList, requestType)
             }
 
@@ -43,7 +41,7 @@ class FirebaseDBService {
     }
 
     fun insertMenuItem(item: MenuItem) {
-        val menuRef = databaseRef.child(foodMenu)
+        val menuRef = databaseRef.child("produk")
 
         menuRef.setValue(item)
     }

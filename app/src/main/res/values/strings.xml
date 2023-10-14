@@ -68,7 +68,7 @@
     <string name="pembayaran">Payment:</string>
     <string name="jenis_pembayaran">Pembayaran: Cash</string>
     <string name="harga_order">Rp.15.000</string>
-    <string name="belum_ada_pesanan">Belum Ada Pesanan Apa-Apa</string>
+    <string name="belum_ada_pesanan">Belum Ada Pesanan</string>
     <string name="waktu_pemesanan">Waktu Pemesanan</string>
     <string name="jam">12.30</string>
     <string name="pesanan_selesai">Pesanan Selesai</string>
@@ -229,4 +229,5 @@
     <string name="daftar_akun_sebagai_penjual">Daftar akun sebagai penjual</string>
     <string name="daftar_akun_sebagai_pembeli">Daftar akun sebagai pembeli</string>
     <string name="daftar_akun_penjual">Daftar Akun Penjual</string>
+    <string name="tidak_ada_riwayat">Tidak ada riwayat</string>
 </resources>

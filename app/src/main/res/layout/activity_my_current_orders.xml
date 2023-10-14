@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F7F7F7"
-    tools:context=".ui.MyCurrentOrdersActivity">
+    tools:context=".ui.pesanan.MyCurrentOrdersActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="@string/seems_like_you_have_not_ordered_anything"
+            android:text="@string/belum_ada_pesanan"
             android:textSize="15sp"/>
 
     </LinearLayout>

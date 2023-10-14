@@ -15,20 +15,18 @@ import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.Produk
 import org.d3if2101.canteen.data.model.UserModel
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDatabase: FirebaseDatabase,
     private val storageReference: FirebaseStorage
 ) {
-    private val databaseReference: DatabaseReference = firebaseDatabase.getReference("users")
+    private val databaseRef = firebaseDatabase.reference
     private val uidUser = MutableLiveData<String>()
     private val uid: LiveData<String> = uidUser
 
-    fun registUser(
-        email: String,
-        pass: String
-    ): LiveData<Message> {
+    fun registUser(email: String, pass: String): LiveData<Message> {
         val data = MutableLiveData<Message>()
         try {
             firebaseAuth.createUserWithEmailAndPassword(email, pass)
@@ -53,7 +51,7 @@ class CanteenRepository private constructor(
         uid.observe(lifecycleOwner) {
             Log.d(TAG, "uid: $it")
             if (it != null) {
-                databaseReference.child(it).addValueEventListener(
+                databaseRef.child("users").child(it).addValueEventListener(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
@@ -73,7 +71,7 @@ class CanteenRepository private constructor(
 
     fun getUserWithToken(token: String): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
-        databaseReference.child(token).addValueEventListener(
+        databaseRef.child("users").child(token).addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
@@ -349,6 +347,19 @@ class CanteenRepository private constructor(
             }
         }
         return data
+    }
+
+    //    pesanan
+    fun insertOrderRecord(order: OrderHistoryItem) {
+        databaseRef.child("orders").child(order.orderId)
+            .setValue(order).addOnCompleteListener {
+                Log.d(TAG, "insertOrderRecord: ${it.result}")
+                if (it.isSuccessful) {
+                    Log.d(TAG, "insertOrderRecord: Success insert record")
+                } else {
+                    Log.e(TAG, "insertOrderRecord: error", it.exception)
+                }
+        }
     }
 
     companion object {

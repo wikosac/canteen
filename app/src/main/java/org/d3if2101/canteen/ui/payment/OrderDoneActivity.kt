@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.R
@@ -15,7 +16,9 @@ import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
+import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.menu.MenuActivity
+import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -40,6 +43,10 @@ class OrderDoneActivity : AppCompatActivity() {
     private var orderDate = ""
 
     private lateinit var binding: ActivityOrderDoneBinding
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this.application)
+    }
+    private val viewModel: OrderViewModel by viewModels { factory }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -91,7 +98,7 @@ class OrderDoneActivity : AppCompatActivity() {
         databaseHandler = DatabaseHandler(this)
         databaseHandler.readOrderData()
 
-        binding.btnBack.setOnClickListener { openMainActivity() }
+        binding.btnBack.setOnClickListener { openMenuActivity() }
     }
 
     private fun generateOrderID() {
@@ -120,16 +127,17 @@ class OrderDoneActivity : AppCompatActivity() {
 
     private fun saveOrderRecordToDatabase() {
         val item = OrderHistoryItem(
-            orderDate,
-            orderID,
-            "Order Successful",
-            paymentMethod,
-            "Rp%.2f".format(subTotalPrice)
+            date = orderDate,
+            orderId = orderID,
+            orderStatus = "Order Successful",
+            orderPayment = paymentMethod,
+            price = "Rp%.2f".format(subTotalPrice)
         )
         val db = DatabaseHandler(this)
         db.insertOrderData(item)
 
         saveCurrentOrderToDatabase()
+        viewModel.insertOrderRecord(item)
     }
 
     private fun saveCurrentOrderToDatabase() {
@@ -188,7 +196,7 @@ class OrderDoneActivity : AppCompatActivity() {
 //        startActivity(Intent(this, ContactUsActivity::class.java))
     }
 
-    fun openMainActivity() {
+    private fun openMenuActivity() {
         startActivity(Intent(this, MenuActivity::class.java))
         finish()
     }

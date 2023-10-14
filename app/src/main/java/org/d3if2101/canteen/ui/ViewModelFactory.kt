@@ -10,6 +10,7 @@ import org.d3if2101.canteen.ui.daftar.DaftarViewModel
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu.PilihMenuViewModel
+import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class ViewModelFactory private constructor(
     private val canteenRepository: CanteenRepository,
@@ -26,6 +27,8 @@ class ViewModelFactory private constructor(
             return PilihMenuViewModel(canteenRepository) as T
         } else if (modelClass.isAssignableFrom(AddItemViewModel::class.java)) {
             return AddItemViewModel(canteenRepository) as T
+        } else if (modelClass.isAssignableFrom(OrderViewModel::class.java)) {
+            return OrderViewModel(canteenRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

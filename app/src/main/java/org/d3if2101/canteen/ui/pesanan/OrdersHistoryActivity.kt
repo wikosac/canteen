@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui
+package org.d3if2101.canteen.ui.pesanan
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,8 @@ import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
+import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.login.LoginViewModel
 
 class OrdersHistoryActivity : AppCompatActivity() {
 
@@ -63,12 +66,13 @@ class OrdersHistoryActivity : AppCompatActivity() {
 
     private fun deleteOrderHistoryRecords() {
         AlertDialog.Builder(this)
-            .setMessage("Are you sure you want delete all your order history?")
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {dialogInterface, _ ->
+            .setMessage("Apa kamu yakin hapus semua riwayat pesanan?")
+            .setPositiveButton("Ya") { dialogInterface, _ ->
                 val db = DatabaseHandler(this)
                 db.dropOrderHistoryTable()
                 deleteRecordsIV.visibility = ViewGroup.INVISIBLE
-                findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.VISIBLE
+                findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility =
+                    ViewGroup.VISIBLE
 
 
                 val size = orderHistoryList.size
@@ -76,10 +80,10 @@ class OrdersHistoryActivity : AppCompatActivity() {
                 recyclerAdapter.notifyItemRangeRemoved(0, size)
 
                 dialogInterface.dismiss()
-            } )
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener {dialogInterface, _ ->
+            }
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
+            }
             .create().show()
     }
 

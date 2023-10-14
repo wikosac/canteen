@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui
+package org.d3if2101.canteen.ui.pesanan
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -73,24 +73,26 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
 
     override fun cancelOrder(position: Int) {
         AlertDialog.Builder(this)
-            .setTitle("Order Cancellation")
-            .setMessage("Are you sure you want to cancel this order?")
-            .setPositiveButton("Yes, Cancel Order", DialogInterface.OnClickListener {dialogInterface, _ ->
-                val result = DatabaseHandler(this).deleteCurrentOrderRecord(currentOrderList[position].orderID)
+            .setTitle("Batalkan pesanan")
+            .setMessage("Apa kamu yakin batalkan pesanan ini?")
+            .setPositiveButton("Ya") { dialogInterface, _ ->
+                val result =
+                    DatabaseHandler(this).deleteCurrentOrderRecord(currentOrderList[position].orderID)
                 currentOrderList.removeAt(position)
                 recyclerAdapter.notifyItemRemoved(position)
                 recyclerAdapter.notifyItemRangeChanged(position, currentOrderList.size)
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
 
-                if(currentOrderList.isEmpty()) {
-                    findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility = ViewGroup.VISIBLE
+                if (currentOrderList.isEmpty()) {
+                    findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
+                        ViewGroup.VISIBLE
                 }
 
                 dialogInterface.dismiss()
-            })
-            .setNegativeButton("No", DialogInterface.OnClickListener {dialogInterface, _ ->
+            }
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
+            }
             .create().show()
     }
 
