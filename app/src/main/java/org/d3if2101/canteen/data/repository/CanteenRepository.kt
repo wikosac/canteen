@@ -375,6 +375,8 @@ class CanteenRepository private constructor(
                             childSnapshot.child("sellerID").getValue(String::class.java) ?: ""
                         val quantity =
                             childSnapshot.child("quantity").getValue(Int::class.java) ?: 0
+                        val state =
+                            childSnapshot.child("status").getValue(Boolean::class.java) ?: false
 
                         if (firebaseAuthID == sellerID) {
                             val produk = MenuItem(
@@ -386,7 +388,8 @@ class CanteenRepository private constructor(
                                 itemShortDesc,
                                 itemTag,
                                 5.0F, // Misalkan nilai itemStars tetap 5.0F
-                                quantity
+                                quantity,
+                                state
                             )
                             produkList.add(produk)
                         }

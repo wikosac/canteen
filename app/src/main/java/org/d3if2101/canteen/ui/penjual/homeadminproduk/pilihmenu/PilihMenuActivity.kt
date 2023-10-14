@@ -53,6 +53,7 @@ class PilihMenuActivity : AppCompatActivity() {
         viewModel.getDataFromDB()
         viewModel.getFilteredData().observe(this) {
             recyclerViewOn(it)
+
         }
 
         binding.btnAdd.setOnClickListener {

@@ -49,11 +49,8 @@ class PilihMenuAdapter(
 
             tvName.text = dataList.itemName
             tvHarga.text = dataList.itemPrice.toString()
-//            if (dataList.status){
-//                setState.isChecked = true
-//            } else {
-//                setState.isChecked = false
-//            }
+            setState.isChecked = dataList.status
+            Log.d("PILIH MENU ADAPTER", dataList.status.toString())
 
             setState.setOnCheckedChangeListener { _, isChecked ->
                 onItemClickCallback.onItemState(isChecked, dataList)
