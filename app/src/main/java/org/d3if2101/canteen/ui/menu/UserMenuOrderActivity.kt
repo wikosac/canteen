@@ -45,12 +45,12 @@ class UserMenuOrderActivity : AppCompatActivity(),
     override fun onBackPressed() {
         AlertDialog.Builder(this)
             .setIcon(R.drawable.baseline_warning_amber_24)
-            .setTitle("Alert!")
-            .setMessage("Do you want to cancel your order?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle("Peringatan")
+            .setMessage("Apa kamu yakin batalkan pesanan?")
+            .setPositiveButton("Ya") { _, _ ->
                 super.onBackPressed()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
             .create().show()

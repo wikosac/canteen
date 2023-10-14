@@ -55,9 +55,9 @@ class RecyclerCurrentOrderAdapter(
         holder.takeAwayTimeTV.text = currentItem.takeAwayTime
         holder.paymentStatusTV.text = currentItem.paymentStatus
         holder.orderIDTV.text = currentItem.orderID
-        holder.totalItemPriceTV.text = "\$%.2f".format(currentItem.totalItemPrice.toFloat())
-        holder.totalTaxTV.text = "\$%.2f".format(currentItem.tax.toFloat())
-        holder.subTotalTV.text = "\$%.2f".format(currentItem.subTotal.toFloat())
+        holder.totalItemPriceTV.text = "Rp %.2f".format(currentItem.totalItemPrice.toFloat())
+        holder.totalTaxTV.text = "Rp %.2f".format(currentItem.tax.toFloat())
+        holder.subTotalTV.text = "Rp %.2f".format(currentItem.subTotal.toFloat())
 
         addTable(currentItem, holder.tableLayout)
 

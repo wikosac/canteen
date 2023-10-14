@@ -9,5 +9,6 @@ data class MenuItem(
     var itemShortDesc: String = "ITEM_DESC",
     var itemTag: String = "ITEM_TAG",
     var itemStars: Float = 5.0F,
-    var quantity: Int = 0
+    var quantity: Int = 0,
+    var status: Boolean = true
 )

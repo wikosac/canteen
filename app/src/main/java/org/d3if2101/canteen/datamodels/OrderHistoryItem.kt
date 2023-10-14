@@ -7,12 +7,12 @@ data class OrderHistoryItem(
     var orderStatus: String = "ORDER_STATUS",
     var orderPayment: String = "ORDER_PAYMENT",
     var price: String = "ORDER_PRICE",
-    var productIDs: List<OrderDetail> = listOf(OrderDetail("", 0)),
     var buyerUid: String = "BUYER_UID",
     var sellerUid: String = "SELLER_UID",
     var rating: Float = 5.0F,
     var review: String = "REVIEW",
-    var quantity: Int = 0
+    var quantity: Int = 0,
+    var productIDs: List<OrderDetail> = listOf(OrderDetail())
 )
 
 data class OrderDetail(

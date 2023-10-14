@@ -158,16 +158,16 @@ class OrderDoneActivity : AppCompatActivity() {
 
     private fun cancelCurrentOrder() {
         AlertDialog.Builder(this)
-            .setTitle("Order Cancellation")
+            .setTitle("Batalkan Pesanan")
             .setMessage("Apa kamu yakin membatalkan pesanan ini?")
-            .setPositiveButton("Yes, Cancel Order", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("Ya") { _, _ ->
                 val result = DatabaseHandler(this).deleteCurrentOrderRecord(orderID)
                 Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
                 onBackPressed()
-            })
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, _ ->
+            }
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
-            })
+            }
             .create().show()
     }
 

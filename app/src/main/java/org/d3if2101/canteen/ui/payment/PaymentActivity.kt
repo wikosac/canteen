@@ -21,9 +21,7 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
 
     private lateinit var totalPaymentTV: TextView
     private lateinit var confirmPaymentBtn: Button
-
     private lateinit var cashPaymentRB: RadioButton
-
 
     var totalItemPrice = 0.0F
     var totalTaxPrice = 0.0F
@@ -40,12 +38,12 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
     override fun onBackPressed() {
         AlertDialog.Builder(this)
             .setIcon(R.drawable.baseline_warning_amber_24)
-            .setTitle("Alert!")
-            .setMessage("Do you want to cancel the payment?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle("Peringatan")
+            .setMessage("Apa kamu yakin batalkan pembayaran?")
+            .setPositiveButton("Ya") { _, _ ->
                 super.onBackPressed()
             }
-            .setNegativeButton("No") { dialogInterface, _ ->
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
             .create().show()
@@ -58,7 +56,6 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
         totalItemPrice = intent.getFloatExtra("totalItemPrice", 0.0F)
         totalTaxPrice = intent.getFloatExtra("totalTaxPrice", 0.0F)
         subTotalPrice = intent.getFloatExtra("subTotalPrice", 0.0F)
-
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
 
         totalPaymentTV = findViewById(R.id.total_payment_tv)
