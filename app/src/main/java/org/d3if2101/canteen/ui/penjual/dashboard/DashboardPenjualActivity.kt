@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
+import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
@@ -27,7 +29,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
-    private  var stringReceived: String = ""
+
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
@@ -61,16 +63,38 @@ class DashboardPenjualActivity : AppCompatActivity() {
     private fun loadNavigationDrawer() {
         navView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.drawer_layout)
+
+
+
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        // Jika Ingin Set Text $name
+//        val navHeaderUserName = navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_user_name)
+//        navHeaderUserName.text = "Teks yang Anda inginkan"
+
+
         val drawerDelay: Long = 150 //delay of the drawer to close
         navView.setNavigationItemSelectedListener {
+
             when (it.itemId) {
+                R.id.nav_profile -> {
+                    // change To Profile
+                }
+
+                R.id.nav_my_orders -> {
+                    startActivity(Intent(this, OrderPenjualActivity::class.java))
+                }
+
+                R.id.nav_orders_history -> { // UBAH MENJADI Pendapatan
+
+                }
+
                 R.id.nav_food_menu -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
+
                 R.id.nav_log_out -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     logout()
@@ -95,7 +119,6 @@ class DashboardPenjualActivity : AppCompatActivity() {
         viewModel.deleteTokenPref()
         Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
     }
-
 
 
 }

@@ -73,13 +73,22 @@ class AddItemActivity : AppCompatActivity() {
         desc = binding.desc.text.toString()
 
         if (namaItem.isNotEmpty() && harga.isNotEmpty() && kategori != "Pilih Kategori" && ::image.isInitialized && desc.isNotEmpty()) {
+            binding.btnUpload.isEnabled = false
+            binding.btnUpload.text = "Please Wait..."
+
             viewModel.inputProduktoDB(namaItem, kategori, harga, image, desc)
                 .observe(this) { message ->
                     if (message.message == "Success") {
+                        binding.btnUpload.isEnabled = true
+                        binding.btnUpload.text = "Upload"
+
                         Toast.makeText(this, "Upload Berhasil", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, HomeProduk::class.java))
                         finish()
                     } else {
+                        binding.btnUpload.isEnabled = true
+                        binding.btnUpload.text = "Upload"
+
                         Toast.makeText(this, "Upload Gagal ${message}", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -91,8 +100,6 @@ class AddItemActivity : AppCompatActivity() {
             ).show()
         }
     }
-
-
     companion object {
         const val REQUEST_CODE_CHOOSE_IMAGE = 100
     }

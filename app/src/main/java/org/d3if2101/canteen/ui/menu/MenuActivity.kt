@@ -106,7 +106,9 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 if (snapshot.exists()) {
                     for (dataSnapshot in snapshot.children) {
                         val list = dataSnapshot.getValue(MenuItem::class.java)
-                        allItems.add(list!!)
+                        if (list!!.status == true){
+                            allItems.add(list)
+                        }
                     }
                     loadMenu(allItems)
                 }

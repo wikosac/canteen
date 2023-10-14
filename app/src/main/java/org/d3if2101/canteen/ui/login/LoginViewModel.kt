@@ -40,6 +40,7 @@ class LoginViewModel(
         viewModelScope.launch {
             pref.deleteToken()
         }
+        canteenRepository.signOut()
         val token = pref.getToken().asLiveData().value.toString()
         Log.d("testo", "deleteTokenPref: $token")
     }
