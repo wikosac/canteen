@@ -141,7 +141,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:text="@string/default_date_and_time"
+                                android:text="@string/tanggal_pemesanan"
                                 android:textSize="12sp"
                                 android:textAllCaps="true"
                                 android:fontFamily="@font/montserrat_semi_bold"/>

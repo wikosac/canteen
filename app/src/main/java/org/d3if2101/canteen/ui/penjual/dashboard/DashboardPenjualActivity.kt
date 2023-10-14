@@ -16,9 +16,9 @@ import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
+import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
 import org.d3if2101.canteen.ui.penjual.rating.RatingActivity
-import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
 
 class DashboardPenjualActivity : AppCompatActivity() {
 

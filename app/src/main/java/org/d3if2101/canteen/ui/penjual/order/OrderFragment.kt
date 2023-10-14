@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.d3if2101.canteen.databinding.FragmentOrderBinding
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class OrderFragment : Fragment() {

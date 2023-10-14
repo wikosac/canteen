@@ -234,4 +234,5 @@
     <string name="diproses">Diproses</string>
     <string name="selesai">Selesai</string>
     <string name="riwayat_pesanan">Riwayat Pesanan</string>
+    <string name="tanggal_pemesanan">Tanggal pemesanan</string>
 </resources>
