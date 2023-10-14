@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:background="@drawable/bg_rounded"
+    android:layout_margin="8dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_Produk"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_Produk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ivrounded"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/textContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/iv_Produk"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/cv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tv_ProdukRv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:layout_marginTop="8dp"
             android:text="Pisang Goreng" />
 
         <TextView
             android:id="@+id/tv_SubProduk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="Rp.10.000" />
+            android:layout_marginTop="8dp"
+            android:text="Rp. 10.000" />
     </LinearLayout>
 
     <androidx.appcompat.widget.SwitchCompat
@@ -47,9 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:padding="8dp"
         android:checked="false"
+        android:padding="8dp"
         android:textColor="@color/bg_color"
         android:textOff="Off"
         android:textOn="On"

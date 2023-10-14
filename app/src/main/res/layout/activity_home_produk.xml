@@ -7,126 +7,145 @@
     android:background="@color/bg_color"
     tools:context="org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk">
 
-
     <TextView
         android:id="@+id/txt_dashboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
-        android:gravity="top"
         android:text="@string/produk"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_rounded"
-        android:gravity="center"
+    <!-- CardView 1 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_dashboard">
 
-        <ImageView
-            android:id="@+id/ivProdukMakanan"
-            android:layout_width="50dp"
-            android:layout_height="75dp"
-            android:src="@drawable/food" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_ProdukMakanan"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Makanan"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/ivProdukMakanan"
+                android:layout_width="50dp"
+                android:layout_height="75dp"
+                android:src="@drawable/food" />
 
-        <ImageView
-            android:id="@+id/ivTitikProdukMakanan"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="8dp"
-            android:src="@drawable/elipsis" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_ProdukMakanan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Makanan"
+                android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_rounded"
-        android:gravity="center"
+            <ImageView
+                android:id="@+id/ivTitikProdukMakanan"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="8dp"
+                android:src="@drawable/elipsis" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView 2 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@id/cardView">
 
-        <ImageView
-            android:id="@+id/ivProdukMinuman"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/drink" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_ProdukMinuman"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Minuman"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/ivProdukMinuman"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/drink" />
 
-        <ImageView
-            android:id="@+id/ivTitikProdukMinuman"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="8dp"
-            android:src="@drawable/elipsis" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_ProdukMinuman"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Minuman"
+                android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_rounded"
-        android:gravity="center"
+            <ImageView
+                android:id="@+id/ivTitikProdukMinuman"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="8dp"
+                android:src="@drawable/elipsis" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView 3 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@id/cardView2">
 
-        <ImageView
-            android:id="@+id/ivProdukCamilan"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/snack" />
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_ProdukCamilan"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Camilan"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/ivProdukCamilan"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/snack" />
 
-        <ImageView
-            android:id="@+id/ivTitikProdukCamilan"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="8dp"
-            android:src="@drawable/elipsis" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_ProdukCamilan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Camilan"
+                android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/ivTitikProdukCamilan"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="8dp"
+                android:src="@drawable/elipsis" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

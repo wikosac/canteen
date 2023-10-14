@@ -2,6 +2,7 @@ package org.d3if2101.canteen.ui.penjual.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -26,6 +27,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
     private lateinit var drawerLayout: DrawerLayout
+    private  var stringReceived: String = ""
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
@@ -53,6 +55,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
         binding.penjualCardRating.setOnClickListener {
             startActivity(Intent(this@DashboardPenjualActivity, RatingActivity::class.java))
         }
+
     }
 
     private fun loadNavigationDrawer() {
@@ -92,5 +95,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
         viewModel.deleteTokenPref()
         Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
     }
+
+
 
 }

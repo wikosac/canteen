@@ -52,7 +52,9 @@ class Login : AppCompatActivity() {
             if (user != null) {
                 viewModel.saveTokenPref(user.uid)
                 if (user.role == "penjual") {
-                    startActivity(Intent(this, DashboardPenjualActivity::class.java))
+                    val intent = Intent(this, DashboardPenjualActivity::class.java)
+                    intent.putExtra("userName", user.nama)
+                    startActivity(intent)
                     finish()
                 } else {
                     startActivity(Intent(this, DashboardActivity::class.java))
