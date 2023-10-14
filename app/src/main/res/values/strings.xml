@@ -230,4 +230,8 @@
     <string name="daftar_akun_sebagai_pembeli">Daftar akun sebagai pembeli</string>
     <string name="daftar_akun_penjual">Daftar Akun Penjual</string>
     <string name="tidak_ada_riwayat">Tidak ada riwayat</string>
+    <string name="baru">Baru\n</string>
+    <string name="diproses">Diproses</string>
+    <string name="selesai">Selesai</string>
+    <string name="riwayat_pesanan">Riwayat Pesanan</string>
 </resources>

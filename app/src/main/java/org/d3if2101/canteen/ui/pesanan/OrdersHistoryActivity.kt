@@ -1,12 +1,10 @@
 package org.d3if2101.canteen.ui.pesanan
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +13,6 @@ import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
-import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.login.LoginViewModel
 
 class OrdersHistoryActivity : AppCompatActivity() {
 

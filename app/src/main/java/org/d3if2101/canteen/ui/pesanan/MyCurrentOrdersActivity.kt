@@ -1,6 +1,5 @@
 package org.d3if2101.canteen.ui.pesanan
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup

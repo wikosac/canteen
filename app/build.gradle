@@ -4,8 +4,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-
-
 android {
     namespace 'org.d3if2101.canteen'
     compileSdk 34
@@ -44,7 +42,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    implementation 'com.android.car.ui:car-ui-lib:2.5.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -76,7 +73,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
 
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
-
-//    // penjual app
-    implementation project(':penjual')
+    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }

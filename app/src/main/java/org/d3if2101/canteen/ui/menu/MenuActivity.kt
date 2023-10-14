@@ -2,7 +2,6 @@ package org.d3if2101.canteen.ui.menu
 
 import android.app.ActivityOptions
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -39,15 +38,12 @@ import org.d3if2101.canteen.databinding.ActivityMainMenuBinding
 import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.MenuItem
-import org.d3if2101.canteen.interfaces.MenuApi
-import org.d3if2101.canteen.interfaces.RequestType
 import org.d3if2101.canteen.services.DatabaseHandler
-import org.d3if2101.canteen.services.FirebaseDBService
-import org.d3if2101.canteen.ui.pesanan.MyCurrentOrdersActivity
-import org.d3if2101.canteen.ui.pesanan.OrdersHistoryActivity
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
+import org.d3if2101.canteen.ui.pesanan.MyCurrentOrdersActivity
+import org.d3if2101.canteen.ui.pesanan.OrdersHistoryActivity
 import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
 class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickListener {

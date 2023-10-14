@@ -5,5 +5,5 @@
     android:layout_height="match_parent"
     tools:context="org.d3if2101.canteen.ui.penjual.rating.RatingActivity">
 
-    <include layout="@layout/pager_riwayat"/>
+    <include layout="@layout/fragment_order"/>
 </FrameLayout>

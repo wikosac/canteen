@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
@@ -359,7 +358,35 @@ class CanteenRepository private constructor(
                 } else {
                     Log.e(TAG, "insertOrderRecord: error", it.exception)
                 }
-        }
+            }
+    }
+
+    fun getOrderRecord(): LiveData<List<OrderHistoryItem>> {
+        val orders = MutableLiveData<List<OrderHistoryItem>>()
+        databaseRef.child("orders")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    Log.d(TAG, "onDataChange orders: $snapshot")
+                    if (snapshot.exists()) {
+                        val orderList = mutableListOf<OrderHistoryItem>()
+                        for (record in snapshot.children) {
+                            Log.d(TAG, "onDataChange orders child: $record")
+                            val orderRecord = record.getValue(OrderHistoryItem::class.java)
+                            if (orderRecord != null) {
+                                orderList.add(orderRecord)
+                            }
+                        }
+                        orders.value = orderList
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+        return orders
     }
 
     companion object {

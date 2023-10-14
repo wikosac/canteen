@@ -38,7 +38,7 @@
         <activity android:name=".ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity" />
         <activity android:name=".ui.penjual.pendapatan.PendapatanActivity" />
         <activity android:name=".ui.penjual.rating.RatingActivity" />
-        <activity android:name=".ui.penjual.riwayat.RiwayatActivity" />
+        <activity android:name=".ui.penjual.order.OrderPenjualActivity" />
         <activity android:name=".ui.penjual.daftar.DaftarPenjualActivity" />
         <activity android:name=".MainPenjualActivity" />
         <activity android:name=".ui.penjual.homeadminproduk.additem.AddItemActivity" />

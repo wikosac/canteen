@@ -18,7 +18,7 @@ import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
 import org.d3if2101.canteen.ui.penjual.rating.RatingActivity
-import org.d3if2101.canteen.ui.penjual.riwayat.RiwayatActivity
+import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
 
 class DashboardPenjualActivity : AppCompatActivity() {
 
@@ -47,7 +47,7 @@ class DashboardPenjualActivity : AppCompatActivity() {
         }
 
         binding.penjualCardOrder.setOnClickListener {
-            startActivity(Intent(this@DashboardPenjualActivity, RiwayatActivity::class.java))
+            startActivity(Intent(this@DashboardPenjualActivity, OrderPenjualActivity::class.java))
         }
 
         binding.penjualCardRating.setOnClickListener {

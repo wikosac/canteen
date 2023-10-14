@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.d3if2101.canteen.ui.penjual.riwayat.RiwayatActivity">
+    tools:context="org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
-        app:tabTextColor="@android:color/darker_gray"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/blue_water"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/brown_sand"
-        android:contentDescription="tabs_riwayat"/>
+        android:backgroundTint="@color/primary">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:text="@string/riwayat_pesanan"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            app:tabTextColor="@android:color/darker_gray"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/brown_sand" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/pager_riwayat"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
