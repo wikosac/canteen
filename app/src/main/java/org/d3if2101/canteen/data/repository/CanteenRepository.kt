@@ -157,13 +157,15 @@ class CanteenRepository private constructor(
         val data = MutableLiveData<Message>()
 
         val produk = Produk(
-            id = uniqueID.toString(),
-            nama = namaProduk,
-            harga = harga.toFloat(),
-            stok = stock.toInt(),
-            penjualId = firebaseAuth.uid.toString(),
-            jenis = jenis, // Use the provided 'jenis' parameter
-            gambar = image
+            sellerID = firebaseAuth.uid.toString(),
+            itemID = uniqueID.toString(),
+            imageUrl = image,
+            itemName = namaProduk,
+            itemPrice = harga.toFloat(),
+            itemShortDesc = "Deskripsi",
+            itemTag = jenis,
+            itemStars = 5.0F,
+            quantity = stock.toInt()
         )
 
         firebaseDatabase.getReference("produk").child(uniqueID.toString())
@@ -200,13 +202,15 @@ class CanteenRepository private constructor(
                         val uniqueID = firebaseDatabase.reference.push().key
 
                         val produk = Produk(
-                            id = uniqueID.toString(),
-                            nama = namaProduk,
-                            harga = harga.toFloat(),
-                            stok = stock.toInt(),
-                            penjualId = firebaseAuth.uid.toString(),
-                            jenis = jenis, // Use the provided 'jenis' parameter
-                            gambar = downloadUrl
+                            sellerID = firebaseAuth.uid.toString(),
+                            itemID = uniqueID.toString(),
+                            imageUrl = downloadUrl,
+                            itemName = namaProduk,
+                            itemPrice = harga.toFloat(),
+                            itemShortDesc = "Deskripsi",
+                            itemTag = jenis,
+                            itemStars = 5.0F,
+                            quantity = stock.toInt()
                         )
 
                         firebaseDatabase.getReference("produk").child(uniqueID.toString())
@@ -256,13 +260,15 @@ class CanteenRepository private constructor(
                         val uniqueID = firebaseDatabase.reference.push().key
 
                         val produk = Produk(
-                            id = uniqueID.toString(),
-                            nama = namaProduk,
-                            harga = harga.toFloat(),
-                            stok = stock.toInt(),
-                            penjualId = firebaseAuth.uid.toString(),
-                            jenis = jenis, // Use the provided 'jenis' parameter
-                            gambar = downloadUrl
+                            sellerID = firebaseAuth.uid.toString(),
+                            itemID = uniqueID.toString(),
+                            imageUrl = downloadUrl,
+                            itemName = namaProduk,
+                            itemPrice = harga.toFloat(),
+                            itemShortDesc = "Deskripsi",
+                            itemTag = jenis,
+                            itemStars = 5.0F,
+                            quantity = stock.toInt()
                         )
 
                         firebaseDatabase.getReference("produk").child(idProduk)
@@ -314,29 +320,31 @@ class CanteenRepository private constructor(
                 // Periksa apakah DataSnapshot ada
                 if (dataSnapshot.exists()) {
                     for (childSnapshot in dataSnapshot.children) {
-                        val id = childSnapshot.key ?: ""
-                        val gambar =
-                            childSnapshot.child("gambar").getValue(String::class.java) ?: ""
-                        val harga = childSnapshot.child("harga").getValue(Float::class.java) ?: 0.0f
-                        val jenis = childSnapshot.child("jenis").getValue(String::class.java) ?: ""
-                        val nama = childSnapshot.child("nama").getValue(String::class.java) ?: ""
-                        val penjualId =
-                            childSnapshot.child("penjualId").getValue(String::class.java) ?: ""
-                        val stok = childSnapshot.child("stok").getValue(Int::class.java) ?: 0
+                        val id = childSnapshot.child("itemID").getValue(String::class.java) ?: ""
+                        val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java) ?: "IMAGE_URL"
+                        val itemPrice = childSnapshot.child("itemPrice").getValue(Float::class.java) ?: 0.0f
+                        val itemTag = childSnapshot.child("itemTag").getValue(String::class.java) ?: ""
+                        val itemShortDesc = childSnapshot.child("itemShortDesc").getValue(String::class.java) ?: ""
+                        val itemName = childSnapshot.child("itemName").getValue(String::class.java) ?: ""
+                        val sellerID = childSnapshot.child("sellerID").getValue(String::class.java) ?: ""
+                        val quantity = childSnapshot.child("quantity").getValue(Int::class.java) ?: 0
 
-                        if (firebaseAuthID == penjualId) {
+                        if (firebaseAuthID == sellerID) {
                             val produk = Produk(
+                                sellerID,
                                 id,
-                                nama,
-                                harga,
-                                stok,
-                                penjualId,
-                                jenis,
-                                gambar
+                                imageUrl,
+                                itemName,
+                                itemPrice,
+                                itemShortDesc,
+                                itemTag,
+                                5.0F, // Misalkan nilai itemStars tetap 5.0F
+                                quantity
                             )
                             produkList.add(produk)
                         }
                     }
+
                     data.value = produkList
                 } else {
                     Log.e(TAG, "DataSnapshot tidak ada")

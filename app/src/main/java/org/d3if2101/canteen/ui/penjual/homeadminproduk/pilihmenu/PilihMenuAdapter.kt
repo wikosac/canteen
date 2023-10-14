@@ -38,12 +38,12 @@ class PilihMenuAdapter(
         fun bind(dataList: Produk) {
 
             Picasso.get()
-                .load(dataList.gambar)
+                .load(dataList.imageUrl)
                 .resize(100, 100)
                 .into(image)
 
-            tvName.text = dataList.nama
-            tvHarga.text = "Rp ${dataList.harga}"
+            tvName.text = dataList.itemName
+            tvHarga.text = "Rp ${dataList.itemPrice}"
 
             itemView.setOnClickListener {
                 onItemClickCallback.onItemClick(dataList)
