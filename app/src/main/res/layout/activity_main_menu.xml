@@ -55,6 +55,7 @@
                 android:src="@drawable/ic_search"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:visibility="gone"
                 android:id="@+id/menu_user_icon"
                 android:transitionName="userIconTransition"
                 android:layout_width="40dp"

@@ -53,14 +53,12 @@ class PilihMenuActivity : AppCompatActivity() {
         viewModel.getDataFromDB()
         viewModel.getFilteredData().observe(this) {
             recyclerViewOn(it)
-
         }
 
         binding.btnAdd.setOnClickListener {
             startActivity(Intent(this@PilihMenuActivity, AddItemActivity::class.java))
         }
     }
-
 
     private fun recyclerViewOn(produk: List<MenuItem>) {
         val adapter = PilihMenuAdapter(
@@ -72,7 +70,7 @@ class PilihMenuActivity : AppCompatActivity() {
                         dataProduct.itemID,
                         dataProduct.itemName,
                         dataProduct.itemTag,
-                        dataProduct.itemPrice.toString(),
+                        dataProduct.itemPrice,
                         dataProduct.imageUrl,
                         dataProduct.itemShortDesc,
                         data
@@ -152,7 +150,7 @@ class PilihMenuActivity : AppCompatActivity() {
                 viewModel.inputProduktoDB(
                     deletedProduct.itemName,
                     deletedProduct.itemTag,
-                    deletedProduct.itemPrice.toString(),
+                    deletedProduct.itemPrice,
                     deletedProduct.imageUrl,
                     deletedProduct.itemShortDesc,
                     deletedProduct.status

@@ -56,7 +56,7 @@ class RecyclerFoodItemAdapter (
         else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageTv)
 
         holder.itemNameTv.text = currentItem.itemName
-        holder.itemPriceTv.text = "Rp${currentItem.itemPrice}"
+        holder.itemPriceTv.text = context.getString(R.string.rupiah, currentItem.itemPrice)
         holder.itemStarsTv.text = currentItem.itemStars.toString()
         holder.itemShortDesc.text = currentItem.itemShortDesc
         holder.itemQuantityTv.text = currentItem.quantity.toString()

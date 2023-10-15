@@ -148,7 +148,7 @@ class CanteenRepository private constructor(
     fun recoverProductDB(
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: String,
         desc: String,
         state: Boolean
@@ -162,7 +162,7 @@ class CanteenRepository private constructor(
             itemID = uniqueID.toString(),
             imageUrl = image,
             itemName = namaProduk,
-            itemPrice = harga.toFloat(),
+            itemPrice = harga,
             itemShortDesc = desc,
             itemTag = jenis,
             itemStars = 5.0F,
@@ -185,7 +185,7 @@ class CanteenRepository private constructor(
     }
 
     fun inputProdukToDatabase(
-        namaProduk: String, jenis: String, harga: String, image: Uri, deskripsi: String
+        namaProduk: String, jenis: String, harga: Int, image: Uri, deskripsi: String
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
         val fileName = namaProduk + image + System.currentTimeMillis()
@@ -208,7 +208,7 @@ class CanteenRepository private constructor(
                             itemID = uniqueID.toString(),
                             imageUrl = downloadUrl,
                             itemName = namaProduk,
-                            itemPrice = harga.toFloat(),
+                            itemPrice = harga,
                             itemShortDesc = deskripsi,
                             itemTag = jenis,
                             itemStars = 5.0F,
@@ -242,7 +242,7 @@ class CanteenRepository private constructor(
         idProduk: String,
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: String,
         desc: String,
         state: Boolean
@@ -254,7 +254,7 @@ class CanteenRepository private constructor(
             itemID = idProduk,
             imageUrl = image,
             itemName = namaProduk,
-            itemPrice = harga.toFloat(),
+            itemPrice = harga,
             itemShortDesc = desc,
             itemTag = jenis,
             itemStars = 5.0F,
@@ -280,7 +280,7 @@ class CanteenRepository private constructor(
         idProduk: String,
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: Uri,
         desc: String
     ): LiveData<Message> {
@@ -304,7 +304,7 @@ class CanteenRepository private constructor(
                             itemID = uniqueID.toString(),
                             imageUrl = downloadUrl,
                             itemName = namaProduk,
-                            itemPrice = harga.toFloat(),
+                            itemPrice = harga,
                             itemShortDesc = desc,
                             itemTag = jenis,
                             itemStars = 5.0F,
@@ -364,7 +364,7 @@ class CanteenRepository private constructor(
                         val imageUrl = childSnapshot.child("imageUrl").getValue(String::class.java)
                             ?: "IMAGE_URL"
                         val itemPrice =
-                            childSnapshot.child("itemPrice").getValue(Float::class.java) ?: 0.0f
+                            childSnapshot.child("itemPrice").getValue(Int::class.java) ?: 0
                         val itemTag =
                             childSnapshot.child("itemTag").getValue(String::class.java) ?: ""
                         val itemShortDesc =

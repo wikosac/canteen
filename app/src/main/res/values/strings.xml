@@ -77,7 +77,6 @@
     <string name="pesanan_berhasil">Pesanan Berhasil</string>
     <string name="pending">"Pending: Cash "</string>
     <string name="process">Diproses</string>
-    <string name="rupiah">Rp</string>
     <string name="hi">Hi %1$s</string>
     <string name="total">Total</string>
     <string name="hello">Hello\n</string>
@@ -224,6 +223,7 @@
     <string name="xxx">XXX</string>
     <string name="default_card_number">2334 xxxx xxxx 6335</string>
     <string name="default_date">09/23</string>
+
     <string name="makanan">Makanan</string>
     <string name="camilan">Camilan</string>
     <string name="daftar_akun_sebagai_penjual">Daftar akun sebagai penjual</string>
@@ -236,4 +236,5 @@
     <string name="riwayat_pesanan">Riwayat Pesanan</string>
     <string name="tanggal_pemesanan">Tanggal pemesanan</string>
     <string name="deskripsi_produk">Deskripsi Produk</string>
+    <string name="rupiah">Rp %1$d</string>
 </resources>

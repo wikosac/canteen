@@ -11,7 +11,7 @@ class AddItemViewModel(private val canteenRepository: CanteenRepository) : ViewM
     fun inputProduktoDB(
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: Uri,
         deskripsi: String,
     ): LiveData<Message> {

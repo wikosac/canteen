@@ -76,7 +76,7 @@ class AddItemActivity : AppCompatActivity() {
             binding.btnUpload.isEnabled = false
             binding.btnUpload.text = "Please Wait..."
 
-            viewModel.inputProduktoDB(namaItem, kategori, harga, image, desc)
+            viewModel.inputProduktoDB(namaItem, kategori, harga.toInt(), image, desc)
                 .observe(this) { message ->
                     if (message.message == "Success") {
                         binding.btnUpload.isEnabled = true

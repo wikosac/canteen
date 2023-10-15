@@ -163,7 +163,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 item.imageUrl =
                     result.getString(result.getColumnIndex(CART_IMAGE_URL)).toString()
                 item.itemName = result.getString(result.getColumnIndex(CART_ITEM_NAME)).toString()
-                item.itemPrice = result.getFloat(result.getColumnIndex(CART_ITEM_PRICE))
+                item.itemPrice = result.getInt(result.getColumnIndex(CART_ITEM_PRICE))
                 item.itemShortDesc =
                     result.getString(result.getColumnIndex(CART_ITEM_SHORT_DESC)).toString()
                 item.quantity = result.getInt(result.getColumnIndex(CART_ITEM_QTY))
@@ -229,7 +229,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 item.imageUrl =
                     result.getString(result.getColumnIndex(COL_ITEM_IMAGE_URL)).toString()
                 item.itemName = result.getString(result.getColumnIndex(COL_ITEM_NAME)).toString()
-                item.itemPrice = result.getFloat(result.getColumnIndex(COL_ITEM_PRICE))
+                item.itemPrice = result.getInt(result.getColumnIndex(COL_ITEM_PRICE))
                 item.itemShortDesc =
                     result.getString(result.getColumnIndex(COL_ITEM_DESC)).toString()
                 item.itemTag = result.getString(result.getColumnIndex(COL_ITEM_CATEGORY)).toString()

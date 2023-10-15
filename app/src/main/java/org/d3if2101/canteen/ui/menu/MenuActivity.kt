@@ -84,10 +84,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             bindingNav.navHeaderUserName.text = it.nama
         }
 
-        with (binding) {
-            btnCart.setOnClickListener { showBottomDialog() }
-            menuUserIcon.setOnClickListener { openUserProfileActivity() }
-        }
+        binding.btnCart.setOnClickListener { showBottomDialog() }
+//            binding.menuUserIcon.setOnClickListener { openUserProfileActivity() }
 
         db.clearCartTable()
         setMenu()
@@ -106,7 +104,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 if (snapshot.exists()) {
                     for (dataSnapshot in snapshot.children) {
                         val list = dataSnapshot.getValue(MenuItem::class.java)
-                        if (list!!.status == true){
+                        if (list!!.status){
                             allItems.add(list)
                         }
                     }

@@ -21,7 +21,7 @@ class FirebaseDBService {
                         itemID = (1..1000).random().toString(), // TODO NEED TO UPDATE
                         imageUrl = snap.child("item_image_url").value.toString(),
                         itemName = snap.child("item_name").value.toString(),
-                        itemPrice = snap.child("item_price").value.toString().toFloat(),
+                        itemPrice = snap.child("item_price").value.toString().toInt(),
                         itemShortDesc = snap.child("item_desc").value.toString(),
                         itemTag = snap.child("item_category").value.toString(),
                         itemStars = snap.child("stars").value.toString().toFloat()

@@ -33,7 +33,7 @@ class PilihMenuViewModel(private val canteenRepository: CanteenRepository) : Vie
         idProduk: String,
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: String,
         desc: String,
         state: Boolean
@@ -53,7 +53,7 @@ class PilihMenuViewModel(private val canteenRepository: CanteenRepository) : Vie
     fun inputProduktoDB(
         namaProduk: String,
         jenis: String,
-        harga: String,
+        harga: Int,
         image: String,
         desc: String,
         state: Boolean
