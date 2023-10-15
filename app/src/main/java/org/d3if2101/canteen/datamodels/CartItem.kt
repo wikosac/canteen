@@ -7,5 +7,6 @@ data class CartItem(
     var itemPrice: Int = 0,
     var itemShortDesc: String = "ITEM_DESC",
     var itemStars: Float = 5.0F,
-    var quantity: Int = 0
+    var quantity: Int = 0,
+    var idPenjual: String = "ITEM_ID_PENJUAL"
 )

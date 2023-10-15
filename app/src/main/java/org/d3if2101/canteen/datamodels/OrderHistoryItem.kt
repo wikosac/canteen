@@ -1,5 +1,6 @@
 package org.d3if2101.canteen.datamodels
 
+// untukFirebase
 data class OrderHistoryItem(
     var id: Int = 0,
     var orderId: String = "ORDER_ID",

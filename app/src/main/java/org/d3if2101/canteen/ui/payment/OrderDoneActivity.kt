@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
 import org.d3if2101.canteen.datamodels.CartItem
@@ -25,6 +27,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+
+
 class OrderDoneActivity : AppCompatActivity() {
 
     private lateinit var completeLL: LinearLayout
@@ -34,6 +38,7 @@ class OrderDoneActivity : AppCompatActivity() {
     private lateinit var orderStatusTV: TextView
     private lateinit var orderIDTV: TextView
     private lateinit var dateAndTimeTV: TextView
+    private var orderRecordSaved = false
 
     private var totalItemPrice = 0
     private var totalTaxPrice = 0.0F
@@ -52,6 +57,8 @@ class OrderDoneActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val db = DatabaseHandler(this)
+        db.deleteAllCurrentOrders()
         val intent = Intent(this, MenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
@@ -77,7 +84,8 @@ class OrderDoneActivity : AppCompatActivity() {
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
 
 
-        findViewById<TextView>(R.id.order_done_total_amount_tv).text = this.getString(R.string.rupiah, totalItemPrice)
+        findViewById<TextView>(R.id.order_done_total_amount_tv).text =
+            this.getString(R.string.rupiah, totalItemPrice)
         findViewById<TextView>(R.id.order_done_payment_method_tv).text = paymentMethod
         findViewById<TextView>(R.id.order_done_take_away_time).text = takeAwayTime
 
@@ -90,7 +98,13 @@ class OrderDoneActivity : AppCompatActivity() {
 
         generateOrderID()
         setCurrentDateAndTime()
-        saveOrderRecordToDatabase()
+        saveCurrentOrderToDatabase() // save Current Order
+        if (!orderRecordSaved) {
+            GlobalScope.launch {
+                saveOrderRecordToDatabase() // save to Firebase
+            }
+            orderRecordSaved = true // Set the flag to indicate that it has been executed.
+        }
 
         findViewById<LinearLayout>(R.id.order_done_cancel_order_ll).setOnClickListener { cancelCurrentOrder() }
 
@@ -99,6 +113,8 @@ class OrderDoneActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener { openMenuActivity() }
     }
+
+
 
     private fun generateOrderID() {
         val r1: String = ('A'..'Z').random().toString() + ('A'..'Z').random().toString()
@@ -135,38 +151,66 @@ class OrderDoneActivity : AppCompatActivity() {
 
         for (i in 0 until data.size) {
             val orderDetail =  OrderDetail()
-            orderDetail.productId = data[i].orderID
-            orderDetail.qtyOrder = data[i].totalQuantities
+            orderDetail.productId = data[i].idProduct
+            orderDetail.qtyOrder = data[i].orderItemQuantities.toInt()
             productId.add(orderDetail)
         }
+        val totalQty = productId.sumBy { it.qtyOrder }
+        data.forEach { data ->
+            val itemInsertToFirebase = OrderHistoryItem(
+                date = orderDate,
+                orderId = orderID,
+                orderStatus = "Order Successful",
+                orderPayment = paymentMethod,
+                quantity = totalQty,
+                price = this.getString(R.string.rupiah, totalItemPrice),
+                sellerUid = data.idPenjual,
+                productIDs = productId
+            )
+            viewModel.insertOrderRecord(itemInsertToFirebase)
+            val item = OrderHistoryItem(
+                date = orderDate,
+                orderId = orderID,
+                orderStatus = "Order Successful",
+                orderPayment = paymentMethod,
+                price = this.getString(R.string.rupiah, totalItemPrice),
+                productIDs = productId
+            )
 
-        val item = OrderHistoryItem(
-            date = orderDate,
-            orderId = orderID,
-            orderStatus = "Order Successful",
-            orderPayment = paymentMethod,
-            price = this.getString(R.string.rupiah, totalItemPrice),
-            productIDs = productId
-        )
-        db.insertOrderData(item)
-        viewModel.insertOrderRecord(item)
+            db.insertOrderData(item)
+            Log.d(TAG, "saveOrderRecordToDatabase: $item")
+        }
 
-        saveCurrentOrderToDatabase()
-        Log.d(TAG, "saveOrderRecordToDatabase: $item")
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val db = DatabaseHandler(this)
+        db.deleteAllCurrentOrders()
     }
 
     private fun saveCurrentOrderToDatabase() {
-        val item = CurrentOrderItem(
-            orderID = orderID,
-            takeAwayTime = takeAwayTime,
-            paymentStatus = if(paymentMethod.startsWith("Tertunda")) "Tertunda" else "Selesai",
-            orderItemNames = getOrderItemNames(),
-            orderItemQuantities = getOrderItemQty(),
-            totalItemPrice = totalItemPrice
-        )
         val db = DatabaseHandler(this)
-        db.insertCurrentOrdersData(item)
-        Log.d(TAG, "saveCurrentOrderToDatabase: $item")
+        val dbCurrentCart = db.readCartData()
+
+        dbCurrentCart.forEach { dataCustomer ->
+            Log.d(TAG, dataCustomer.itemName + "testCurrentOrder")
+
+            val item = CurrentOrderItem(
+                orderID = orderID,
+                takeAwayTime = takeAwayTime,
+                paymentStatus = if (paymentMethod.startsWith("Tertunda")) "Tertunda" else "Selesai",
+                orderItemNames = dataCustomer.itemName,
+                orderItemQuantities = dataCustomer.quantity.toString(),
+                totalItemPrice = totalItemPrice,
+                idPenjual = dataCustomer.idPenjual,
+                idProduct = dataCustomer.itemID
+            )
+            val db2 = DatabaseHandler(this)
+            db2.insertCurrentOrdersData(item)
+            Log.d(TAG, "saveCurrentOrderToDatabase: $item")
+        }
     }
 
 
@@ -193,10 +237,10 @@ class OrderDoneActivity : AppCompatActivity() {
     private fun getOrderItemNames(): String {
         //stores all the item names in a single string separated by (;)
         var itemNames = ""
-        for(item in DatabaseHandler(this).readCartData()) {
+        for (item in DatabaseHandler(this).readCartData()) {
             itemNames += item.itemName + ";"
         }
-        return itemNames.substring(0, itemNames.length-1)
+        return itemNames.substring(0, itemNames.length - 1)
     }
 
 //    private fun getCartItem(): CartItem {
@@ -210,10 +254,10 @@ class OrderDoneActivity : AppCompatActivity() {
     private fun getOrderItemQty(): String {
         //stores all the item qty in a single string separated by (;)
         var itemQty = ""
-        for(item in DatabaseHandler(this).readCartData()) {
+        for (item in DatabaseHandler(this).readCartData()) {
             itemQty += item.quantity.toString() + ";"
         }
-        return itemQty.substring(0, itemQty.length-1)
+        return itemQty.substring(0, itemQty.length - 1)
     }
 
     companion object {

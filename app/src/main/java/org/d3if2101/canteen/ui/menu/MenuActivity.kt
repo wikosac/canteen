@@ -98,6 +98,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 if (snapshot.exists()) {
                     for (dataSnapshot in snapshot.children) {
                         val list = dataSnapshot.getValue(MenuItem::class.java)
+                        val idSeller = list!!.sellerID // get sellerID
                         if (list!!.status){
                             allItems.add(list)
                         }
@@ -322,7 +323,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 itemPrice = item.itemPrice,
                 quantity = item.quantity,
                 itemStars = item.itemStars,
-                itemShortDesc = item.itemShortDesc
+                itemShortDesc = item.itemShortDesc,
+                idPenjual = item.sellerID
             )
         )
     }

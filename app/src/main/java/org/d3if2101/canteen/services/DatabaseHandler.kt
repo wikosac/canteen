@@ -24,6 +24,9 @@ const val CART_ITEM_SHORT_DESC = "item_short_desc"
 const val CART_ITEM_STARS = "item_stars"
 const val CART_ITEM_QTY = "item_qty"
 
+const val CART_ITEM_ID_PENJUAL = "id_penjual" //added by me
+const val CART_ID_PRODUCT = "id_product"
+
 const val ORDER_HISTORY_TABLE_NAME = "old_orders"
 const val COL_ORDER_DATE = "order_date"
 const val COL_ORDER_ID = "order_id"
@@ -57,7 +60,8 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$CART_ITEM_SHORT_DESC VARCHAR(256)," +
                 "$CART_ITEM_QTY INTEGER," +
                 "$CART_ITEM_STARS REAL," +
-                "$CART_IMAGE_URL VARCHAR(256)" +
+                "$CART_IMAGE_URL VARCHAR(256)," +
+                "$CART_ITEM_ID_PENJUAL VARCHAR(256)" +
                 ");"
 
         val createOrderHistoryTable = "CREATE TABLE $ORDER_HISTORY_TABLE_NAME (" +
@@ -69,6 +73,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COL_ORDER_PRICE VARCHAR(256)" +
                 ");"
 
+        // ada yang belum dibuat
         val createCurrentOrdersTable = "CREATE TABLE $CURRENT_ORDER_TABLE_NAME (" +
                 "$COL_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COL_CURRENT_ORDER_ID VARCHAR(256), " +
@@ -78,8 +83,11 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COL_CURRENT_ORDER_ITEM_QUANTITIES VARCHAR(256), " +
                 "$COL_CURRENT_ORDER_TOTAL_ITEM_PRICE VARCHAR(256), " +
                 "$COL_CURRENT_ORDER_TAX VARCHAR(256), " +
-                "$COL_CURRENT_ORDER_SUB_TOTAL VARCHAR(256)" +
+                "$COL_CURRENT_ORDER_SUB_TOTAL VARCHAR(256), " +
+                "$CART_ITEM_ID_PENJUAL VARCHAR(256), " +
+                "$CART_ID_PRODUCT VARCHAR(256)" +
                 ");"
+
 
         db?.execSQL(createOrderHistoryTable)
         db?.execSQL(createCurrentOrdersTable)
@@ -113,6 +121,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         cv.put(CART_IMAGE_URL, item.imageUrl)
         cv.put(CART_ITEM_STARS, item.itemStars)
         cv.put(CART_ITEM_QTY, item.quantity)
+        cv.put(CART_ITEM_ID_PENJUAL, item.idPenjual)
 
         val result = db.insert(CART_TABLE_NAME, null, cv)
         if (result == (-1).toLong()) {
@@ -141,6 +150,8 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 item.quantity = result.getInt(result.getColumnIndex(CART_ITEM_QTY))
                 item.itemStars = result.getFloat(result.getColumnIndex(CART_ITEM_STARS))
 
+                item.idPenjual = result.getString(result.getColumnIndex(CART_ITEM_ID_PENJUAL)).toString()
+
                 list.add(item)
             } while (result.moveToNext())
         }
@@ -159,6 +170,17 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
             Toast.makeText(context, "Failed to Delete Cart Item\n$e", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun deleteAllCurrentOrders() {
+        try {
+            val db = this.writableDatabase
+            db.delete(CURRENT_ORDER_TABLE_NAME, null, null)
+            Toast.makeText(context, "All current orders are deleted", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(context, "Unable to delete the current orders", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     fun clearCartTable() {
         try {
@@ -182,6 +204,9 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         cv.put(COL_CURRENT_ORDER_TOTAL_ITEM_PRICE, item.totalItemPrice)
         cv.put(COL_CURRENT_ORDER_TAX, item.tax)
         cv.put(COL_CURRENT_ORDER_SUB_TOTAL, item.subTotal)
+
+        cv.put(CART_ITEM_ID_PENJUAL, item.idPenjual)
+        cv.put(CART_ID_PRODUCT, item.idProduct)
 
         val result = db.insert(CURRENT_ORDER_TABLE_NAME, null, cv)
         if (result == (-1).toLong()) {
@@ -213,6 +238,9 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                     result.getInt(result.getColumnIndex(COL_CURRENT_ORDER_TOTAL_ITEM_PRICE))
                 item.tax = result.getString(result.getColumnIndex(COL_CURRENT_ORDER_TAX))
                 item.subTotal = result.getString(result.getColumnIndex(COL_CURRENT_ORDER_SUB_TOTAL))
+
+                item.idPenjual = result.getString(result.getColumnIndex(CART_ITEM_ID_PENJUAL))
+                item.idProduct = result.getString(result.getColumnIndex(CART_ID_PRODUCT))
                 list.add(item)
             } while (result.moveToNext())
         }

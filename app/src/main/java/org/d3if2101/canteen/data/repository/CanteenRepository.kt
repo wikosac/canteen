@@ -410,6 +410,7 @@ class CanteenRepository private constructor(
 
     //    pesanan
     fun insertOrderRecord(order: OrderHistoryItem) {
+        Log.d("insertOrderRecord", order.orderId)
         databaseRef.child("orders").child(order.orderId)
             .setValue(order).addOnCompleteListener {
                 Log.d(TAG, "insertOrderRecord: ${it.result}")
