@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
-import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.datamodels.SavedCardItem
 

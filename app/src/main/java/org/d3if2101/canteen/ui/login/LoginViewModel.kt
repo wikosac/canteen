@@ -3,11 +3,9 @@ package org.d3if2101.canteen.ui.login
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel

@@ -7,7 +7,6 @@ import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import org.d3if2101.canteen.databinding.ActivityMainBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.dashboard.DashboardActivity

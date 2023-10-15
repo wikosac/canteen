@@ -1,6 +1,5 @@
 package org.d3if2101.canteen.ui.menu
 
-import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
@@ -35,7 +34,6 @@ import com.google.firebase.ktx.Firebase
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerFoodItemAdapter
 import org.d3if2101.canteen.databinding.ActivityMainMenuBinding
-import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.services.DatabaseHandler

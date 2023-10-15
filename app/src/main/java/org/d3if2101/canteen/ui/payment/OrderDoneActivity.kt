@@ -1,6 +1,5 @@
 package org.d3if2101.canteen.ui.payment
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler

@@ -17,15 +17,15 @@ class HomeProduk : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.linearLayout.setOnClickListener {
-            changeActivity("makanan")
+            changeActivity("Makanan")
         }
 
         binding.linearLayout2.setOnClickListener {
-            changeActivity("minuman")
+            changeActivity("Minuman")
         }
 
         binding.linearLayout3.setOnClickListener {
-            changeActivity("camilan")
+            changeActivity("Camilan")
         }
 
     }

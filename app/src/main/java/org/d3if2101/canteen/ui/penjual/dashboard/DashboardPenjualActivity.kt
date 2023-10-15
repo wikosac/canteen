@@ -2,9 +2,7 @@ package org.d3if2101.canteen.ui.penjual.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -12,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.messaging.FirebaseMessaging
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
-import org.d3if2101.canteen.databinding.NavHeaderBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel

@@ -357,6 +357,8 @@ class CanteenRepository private constructor(
                 val produkList = mutableListOf<MenuItem>()
                 val dataSnapshot = task.result
 
+                Log.d(TAG, firebaseAuthID.toString())
+
                 // Periksa apakah DataSnapshot ada
                 if (dataSnapshot.exists()) {
                     for (childSnapshot in dataSnapshot.children) {

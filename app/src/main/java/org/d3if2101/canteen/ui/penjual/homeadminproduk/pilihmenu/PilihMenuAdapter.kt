@@ -4,9 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -47,8 +45,8 @@ class PilihMenuAdapter(
                 .resize(100, 100)
                 .into(image)
 
-            tvName.text = dataList.itemName
-            tvHarga.text = dataList.itemPrice.toString()
+            tvName.text = "Product : ${dataList.itemName}"
+            tvHarga.text = "Harga : ${dataList.itemPrice.toString()}"
             setState.isChecked = dataList.status
             Log.d("PILIH MENU ADAPTER", dataList.status.toString())
 
