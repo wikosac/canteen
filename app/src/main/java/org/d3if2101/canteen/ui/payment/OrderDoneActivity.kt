@@ -33,7 +33,7 @@ class OrderDoneActivity : AppCompatActivity() {
     private lateinit var orderIDTV: TextView
     private lateinit var dateAndTimeTV: TextView
 
-    private var totalItemPrice = 0.0F
+    private var totalItemPrice = 0
     private var totalTaxPrice = 0.0F
     private var subTotalPrice = 0.0F
     private var paymentMethod = ""
@@ -67,7 +67,7 @@ class OrderDoneActivity : AppCompatActivity() {
         orderIDTV = findViewById(R.id.order_done_order_id_tv)
         dateAndTimeTV = findViewById(R.id.order_done_date_and_time_tv)
 
-        totalItemPrice = intent.getFloatExtra("totalItemPrice", 0.0F)
+        totalItemPrice = intent.getIntExtra("totalItemPrice", 0)
         totalTaxPrice = intent.getFloatExtra("totalTaxPrice", 0.0F)
         subTotalPrice = intent.getFloatExtra("subTotalPrice", 0.0F)
 
@@ -75,7 +75,7 @@ class OrderDoneActivity : AppCompatActivity() {
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
 
 
-        findViewById<TextView>(R.id.order_done_total_amount_tv).text = "%.2f".format(subTotalPrice)
+        findViewById<TextView>(R.id.order_done_total_amount_tv).text = this.getString(R.string.rupiah, totalItemPrice)
         findViewById<TextView>(R.id.order_done_payment_method_tv).text = paymentMethod
         findViewById<TextView>(R.id.order_done_take_away_time).text = takeAwayTime
 
@@ -131,7 +131,7 @@ class OrderDoneActivity : AppCompatActivity() {
             orderId = orderID,
             orderStatus = "Order Successful",
             orderPayment = paymentMethod,
-            price = "Rp%.2f".format(subTotalPrice)
+            price = this.getString(R.string.rupiah, totalItemPrice)
         )
         val db = DatabaseHandler(this)
         db.insertOrderData(item)

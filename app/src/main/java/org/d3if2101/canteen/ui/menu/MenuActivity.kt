@@ -56,7 +56,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
     private lateinit var recyclerFoodAdapter: RecyclerFoodItemAdapter
     private lateinit var showAllSwitch: SwitchCompat
     private lateinit var binding: ActivityMainMenuBinding
-    private lateinit var bindingNav: NavHeaderBinding
 
     private var allItems = ArrayList<MenuItem>()
     private var searchIsActive = false
@@ -70,27 +69,24 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainMenuBinding.inflate(layoutInflater)
-        bindingNav = NavHeaderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser!!
         databaseRef = FirebaseDatabase.getInstance().reference
-
         drawerLayout = binding.drawerLayout
-
-        viewModel.getUserWithToken(user.uid).observe(this@MenuActivity) {
-            binding.topWishNameTv.text = it.nama
-            bindingNav.navHeaderUserName.text = it.nama
-        }
-
-        binding.btnCart.setOnClickListener { showBottomDialog() }
-//            binding.menuUserIcon.setOnClickListener { openUserProfileActivity() }
 
         db.clearCartTable()
         setMenu()
         loadNavigationDrawer()
         loadSearchTask()
+
+        viewModel.getUserWithToken(user.uid).observe(this@MenuActivity) {
+            binding.topWishNameTv.text = this.getString(R.string.hi, it.nama)
+        }
+
+        binding.btnCart.setOnClickListener { showBottomDialog() }
+//            binding.menuUserIcon.setOnClickListener { openUserProfileActivity() }
     }
 
     companion object {
@@ -132,7 +128,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 R.id.nav_profile -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     Handler(Looper.getMainLooper()).postDelayed({
-                        openUserProfileActivity()
+                        startActivity(Intent(this, UserProfileActivity::class.java))
                     }, drawerDelay)
                 }
                 R.id.nav_my_orders -> {
@@ -287,7 +283,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         val bottomDialog = BottomSheetSelectedItemDialog()
         val bundle = Bundle()
 
-        var totalPrice = 0.0f
+        var totalPrice = 0
         var totalItems = 0
 
         for (item in db.readCartData()) {
@@ -295,23 +291,23 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             totalItems += item.quantity
         }
 
-        bundle.putFloat("totalPrice", totalPrice)
+        bundle.putInt("totalPrice", totalPrice)
         bundle.putInt("totalItems", totalItems)
-        // bundle.putParcelableArrayList("orderedList", recyclerFoodAdapter.getOrderedList() as ArrayList<out Parcelable?>?)
 
         bottomDialog.arguments = bundle
         bottomDialog.show(supportFragmentManager, "BottomSheetDialog")
     }
 
     private fun openUserProfileActivity() {
-        val intent = Intent(this, UserProfileActivity::class.java)
+//        val intent = Intent(this, UserProfileActivity::class.java)
 
-        val options = ActivityOptions.makeSceneTransitionAnimation(
-            this,
-            binding.menuUserIcon,
-            "userIconTransition"
-        )
-        startActivity(intent, options.toBundle())
+//        transition
+//        val options = ActivityOptions.makeSceneTransitionAnimation(
+//            this,
+//            binding.menuUserIcon,
+//            "userIconTransition"
+//        )
+//        startActivity(intent, options.toBundle())
     }
 
     override fun onItemClick(item: MenuItem) {

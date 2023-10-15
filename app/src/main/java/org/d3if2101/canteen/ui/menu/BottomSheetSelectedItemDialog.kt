@@ -1,5 +1,6 @@
 package org.d3if2101.canteen.ui.menu
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,14 +22,17 @@ open class BottomSheetSelectedItemDialog: BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.selected_menu_bottom_dialog, container, false)
     }
 
+    @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val totalPrice = this.arguments?.getFloat("totalPrice")
+        val totalPrice = this.arguments?.getInt("totalPrice")
         val totalItems = this.arguments?.getInt("totalItems")
 
-        view.findViewById<TextView>(R.id.total_ordered_items_price_tv).text = "Rp%.2f".format(totalPrice)
-        view.findViewById<TextView>(R.id.total_ordered_items_tv).text = "Your Order ($totalItems items)"
+        view.findViewById<TextView>(R.id.total_ordered_items_price_tv).text =
+            requireContext().getString(R.string.rupiah, totalPrice)
+        view.findViewById<TextView>(R.id.total_ordered_items_tv).text =
+            requireContext().getString(R.string.total_pesanan_kamu, totalItems)
 
         val placeOrderBTN: Button = view.findViewById(R.id.place_order_btn)
         placeOrderBTN.setOnClickListener {

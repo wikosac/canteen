@@ -17,20 +17,16 @@ class RecyclerOrderItemAdapter(
     var context: Context,
     private val itemOrderedList: ArrayList<CartItem>,
     private val activityTotalItemTV: TextView,
-    TotalItem: Int,
+    totalItem: Int,
     private val activityTotalPriceTV: TextView,
-    TotalPrice: Float,
-    private val activityTotalTaxTV: TextView,
-    TotalTax: Float,
-    private val activitySubTotalTV: TextView,
+    totalPrice: Int,
     private val activityProceedToPayBtn: Button,
     private val loadDefaultImage: Int,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerOrderItemAdapter.ItemListViewHolder>() {
 
-    private var totalPrice: Float = TotalPrice
-    private var totalItems = TotalItem
-    private var totalTax: Float = TotalTax
+    private var totalPrice: Int = totalPrice
+    private var totalItems = totalItem
 
     interface OnItemClickListener {
         fun emptyOrder()
@@ -62,7 +58,7 @@ class RecyclerOrderItemAdapter(
         else Picasso.get().load(currentItem.imageUrl).into(holder.itemImageIV)
 
         holder.itemNameTV.text = currentItem.itemName
-        holder.itemPriceTV.text = "Rp${currentItem.itemPrice}"
+        holder.itemPriceTV.text = context.getString(R.string.rupiah, currentItem.itemPrice)
         holder.itemStarsTV.text = currentItem.itemStars.toString()
         holder.itemShortDesc.text = currentItem.itemShortDesc
 
@@ -117,15 +113,10 @@ class RecyclerOrderItemAdapter(
     override fun getItemCount(): Int = itemOrderedList.size
 
     private fun updateOrderDetails() {
-        totalTax = totalPrice * 0.12F
-        activityTotalItemTV.text = "$totalItems items"
-        activityTotalPriceTV.text = "\$%.2f".format(totalPrice)
-        activityTotalTaxTV.text = "\$%.2f".format(totalTax)
-        activitySubTotalTV.text = "\$%.2f".format(totalPrice + totalTax)
-        activityProceedToPayBtn.text = "Proceed to Pay \$%.2f".format(totalPrice + totalTax)
+        activityTotalItemTV.text = context.getString(R.string.jumlah_produk, totalItems)
+        activityTotalPriceTV.text = context.getString(R.string.rupiah, totalPrice)
+        activityProceedToPayBtn.text = context.getString(R.string.bayar, totalPrice)
     }
 
-    fun getTotalItemPrice(): Float = totalPrice
-    fun getTotalTax(): Float = totalTax
-    fun getSubTotalPrice(): Float = totalPrice + totalTax
+    fun getTotalItemPrice(): Int = totalPrice
 }

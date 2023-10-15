@@ -31,14 +31,12 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     private lateinit var totalItemsTV: TextView
     private lateinit var totalPriceTV: TextView
-    private lateinit var totalTaxTV: TextView
-    private lateinit var subTotalTV: TextView
     private lateinit var proceedToPayBtn: Button
     private lateinit var orderTakeAwayTV: TextView
 
-    private var totalPrice: Float = 0F
+    private var totalPrice: Int = 0
     private var totalItems: Int = 0
-    private var totalTax: Float = 0F
+//    private var totalTax: Float = 0F
 
     private lateinit var binding: ActivityUserMenuOrderBinding
 
@@ -63,14 +61,11 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
         totalItemsTV = findViewById(R.id.order_total_items_tv)
         totalPriceTV = findViewById(R.id.order_total_price_tv)
-        totalTaxTV = findViewById(R.id.order_total_tax_tv)
-        subTotalTV = findViewById(R.id.order_sub_total_tv)
         proceedToPayBtn = findViewById(R.id.proceed_to_pay_btn)
         orderTakeAwayTV = findViewById(R.id.order_take_away_time_tv)
 
-        totalPrice = intent.getFloatExtra("totalPrice", 0F)
+        totalPrice = intent.getIntExtra("totalPrice", 0)
         totalItems = intent.getIntExtra("totalItems", 0)
-        totalTax = totalPrice * 0.12F
 
         loadOrderDetails()
         loadRecyclerAdapter()
@@ -87,11 +82,9 @@ class UserMenuOrderActivity : AppCompatActivity(),
     }
 
     private fun loadOrderDetails() {
-        totalItemsTV.text = "$totalItems items"
-        totalPriceTV.text = "Rp%.2f".format(totalPrice)
-        totalTaxTV.text = "Rp%.2f".format(totalTax)
-        subTotalTV.text = "Rp%.2f".format(totalPrice+totalTax)
-        proceedToPayBtn.text = "Bayar Rp%.2f".format(totalPrice+totalTax)
+        totalItemsTV.text = this.getString(R.string.jumlah_produk, totalItems)
+        totalPriceTV.text = this.getString(R.string.rupiah, totalPrice)
+        proceedToPayBtn.text = this.getString(R.string.rupiah, totalPrice)
     }
 
     private fun loadRecyclerAdapter() {
@@ -110,9 +103,6 @@ class UserMenuOrderActivity : AppCompatActivity(),
             totalItems,
             totalPriceTV,
             totalPrice,
-            totalTaxTV,
-            totalTax,
-            subTotalTV,
             proceedToPayBtn,
             sharedPref.getInt("loadItemImages", 0),
             this
@@ -157,8 +147,6 @@ class UserMenuOrderActivity : AppCompatActivity(),
     fun openPaymentActivity() {
         val intent = Intent(this, PaymentActivity::class.java)
         intent.putExtra("totalItemPrice", recyclerAdapter.getTotalItemPrice())
-        intent.putExtra("totalTaxPrice", recyclerAdapter.getTotalTax())
-        intent.putExtra("subTotalPrice", recyclerAdapter.getSubTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
         finish()

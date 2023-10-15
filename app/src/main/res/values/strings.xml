@@ -26,7 +26,7 @@
     <string name="kantin_4">Kantin 4</string>
     <string name="favoritmu">Favoritmu</string>
     <string name="keranjang">Keranjang</string>
-    <string name="bayar">Bayar</string>
+    <string name="bayar">Bayar Rp %1$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorit">Favorit</string>
     <string name="menu">menu</string>
@@ -77,7 +77,7 @@
     <string name="pesanan_berhasil">Pesanan Berhasil</string>
     <string name="pending">"Pending: Cash "</string>
     <string name="process">Diproses</string>
-    <string name="hi">Hi %1$s</string>
+    <string name="hi">Halo %1$s</string>
     <string name="total">Total</string>
     <string name="hello">Hello\n</string>
     <string name="name">Name\n</string>
@@ -237,4 +237,8 @@
     <string name="tanggal_pemesanan">Tanggal pemesanan</string>
     <string name="deskripsi_produk">Deskripsi Produk</string>
     <string name="rupiah">Rp %1$d</string>
+    <string name="total_pesanan_kamu">Total pesanan kamu %1$d produk</string>
+    <string name="pesan">Pesan</string>
+    <string name="semoga_harimu_menyenangkan">Semoga harimu menyenangkan ^_^</string>
+    <string name="jumlah_produk">%1$d produk</string>
 </resources>

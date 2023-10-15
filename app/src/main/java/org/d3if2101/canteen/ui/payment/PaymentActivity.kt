@@ -23,10 +23,7 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
     private lateinit var confirmPaymentBtn: Button
     private lateinit var cashPaymentRB: RadioButton
 
-    var totalItemPrice = 0.0F
-    var totalTaxPrice = 0.0F
-    var subTotalPrice = 0.0F
-
+    var totalItemPrice = 0
     var takeAwayTime = ""
 
     private var selectedSavedCard = ""
@@ -53,13 +50,11 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        totalItemPrice = intent.getFloatExtra("totalItemPrice", 0.0F)
-        totalTaxPrice = intent.getFloatExtra("totalTaxPrice", 0.0F)
-        subTotalPrice = intent.getFloatExtra("subTotalPrice", 0.0F)
+        totalItemPrice = intent.getIntExtra("totalItemPrice", 0)
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
 
         totalPaymentTV = findViewById(R.id.total_payment_tv)
-        totalPaymentTV.text = "Rp%.2f".format(subTotalPrice)
+        totalPaymentTV.text = this.getString(R.string.rupiah, totalItemPrice)
 
         cashPaymentRB = findViewById(R.id.cash_payment_radio_btn)
 
@@ -105,8 +100,6 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
 
         val intent = Intent(this, OrderDoneActivity::class.java)
         intent.putExtra("totalItemPrice", totalItemPrice)
-        intent.putExtra("totalTaxPrice", totalTaxPrice)
-        intent.putExtra("subTotalPrice", subTotalPrice)
         intent.putExtra("takeAwayTime", takeAwayTime)
         intent.putExtra("paymentMethod", paymentMethod)
 

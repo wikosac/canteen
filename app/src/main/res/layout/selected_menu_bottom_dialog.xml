@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:text="@string/order"
+        android:text="@string/pesan"
         android:textAllCaps="false"
         android:fontFamily="@font/montserrat_semi_bold"
         android:textColor="@color/text_dark_color"
