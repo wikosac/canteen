@@ -135,7 +135,8 @@ class PilihMenuActivity : AppCompatActivity() {
                     }
 
                 }
-            })
+            }
+        )
         binding.rv.adapter = adapter
     }
 

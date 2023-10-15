@@ -19,7 +19,7 @@ class OrderPenjualActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewPager: ViewPager2 = binding.viewPager
-        val adapter = OrderAdapter(this)
+        val adapter = OrderPenjualAdapter(this)
         viewPager.adapter = adapter
         val tabs: TabLayout = binding.tabs
         TabLayoutMediator(tabs, viewPager) { tab, position ->

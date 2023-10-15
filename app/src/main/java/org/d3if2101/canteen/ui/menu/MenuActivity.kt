@@ -118,7 +118,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val drawerDelay: Long = 150 //delay of the drawer to close
+        val drawerDelay: Long = 150
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_food_menu -> {
@@ -230,7 +230,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-//                recyclerFoodAdapter.filter.filter(p0)
+                recyclerFoodAdapter.filter.filter(p0)
                 return false
             }
         })
@@ -295,18 +295,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
         bottomDialog.arguments = bundle
         bottomDialog.show(supportFragmentManager, "BottomSheetDialog")
-    }
-
-    private fun openUserProfileActivity() {
-//        val intent = Intent(this, UserProfileActivity::class.java)
-
-//        transition
-//        val options = ActivityOptions.makeSceneTransitionAnimation(
-//            this,
-//            binding.menuUserIcon,
-//            "userIconTransition"
-//        )
-//        startActivity(intent, options.toBundle())
     }
 
     override fun onItemClick(item: MenuItem) {

@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.ui.penjual.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,15 +41,17 @@ class OrderFragment : Fragment() {
 
         viewModel.getOrderRecord().observe(viewLifecycleOwner) {
             setItemData(it)
+            Log.d(TAG, "onViewCreated: $it")
         }
     }
 
     private fun setItemData(itemsItem: List<OrderHistoryItem>) {
-        val adapter = OrderItemAdapter(itemsItem)
+        val adapter = OrderItemAdapter(this, viewModel, itemsItem)
         binding.rvOrderItem.adapter = adapter
     }
 
     companion object {
         const val ARG_POSITION = "section_number"
+        const val TAG = "testo"
     }
 }

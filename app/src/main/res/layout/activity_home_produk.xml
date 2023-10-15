@@ -24,7 +24,7 @@
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="center"
+            android:paddingHorizontal="24dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -67,7 +68,7 @@
         android:id="@+id/cardView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="center"
+            android:paddingHorizontal="24dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -110,7 +112,7 @@
         android:id="@+id/cardView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,6 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:gravity="center"
+            android:paddingHorizontal="24dp"
             android:orientation="horizontal">
 
             <ImageView
