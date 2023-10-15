@@ -279,7 +279,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             }.create().show()
     }
 
-    fun showBottomDialog() {
+    private fun showBottomDialog() {
         val bottomDialog = BottomSheetSelectedItemDialog()
         val bundle = Bundle()
 
@@ -287,7 +287,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         var totalItems = 0
 
         for (item in db.readCartData()) {
-            totalPrice += item.itemPrice
+            totalPrice += item.itemPrice * item.quantity
             totalItems += item.quantity
         }
 

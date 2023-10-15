@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.services
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.pm.PackageManager
@@ -25,6 +26,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         sendNotification(title, body)
     }
 
+    @SuppressLint("MissingPermission")
     private fun sendNotification(title: String?, message: String?) {
         val channelId = "your_notification_channel_id"
         val notificationBuilder = NotificationCompat.Builder(this, channelId)

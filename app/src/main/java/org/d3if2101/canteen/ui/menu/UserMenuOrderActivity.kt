@@ -36,7 +36,6 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     private var totalPrice: Int = 0
     private var totalItems: Int = 0
-//    private var totalTax: Float = 0F
 
     private lateinit var binding: ActivityUserMenuOrderBinding
 
@@ -73,10 +72,6 @@ class UserMenuOrderActivity : AppCompatActivity(),
         val c = Calendar.getInstance()
         c.add(Calendar.MINUTE, 5)
         onTimeSet(TimePicker(this), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE))
-
-        findViewById<ImageView>(R.id.user_menu_order_help_iv).setOnClickListener {
-//            startActivity(Intent(this, ContactUsActivity::class.java))
-        }
 
         binding.proceedToPayBtn.setOnClickListener { openPaymentActivity() }
     }
@@ -138,17 +133,17 @@ class UserMenuOrderActivity : AppCompatActivity(),
         AlertDialog.Builder(this)
             .setMessage("Pesananmu masih kosong. Tambahkan beberapa menu.")
             .setPositiveButton("Ok") { _, _ ->
-                onBackPressed()
+                startActivity(Intent(this, MenuActivity::class.java))
+                finish()
             }
             .setCancelable(false)
             .create().show()
     }
 
-    fun openPaymentActivity() {
+    private fun openPaymentActivity() {
         val intent = Intent(this, PaymentActivity::class.java)
-        intent.putExtra("totalItemPrice", recyclerAdapter.getTotalItemPrice())
+        intent.putExtra("totalItemPrice", recyclerAdapter.getTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
-        finish()
     }
 }

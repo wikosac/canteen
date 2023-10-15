@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 viewModel.getUserWithToken(token).observe(this) { user ->
-                    if (user?.role == "penjual") {
+                    if (user?.role?.lowercase() == "penjual") {
                         startActivity(Intent(this, DashboardPenjualActivity::class.java))
                         finish()
                     } else {

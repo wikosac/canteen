@@ -53,7 +53,7 @@ class RecyclerCurrentOrderAdapter(
         holder.takeAwayTimeTV.text = currentItem.takeAwayTime
         holder.paymentStatusTV.text = currentItem.paymentStatus
         holder.orderIDTV.text = currentItem.orderID
-        holder.totalItemPriceTV.text = "Rp ${currentItem.totalItemPrice.toFloat()}"
+        holder.totalItemPriceTV.text = context.getString(R.string.rupiah, currentItem.totalItemPrice)
 
         addTable(currentItem, holder.tableLayout)
 
@@ -101,7 +101,10 @@ class RecyclerCurrentOrderAdapter(
         tbItemName.typeface = typeface
         tbQty.typeface = typeface
 
-        tbRow.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        tbRow.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         tbQty.textAlignment = ViewGroup.TEXT_ALIGNMENT_TEXT_END
 
         //adding item name and quantity in a row

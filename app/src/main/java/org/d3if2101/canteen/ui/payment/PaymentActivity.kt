@@ -95,7 +95,7 @@ class PaymentActivity : AppCompatActivity(), RecyclerSavedCardsAdapter.OnItemCli
     private fun orderDone() {
         var paymentMethod = ""
         when {
-            cashPaymentRB.isChecked -> paymentMethod = "Pending: Cash Payment"
+            cashPaymentRB.isChecked -> paymentMethod = "Tertunda: Pembayaran Tunai"
         }
 
         val intent = Intent(this, OrderDoneActivity::class.java)

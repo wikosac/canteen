@@ -17,16 +17,13 @@ class RecyclerOrderItemAdapter(
     var context: Context,
     private val itemOrderedList: ArrayList<CartItem>,
     private val activityTotalItemTV: TextView,
-    totalItem: Int,
+    private var totalItems: Int,
     private val activityTotalPriceTV: TextView,
-    totalPrice: Int,
+    private var totalPrice: Int,
     private val activityProceedToPayBtn: Button,
     private val loadDefaultImage: Int,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerOrderItemAdapter.ItemListViewHolder>() {
-
-    private var totalPrice: Int = totalPrice
-    private var totalItems = totalItem
 
     interface OnItemClickListener {
         fun emptyOrder()
@@ -118,5 +115,7 @@ class RecyclerOrderItemAdapter(
         activityProceedToPayBtn.text = context.getString(R.string.bayar, totalPrice)
     }
 
-    fun getTotalItemPrice(): Int = totalPrice
+    fun getTotalPrice(): Int = totalPrice
+
+    fun getTotalItems(): Int = totalItems
 }

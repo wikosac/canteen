@@ -16,15 +16,6 @@ const val DATABASE_NAME = "MenuDB" //Offline Database
 
 const val COL_ID = "id"
 
-const val OFFLINE_FOOD_MENU_TABLE_NAME = "offline_food_menu"
-const val COL_ITEM_ID = "item_id"
-const val COL_ITEM_NAME = "item_name"
-const val COL_ITEM_PRICE = "item_price"
-const val COL_ITEM_DESC = "item_desc"
-const val COL_ITEM_STAR = "item_star"
-const val COL_ITEM_CATEGORY = "item_category"
-const val COL_ITEM_IMAGE_URL = "item_image_url"
-
 const val CART_TABLE_NAME = "current_cart"
 const val CART_ITEM_ID = "item_id"
 const val CART_IMAGE_URL = "image_url"
@@ -60,16 +51,6 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val createOfflineMenuTable = "CREATE TABLE $OFFLINE_FOOD_MENU_TABLE_NAME (" +
-                "$COL_ITEM_ID VARCHAR(256), " +
-                "$COL_ITEM_NAME VARCHAR(256), " +
-                "$COL_ITEM_PRICE REAL," +
-                "$COL_ITEM_DESC VARCHAR(256)," +
-                "$COL_ITEM_CATEGORY VARCHAR(256)," +
-                "$COL_ITEM_STAR REAL," +
-                "$COL_ITEM_IMAGE_URL VARCHAR(256)" +
-                ");"
-
         val createCartTable = "CREATE TABLE $CART_TABLE_NAME (" +
                 "$CART_ITEM_ID VARCHAR(256), " +
                 "$CART_ITEM_NAME VARCHAR(256), " +
@@ -101,16 +82,8 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$COL_CURRENT_ORDER_SUB_TOTAL VARCHAR(256)" +
                 ");"
 
-        val createSavedCardsTable = "CREATE TABLE $SAVED_CARDS_TABLE_NAME (" +
-                "$COL_SAVED_CARD_NUMBER VARCHAR(16) PRIMARY KEY, " +
-                "$COL_SAVED_CARD_HOLDER_NAME VARCHAR(50), " +
-                "$COL_SAVED_CARD_EXPIRY_DATE VARCHAR(5)" +
-                ");"
-
-        db?.execSQL(createOfflineMenuTable)
         db?.execSQL(createOrderHistoryTable)
         db?.execSQL(createCurrentOrdersTable)
-        db?.execSQL(createSavedCardsTable)
         db?.execSQL(createCartTable)
     }
 
@@ -197,63 +170,6 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         }
     }
 
-//    offline menu
-    fun insertOfflineMenuData(item: MenuItem) {
-        val db = this.writableDatabase
-        val cv = ContentValues()
-        cv.put(COL_ITEM_ID, item.itemID)
-        cv.put(COL_ITEM_NAME, item.itemName)
-        cv.put(COL_ITEM_PRICE, item.itemPrice)
-        cv.put(COL_ITEM_DESC, item.itemShortDesc)
-        cv.put(COL_ITEM_IMAGE_URL, item.imageUrl)
-        cv.put(COL_ITEM_CATEGORY, item.itemTag)
-        cv.put(COL_ITEM_STAR, item.itemStars)
-        val result = db.insert(OFFLINE_FOOD_MENU_TABLE_NAME, null, cv)
-        if (result == (-1).toLong()) {
-            Toast.makeText(context, "Failed to Insert Data", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    @SuppressLint("Range")
-    fun readOfflineMenuData(): MutableList<MenuItem> {
-        val list: MutableList<MenuItem> = ArrayList()
-
-        val db = this.readableDatabase
-        val query = "SELECT * from $OFFLINE_FOOD_MENU_TABLE_NAME"
-        val result = db.rawQuery(query, null)
-
-        if (result.moveToFirst()) {
-            do {
-                val item = MenuItem()
-                item.itemID = result.getString(result.getColumnIndex(COL_ITEM_ID)).toString()
-                item.imageUrl =
-                    result.getString(result.getColumnIndex(COL_ITEM_IMAGE_URL)).toString()
-                item.itemName = result.getString(result.getColumnIndex(COL_ITEM_NAME)).toString()
-                item.itemPrice = result.getInt(result.getColumnIndex(COL_ITEM_PRICE))
-                item.itemShortDesc =
-                    result.getString(result.getColumnIndex(COL_ITEM_DESC)).toString()
-                item.itemTag = result.getString(result.getColumnIndex(COL_ITEM_CATEGORY)).toString()
-                item.itemStars = result.getFloat(result.getColumnIndex(COL_ITEM_STAR))
-
-                list.add(item)
-            } while (result.moveToNext())
-        }
-
-        result.close()
-        db.close()
-
-        return list
-    }
-
-    fun clearTheOfflineMenuTable() {
-        try {
-            val db = this.writableDatabase
-            db.delete(OFFLINE_FOOD_MENU_TABLE_NAME, null, null)
-        } catch (e: Exception) {
-            Toast.makeText(context, "Unable to delete the records", Toast.LENGTH_SHORT).show()
-        }
-    }
-
 //    order
     fun insertCurrentOrdersData(item: CurrentOrderItem) {
         val db = this.writableDatabase
@@ -295,7 +211,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 item.orderItemQuantities =
                     result.getString(result.getColumnIndex(COL_CURRENT_ORDER_ITEM_QUANTITIES))
                 item.totalItemPrice =
-                    result.getString(result.getColumnIndex(COL_CURRENT_ORDER_TOTAL_ITEM_PRICE))
+                    result.getInt(result.getColumnIndex(COL_CURRENT_ORDER_TOTAL_ITEM_PRICE))
                 item.tax = result.getString(result.getColumnIndex(COL_CURRENT_ORDER_TAX))
                 item.subTotal = result.getString(result.getColumnIndex(COL_CURRENT_ORDER_SUB_TOTAL))
                 list.add(item)

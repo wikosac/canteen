@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.ui.pesanan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -37,6 +38,7 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
 
         val db = DatabaseHandler(this)
         val data = db.readCurrentOrdersData()
+        Log.d(TAG, "loadCurrentOrdersFromDatabase: $data")
 
         if(data.isEmpty()) {
             return
@@ -96,4 +98,8 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
     }
 
     fun goBack(view: View) {onBackPressed()}
+
+    companion object {
+        const val TAG = "testo"
+    }
 }

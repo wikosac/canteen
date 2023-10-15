@@ -12,6 +12,7 @@ data class OrderHistoryItem(
     var rating: Float = 5.0F,
     var review: String = "REVIEW",
     var quantity: Int = 0,
+    var sendNotification: Boolean = false,
     var productIDs: List<OrderDetail> = listOf(OrderDetail())
 )
 

@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
+import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
@@ -90,10 +92,7 @@ class OrderDoneActivity : AppCompatActivity() {
         setCurrentDateAndTime()
         saveOrderRecordToDatabase()
 
-//        findViewById<ImageView>(R.id.order_done_show_qr_iv).setOnClickListener { showQRCode() }
-//        findViewById<ImageView>(R.id.order_done_share_iv).setOnClickListener { shareOrder() }
         findViewById<LinearLayout>(R.id.order_done_cancel_order_ll).setOnClickListener { cancelCurrentOrder() }
-        findViewById<LinearLayout>(R.id.order_done_contact_us_ll).setOnClickListener { contactUs() }
 
         databaseHandler = DatabaseHandler(this)
         databaseHandler.readOrderData()
@@ -106,7 +105,7 @@ class OrderDoneActivity : AppCompatActivity() {
         val r2: Int = (10000..99999).random()
 
         orderID = "$r1$r2"
-        orderIDTV.text = "Order ID: $orderID"
+        orderIDTV.text = "ID Pesanan: $orderID"
     }
 
     private fun setCurrentDateAndTime() {
@@ -121,38 +120,53 @@ class OrderDoneActivity : AppCompatActivity() {
         val date = SimpleDateFormat("HH:mm").parse(time)
         val orderTime = SimpleDateFormat("hh:mm aa").format(date)
 
-        orderDate = "${monthName.substring(0, 3)} %02d, $year at $orderTime".format(dayNumber)
+        orderDate = "${monthName.substring(0, 3)} %02d, $year pukul $orderTime".format(dayNumber)
         dateAndTimeTV.text = orderDate
     }
 
     private fun saveOrderRecordToDatabase() {
+        val db = DatabaseHandler(this)
+        val data = db.readCurrentOrdersData()
+        val productId = mutableListOf<OrderDetail>()
+
+        if(data.isEmpty()) {
+            return
+        }
+
+        for (i in 0 until data.size) {
+            val orderDetail =  OrderDetail()
+            orderDetail.productId = data[i].orderID
+            orderDetail.qtyOrder = data[i].totalQuantities
+            productId.add(orderDetail)
+        }
+
         val item = OrderHistoryItem(
             date = orderDate,
             orderId = orderID,
             orderStatus = "Order Successful",
             orderPayment = paymentMethod,
-            price = this.getString(R.string.rupiah, totalItemPrice)
+            price = this.getString(R.string.rupiah, totalItemPrice),
+            productIDs = productId
         )
-        val db = DatabaseHandler(this)
         db.insertOrderData(item)
+        viewModel.insertOrderRecord(item)
 
         saveCurrentOrderToDatabase()
-        viewModel.insertOrderRecord(item)
+        Log.d(TAG, "saveOrderRecordToDatabase: $item")
     }
 
     private fun saveCurrentOrderToDatabase() {
         val item = CurrentOrderItem(
-            orderID,
-            takeAwayTime,
-            if(paymentMethod.startsWith("Pending")) "Pending" else "Done",
-            getOrderItemNames(),
-            getOrderItemQty(),
-            totalItemPrice.toString(),
-            totalTaxPrice.toString(),
-            subTotalPrice.toString()
+            orderID = orderID,
+            takeAwayTime = takeAwayTime,
+            paymentStatus = if(paymentMethod.startsWith("Tertunda")) "Tertunda" else "Selesai",
+            orderItemNames = getOrderItemNames(),
+            orderItemQuantities = getOrderItemQty(),
+            totalItemPrice = totalItemPrice
         )
         val db = DatabaseHandler(this)
         db.insertCurrentOrdersData(item)
+        Log.d(TAG, "saveCurrentOrderToDatabase: $item")
     }
 
 
@@ -169,31 +183,6 @@ class OrderDoneActivity : AppCompatActivity() {
                 dialogInterface.dismiss()
             }
             .create().show()
-    }
-
-    private fun showQRCode() {
-        val bundle = Bundle()
-        bundle.putString("orderID", orderID)
-        val dialog = QRCodeFragment()
-        dialog.arguments = bundle
-        dialog.show(supportFragmentManager, "QR Code Generator")
-    }
-
-    private fun shareOrder() {
-        val intent = Intent(Intent.ACTION_SEND)
-        val message = "Order Status: ${orderStatusTV.text}\n" +
-                "${orderIDTV.text}\n" +
-                "$paymentMethod\n" +
-                "Order Take-Away Time: $takeAwayTime\n" +
-                "Total Amount: $%.2f".format(subTotalPrice)
-
-        intent.putExtra(Intent.EXTRA_TEXT, message)
-        intent.type = "text/plain"
-        startActivity(Intent.createChooser(intent, "Share To"))
-    }
-
-    private fun contactUs() {
-//        startActivity(Intent(this, ContactUsActivity::class.java))
     }
 
     private fun openMenuActivity() {
@@ -217,5 +206,9 @@ class OrderDoneActivity : AppCompatActivity() {
             itemQty += item.quantity.toString() + ";"
         }
         return itemQty.substring(0, itemQty.length-1)
+    }
+
+    companion object {
+        const val TAG = "testo"
     }
 }

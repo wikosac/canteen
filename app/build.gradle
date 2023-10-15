@@ -66,23 +66,17 @@ dependencies {
     implementation 'com.google.zxing:zxingorg:3.3.3'
 
     // firebase
-    implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
-    implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-
-    // analytics firebase
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    // fcm
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
+    implementation 'com.google.firebase:firebase-messaging:23.2.1'
 
     // spinner
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
 
     implementation "androidx.paging:paging-runtime-ktx:3.2.1"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-
-
 }
