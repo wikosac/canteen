@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityDaftarPenjualBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.daftar.DaftarViewModel
 import org.d3if2101.canteen.ui.login.Login
 
 class DaftarPenjualActivity : AppCompatActivity() {
@@ -43,6 +44,7 @@ class DaftarPenjualActivity : AppCompatActivity() {
             if (it.message.lowercase() == "success") {
                 viewModel.insertToDB(email, nama, noTelpon, role)
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, Login::class.java))
                 finish()
             } else {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()

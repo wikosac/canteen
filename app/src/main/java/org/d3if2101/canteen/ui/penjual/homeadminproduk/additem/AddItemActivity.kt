@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.databinding.ActivityAddItemBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
+import org.d3if2101.canteen.utils.staticDataSetKategori
 
 class AddItemActivity : AppCompatActivity() {
 
@@ -20,13 +21,10 @@ class AddItemActivity : AppCompatActivity() {
     private var kategori: String = "Pilih Kategori"
     private lateinit var desc: String
 
-
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
     }
-    private val viewModel: AddItemViewModel by viewModels {
-        factory
-    }
+    private val viewModel: AddItemViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +34,8 @@ class AddItemActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val niceSpinner = binding.pilihKategori
-        niceSpinner.attachDataSource(org.d3if2101.canteen.utils.staticDataSetKategori)
-        niceSpinner.setOnSpinnerItemSelectedListener { parent, view, position, id ->
+        niceSpinner.attachDataSource(staticDataSetKategori)
+        niceSpinner.setOnSpinnerItemSelectedListener { parent, _, position, _ ->
             kategori = parent.getItemAtPosition(position) as String
         }
 

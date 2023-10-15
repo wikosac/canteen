@@ -32,7 +32,6 @@ class Login : AppCompatActivity() {
         }
 
         binding.tvButtonLogin.setOnClickListener { login() }
-
     }
 
     private fun login() {
@@ -51,14 +50,16 @@ class Login : AppCompatActivity() {
             Log.d(TAG, "login: $user")
             if (user != null) {
                 viewModel.saveTokenPref(user.uid)
-                if (user.role == "penjual") {
-                    val intent = Intent(this, DashboardPenjualActivity::class.java)
-                    intent.putExtra("userName", user.nama)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    startActivity(Intent(this, DashboardActivity::class.java))
-                    finish()
+                viewModel.getUserWithToken(user.uid).observe(this) {
+                    if (it.role.lowercase() == "penjual") {
+                        val intent = Intent(this, DashboardPenjualActivity::class.java)
+                        intent.putExtra("userName", user.nama)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                        finish()
+                    }
                 }
                 Toast.makeText(this, "Selamat Datang ${user.nama}", Toast.LENGTH_SHORT).show()
             }

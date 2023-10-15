@@ -38,7 +38,6 @@ class CanteenRepository private constructor(
                         data.value = Message("Failed")
                     }
                 }
-
         } catch (e: Exception) {
             Log.e(TAG, e.printStackTrace().toString())
         }
