@@ -48,6 +48,7 @@ class OrderDoneActivity : AppCompatActivity() {
 
     private var orderID = ""
     private var orderDate = ""
+    private var userUID: String = ""
 
     private lateinit var binding: ActivityOrderDoneBinding
     private val factory: ViewModelFactory by lazy {
@@ -96,15 +97,21 @@ class OrderDoneActivity : AppCompatActivity() {
             completeLL.visibility = ViewGroup.VISIBLE
         }, 2000)
 
+        viewModel.getFirebaseAuthUID().observe(this){
+            userUID = it
+        }
         generateOrderID()
         setCurrentDateAndTime()
         saveCurrentOrderToDatabase() // save Current Order
+
         if (!orderRecordSaved) {
             GlobalScope.launch {
                 saveOrderRecordToDatabase() // save to Firebase
             }
             orderRecordSaved = true // Set the flag to indicate that it has been executed.
         }
+
+
 
         findViewById<LinearLayout>(R.id.order_done_cancel_order_ll).setOnClickListener { cancelCurrentOrder() }
 
@@ -158,6 +165,7 @@ class OrderDoneActivity : AppCompatActivity() {
         val totalQty = productId.sumBy { it.qtyOrder }
         data.forEach { data ->
             val itemInsertToFirebase = OrderHistoryItem(
+                buyerUid =  userUID,
                 date = orderDate,
                 orderId = orderID,
                 orderStatus = "Order Successful",
@@ -242,14 +250,6 @@ class OrderDoneActivity : AppCompatActivity() {
         }
         return itemNames.substring(0, itemNames.length - 1)
     }
-
-//    private fun getCartItem(): CartItem {
-//
-//        for(item in DatabaseHandler(this).readCartData()) {
-//            itemNames += item.itemName + ";"
-//        }
-//        return
-//    }
 
     private fun getOrderItemQty(): String {
         //stores all the item qty in a single string separated by (;)

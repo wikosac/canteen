@@ -46,6 +46,12 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun getUIDUser() : LiveData<String> {
+        val data = MutableLiveData<String>()
+        data.value = firebaseAuth.uid.toString()
+        return data
+    }
+
     fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
         uid.observe(lifecycleOwner) {

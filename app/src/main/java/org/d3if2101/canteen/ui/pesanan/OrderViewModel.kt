@@ -15,4 +15,6 @@ class OrderViewModel(private val canteenRepository: CanteenRepository): ViewMode
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecord()
 
     fun getProdukWithID(id: String): LiveData<MenuItem> = canteenRepository.getProdukWithID(id)
+
+    fun getFirebaseAuthUID() : LiveData<String> = canteenRepository.getUIDUser()
 }
