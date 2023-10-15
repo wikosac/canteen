@@ -229,7 +229,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-//                recyclerFoodAdapter.filter.filter(p0)
+                recyclerFoodAdapter.filter.filter(p0)
                 return false
             }
         })

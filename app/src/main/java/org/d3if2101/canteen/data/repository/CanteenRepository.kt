@@ -2,6 +2,7 @@ package org.d3if2101.canteen.data.repository
 
 import android.net.Uri
 import android.util.Log
+import android.widget.NumberPicker.OnValueChangeListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -344,6 +345,26 @@ class CanteenRepository private constructor(
                 data.value = Message("Failed")
             }
         }
+        return data
+    }
+
+    fun getProdukWithID(id: String): LiveData<MenuItem> {
+        val data = MutableLiveData<MenuItem>()
+        val produkRef = firebaseDatabase.getReference("produk")
+
+        produkRef.child(id).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    data.value = snapshot.getValue(MenuItem::class.java)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "onCancelled: ${error.message}")
+            }
+
+        })
+
         return data
     }
 
