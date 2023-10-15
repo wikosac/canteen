@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CartItem
+import org.d3if2101.canteen.datamodels.MenuItem
 
 class RecyclerOrderItemAdapter(
     var context: Context,
@@ -27,6 +28,8 @@ class RecyclerOrderItemAdapter(
 
     interface OnItemClickListener {
         fun emptyOrder()
+        fun onPlusBtnClick(item: CartItem)
+        fun onMinusBtnClick(item: CartItem)
     }
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -75,6 +78,7 @@ class RecyclerOrderItemAdapter(
 
             ++totalItems
             totalPrice += currentItem.itemPrice
+            listener.onPlusBtnClick(currentItem)
             updateOrderDetails()
         }
 
@@ -95,6 +99,7 @@ class RecyclerOrderItemAdapter(
                 currentItem.quantity--
                 updateOrderDetails()
             }
+            listener.onMinusBtnClick(currentItem)
         }
     }
 

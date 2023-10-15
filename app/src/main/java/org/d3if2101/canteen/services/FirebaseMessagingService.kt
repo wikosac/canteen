@@ -44,4 +44,13 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
         notificationManager.notify(0, notificationBuilder.build())
     }
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d(TAG, "onNewToken: $token")
+    }
+
+    companion object {
+        const val TAG = "testo"
+    }
 }

@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui.menu
+package org.d3if2101.canteen.ui.payment
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
@@ -16,8 +16,9 @@ import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderItemAdapter
 import org.d3if2101.canteen.databinding.ActivityUserMenuOrderBinding
 import org.d3if2101.canteen.datamodels.CartItem
+import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.services.DatabaseHandler
-import org.d3if2101.canteen.ui.payment.PaymentActivity
+import org.d3if2101.canteen.ui.menu.MenuActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -35,6 +36,7 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     private var totalPrice: Int = 0
     private var totalItems: Int = 0
+    private val db = DatabaseHandler(this)
 
     private lateinit var binding: ActivityUserMenuOrderBinding
 
@@ -144,5 +146,41 @@ class UserMenuOrderActivity : AppCompatActivity(),
         intent.putExtra("totalItemPrice", recyclerAdapter.getTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
+    }
+
+    override fun onPlusBtnClick(item: CartItem) {
+        item.quantity += 1
+        db.insertCartItem (
+            CartItem(
+                itemID = item.itemID,
+                itemName = item.itemName,
+                imageUrl = item.imageUrl,
+                itemPrice = item.itemPrice,
+                quantity = item.quantity,
+                itemStars = item.itemStars,
+                itemShortDesc = item.itemShortDesc
+            )
+        )
+    }
+
+    override fun onMinusBtnClick(item: CartItem) {
+        if (item.quantity == 0) return
+        item.quantity -= 1
+
+        val cartItem = CartItem(
+            itemID = item.itemID,
+            itemName = item.itemName,
+            imageUrl = item.imageUrl,
+            itemPrice = item.itemPrice,
+            quantity = item.quantity,
+            itemStars = item.itemStars,
+            itemShortDesc = item.itemShortDesc
+        )
+
+        if (item.quantity == 0) {
+            db.deleteCartItem(cartItem)
+        } else {
+            db.insertCartItem(cartItem) // Update
+        }
     }
 }

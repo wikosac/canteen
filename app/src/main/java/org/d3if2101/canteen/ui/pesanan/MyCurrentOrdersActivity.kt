@@ -40,11 +40,10 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
         val data = db.readCurrentOrdersData()
         Log.d(TAG, "loadCurrentOrdersFromDatabase: $data")
 
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             return
         }
 
-        findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility = ViewGroup.GONE
         for(i in 0 until data.size) {
             val currentOrderItem =  CurrentOrderItem()
 
@@ -56,10 +55,13 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
             currentOrderItem.totalItemPrice = data[i].totalItemPrice
             currentOrderItem.tax = data[i].tax
             currentOrderItem.subTotal = data[i].subTotal
+
             currentOrderList.add(currentOrderItem)
             currentOrderList.reverse()
             recyclerAdapter.notifyItemRangeInserted(0, data.size)
         }
+        
+        findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility = ViewGroup.GONE
     }
 
     override fun showQRCode(orderID: String) {

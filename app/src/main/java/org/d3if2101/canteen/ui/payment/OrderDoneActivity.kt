@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
+import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
@@ -197,6 +198,14 @@ class OrderDoneActivity : AppCompatActivity() {
         }
         return itemNames.substring(0, itemNames.length-1)
     }
+
+//    private fun getCartItem(): CartItem {
+//
+//        for(item in DatabaseHandler(this).readCartData()) {
+//            itemNames += item.itemName + ";"
+//        }
+//        return
+//    }
 
     private fun getOrderItemQty(): String {
         //stores all the item qty in a single string separated by (;)
