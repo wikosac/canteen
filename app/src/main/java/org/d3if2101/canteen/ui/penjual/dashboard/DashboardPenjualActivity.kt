@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
 import org.d3if2101.canteen.databinding.NavHeaderBinding
@@ -41,6 +42,10 @@ class DashboardPenjualActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loadNavigationDrawer()
+
+        // Inisialisasi Firebase Messaging dan berlangganan topik dalam onCreate
+
+        viewModel.setFCM()
 
         binding.penjualCardProduk.setOnClickListener {
             startActivity(Intent(this@DashboardPenjualActivity, HomeProduk::class.java))

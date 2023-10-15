@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
@@ -44,5 +45,8 @@ class LoginViewModel(
         val token = pref.getToken().asLiveData().value.toString()
         Log.d("testo", "deleteTokenPref: $token")
     }
+
+
+    fun setFCM() = canteenRepository.setFCM()
 
 }

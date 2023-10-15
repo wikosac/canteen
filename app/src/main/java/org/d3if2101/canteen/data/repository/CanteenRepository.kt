@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
@@ -245,7 +246,7 @@ class CanteenRepository private constructor(
         image: String,
         desc: String,
         state: Boolean
-    ) : LiveData<Message> {
+    ): LiveData<Message> {
         val data = MutableLiveData<Message>()
 
         val produk = MenuItem(
@@ -444,6 +445,18 @@ class CanteenRepository private constructor(
             })
 
         return orders
+    }
+
+    fun setFCM() {
+        val uidUser = firebaseAuth.uid
+        FirebaseMessaging.getInstance().subscribeToTopic(uidUser.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FCM", "Berlangganan ke topik '${uidUser}' berhasil.")
+                } else {
+                    Log.e("FCM", "Gagal berlangganan ke topik 'penjual'.")
+                }
+            }
     }
 
     companion object {

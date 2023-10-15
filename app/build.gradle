@@ -72,7 +72,17 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
 
+    // analytics firebase
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    // fcm
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+
+    // spinner
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
+
     implementation "androidx.paging:paging-runtime-ktx:3.2.1"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+
 }
