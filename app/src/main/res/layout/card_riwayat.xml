@@ -101,6 +101,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingStart="16dp"
+            android:textAllCaps="false"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"

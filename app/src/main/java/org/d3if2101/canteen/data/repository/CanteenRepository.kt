@@ -48,6 +48,7 @@ class CanteenRepository private constructor(
 
     fun getUIDUser(): LiveData<String> {
         val data = MutableLiveData<String>()
+        Log.d(TAG, "${firebaseAuth.uid}")
         data.value = firebaseAuth.uid.toString()
         return data
     }
@@ -390,12 +391,7 @@ class CanteenRepository private constructor(
     fun updateOrderStateByID(
         orderId: String,
         orderState: String,
-        date: String,
-        price: String,
-        buyerUID: String,
-        quantity: Int,
         orderPayment: String,
-        productIDs: List<OrderDetail>
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
 
@@ -403,13 +399,8 @@ class CanteenRepository private constructor(
 
         orderRef.updateChildren(
             mapOf(
-                "orderState" to orderState,
-                "date" to date,
-                "price" to price,
-                "buyerUID" to buyerUID,
+                "orderStatus" to orderState,
                 "orderPayment" to orderPayment,
-                "quantity" to quantity,
-                "productIDs" to productIDs
             )
         ).addOnSuccessListener {
             Log.d(TAG, "Order successfully updated")
