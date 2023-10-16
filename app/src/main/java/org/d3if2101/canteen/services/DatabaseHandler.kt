@@ -103,17 +103,17 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         val db = this.writableDatabase
 
         val query = "SELECT * FROM $CART_TABLE_NAME WHERE $CART_ITEM_ID='${item.itemID}';"
-        val cursor = db.rawQuery(query, null);
-        if (cursor.count > 0) {
+        val cursor = db.rawQuery(query, null)
+    if (cursor.count > 0) {
             // Update qty, cart item is already added
             val cv = ContentValues()
             cv.put(CART_ITEM_QTY, item.quantity)
             db.update(CART_TABLE_NAME, cv, "$CART_ITEM_ID = ?", Array(1) { item.itemID })
             return
         }
-        cursor.close();
+        cursor.close()
 
-        val cv = ContentValues()
+    val cv = ContentValues()
         cv.put(CART_ITEM_ID, item.itemID)
         cv.put(CART_ITEM_NAME, item.itemName)
         cv.put(CART_ITEM_PRICE, item.itemPrice)
@@ -335,14 +335,14 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
 
         val query =
             "SELECT * FROM $SAVED_CARDS_TABLE_NAME WHERE $COL_SAVED_CARD_NUMBER='${item.cardNumber}';"
-        val cursor = db.rawQuery(query, null);
-        if (cursor.count > 0) { //card is already saved
-            cursor.close();
-            return -1;
+        val cursor = db.rawQuery(query, null)
+    if (cursor.count > 0) { //card is already saved
+            cursor.close()
+            return -1
         }
-        cursor.close();
+        cursor.close()
 
-        val cv = ContentValues()
+    val cv = ContentValues()
         cv.put(COL_SAVED_CARD_NUMBER, item.cardNumber)
         cv.put(COL_SAVED_CARD_HOLDER_NAME, item.cardHolderName)
         cv.put(COL_SAVED_CARD_EXPIRY_DATE, item.cardExpiryDate)

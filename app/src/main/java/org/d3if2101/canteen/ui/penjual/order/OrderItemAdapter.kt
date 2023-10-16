@@ -47,11 +47,11 @@ class OrderItemAdapter(
         val currentOrderItem = riwayatList[position]
         val buyerUID = currentOrderItem.buyerUid
         holder.time.text = currentOrderItem.date
-        holder.orderId.text = "ID: ${currentOrderItem.orderId}"
+        holder.orderId.text = currentOrderItem.orderId
         holder.totalPrice.text = currentOrderItem.price
 
         viewModel.getUserFromUID(buyerUID).observe(lifecycleOwner) {
-            holder.txtNamaUser.text = " Pembeli: ${it.nama}"
+            holder.txtNamaUser.text = "Pembeli: ${it.nama}"
         }
 
         // Use Glide to load an image

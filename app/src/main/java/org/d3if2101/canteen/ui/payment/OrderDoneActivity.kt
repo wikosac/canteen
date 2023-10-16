@@ -163,7 +163,7 @@ class OrderDoneActivity : AppCompatActivity() {
             orderDetail.qtyOrder = data[i].orderItemQuantities.toInt()
             productId.add(orderDetail)
         }
-        val totalQty = productId.sumBy { it.qtyOrder }
+        val totalQty = productId.sumOf { it.qtyOrder }
         data.forEach { data ->
             val itemInsertToFirebase = OrderHistoryItem(
                 buyerUid =  userUID,

@@ -29,7 +29,7 @@ class PendapatanActivity : AppCompatActivity() {
 
         viewModel.getPendapatan().observe(this) {
             it.forEach { order ->
-                val price = order.price?.replace("Rp ", "")?.replace(",", "")?.toIntOrNull() ?: 0
+                val price = order.price.replace("Rp ", "").replace(",", "")?.toIntOrNull() ?: 0
                 totalPendapatan += price
             }
             setItemData(it)

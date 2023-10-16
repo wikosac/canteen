@@ -27,7 +27,7 @@ class PendapatanAdapter(private val data: List<OrderHistoryItem>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = data[position]
-        val price = currentItem.price?.replace("Rp ", "")?.replace(",", "")?.toIntOrNull() ?: 0
+        val price = currentItem.price.replace("Rp ", "").replace(",", "")?.toIntOrNull() ?: 0
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
 
         holder.idOrder.text = currentItem.orderId
