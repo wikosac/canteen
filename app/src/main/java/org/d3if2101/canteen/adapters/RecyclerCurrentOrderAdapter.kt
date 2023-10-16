@@ -1,28 +1,44 @@
 package org.d3if2101.canteen.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.opengl.Visibility
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.d3if2101.canteen.R
+import org.d3if2101.canteen.datamodels.MenuItem
+import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.pesanan.CurrentOrderItemAdapter
+import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class RecyclerCurrentOrderAdapter(
     var context: Context,
     private var currentOrderList: List<OrderHistoryItem>,
+    private val viewModel: OrderViewModel,
+    private val lifecycleOwner: LifecycleOwner,
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerCurrentOrderAdapter.ItemListViewHolder>() {
 
     interface OnItemClickListener {
-        fun showQRCode(orderID: String)
-        fun cancelOrder(position: Int)
+        fun cancelOrder(orderId: String)
     }
 
     fun updateData(newData: List<OrderHistoryItem>) {
@@ -36,7 +52,6 @@ class RecyclerCurrentOrderAdapter(
         val paymentStatusTV: TextView = itemView.findViewById(R.id.current_order_item_payment_status_tv)
         val orderIDTV: TextView = itemView.findViewById(R.id.current_order_item_order_id_tv)
         val totalItemPriceTV: TextView = itemView.findViewById(R.id.current_order_item_total_price_tv)
-        val showQRBtn: ExtendedFloatingActionButton = itemView.findViewById(R.id.current_order_item_show_qr_btn)
         val cancelBtn: ExtendedFloatingActionButton = itemView.findViewById(R.id.current_order_item_cancel_btn)
         val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_current_order_item)
     }
@@ -50,26 +65,49 @@ class RecyclerCurrentOrderAdapter(
         return ItemListViewHolder(itemView)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
-
         val currentItem = currentOrderList[position]
 
-        with (holder) {
-            takeAwayTimeTV.text = currentItem.date
-            paymentStatusTV.text = currentItem.orderStatus
-            orderIDTV.text = currentItem.orderId
-            totalItemPriceTV.text = currentItem.price
-            showQRBtn.setOnClickListener {
-                listener.showQRCode(currentItem.orderId)
+        holder.takeAwayTimeTV.text = currentItem.date
+        holder.paymentStatusTV.text = currentItem.orderPayment
+        holder.orderIDTV.text = currentItem.orderId
+        holder.totalItemPriceTV.text = currentItem.price
+
+        if (currentItem.orderPayment == "Tertunda: Pembayaran Tunai") {
+            holder.cancelBtn.setOnClickListener {
+                listener.cancelOrder(currentItem.orderId)
             }
-            cancelBtn.setOnClickListener {
-                listener.cancelOrder(position)
-            }
-            itemRecyclerView.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = CurrentOrderItemAdapter(currentOrderList)
-            }
+        } else {
+            holder.cancelBtn.isEnabled = false
+            holder.cancelBtn.text = "Pesanan diproses"
+            holder.cancelBtn.setBackgroundColor(context.getColor(R.color.grey_formal))
         }
+
+        holder.itemRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = CurrentOrderItemAdapter(currentItem.productIDs, viewModel, lifecycleOwner)
+        }
+
+//        viewModel.getProductFromIds(currentItem.productIDs).observe(lifecycleOwner) { productList ->
+//            Log.d(TAG, "onBindViewHolder: $productList")
+//
+//            val itemDetail = mutableListOf<MenuItem>()
+//            itemDetail.addAll(productList)
+//
+//            // Notify the adapter that the data has changed
+//
+//            holder.itemRecyclerView.apply {
+//                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//                adapter = CurrentOrderItemAdapter(itemDetail)
+//            }
+//
+//            holder.itemRecyclerView.adapter?.notifyDataSetChanged()
+//
+//            itemDetail.forEach {
+//                Log.d(TAG, "onBindViewHolder: ${it.itemPrice}")
+//            }
+//        }
     }
 
     override fun getItemCount(): Int = currentOrderList.size

@@ -21,9 +21,6 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
 
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecord()
 
-    //    fun getOrders() {
-//        _orders.value = canteenRepository.getOrderRecord()
-//    }
     fun updateOrderStateByID(
         orderId: String,
         orderState: String,
@@ -38,4 +35,5 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
     fun getUserFromUID(UID: String): LiveData<UserModel> = canteenRepository.getUserWithToken(UID)
 
     fun getPendapatan(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderPendapatan()
+
 }

@@ -355,6 +355,19 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun deleteOrderById(orderId: String): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        val orderRef = firebaseDatabase.getReference("orders")
+        orderRef.child(orderId).removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                data.value = Message("Success")
+            } else {
+                data.value = Message("Failed")
+            }
+        }
+        return data
+    }
+
     fun getProdukWithID(id: String): LiveData<MenuItem> {
         val data = MutableLiveData<MenuItem>()
         val produkRef = firebaseDatabase.getReference("produk")
@@ -503,32 +516,23 @@ class CanteenRepository private constructor(
         return orders
     }
 
-    fun getOrderPendapatan() : LiveData<List<OrderHistoryItem>> {
-        val orders = MutableLiveData<List<OrderHistoryItem>>()
-        databaseRef.child("orders")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d(TAG, "onDataChange orders: $snapshot")
-                    if (snapshot.exists()) {
-                        val orderList = mutableListOf<OrderHistoryItem>()
-                        for (record in snapshot.children) {
-                            Log.d(TAG, "onDataChange orders child: $record")
-                            val orderRecord = record.getValue(OrderHistoryItem::class.java)
-                            if (orderRecord != null && orderRecord.orderStatus.lowercase().contains("selesai")) {
-                                orderList.add(orderRecord)
-                            }
-                        }
-                        orders.value = orderList
-                    }
-                }
+    fun getProductFromOrder(productIds: List<OrderDetail>): LiveData<List<MenuItem>> {
+        val data = MutableLiveData<List<MenuItem>>()
+        val produkList = mutableListOf<MenuItem>()
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
+        for (item in productIds) {
+            Log.d(TAG, "getProductFromOrder productIds: $item")
 
-            })
+            getProdukWithID(item.productId).observeForever { menuItem ->
+                Log.d(TAG, "getProductFromOrder menu: $menuItem")
 
-        return orders
+                produkList.add(menuItem)
+            }
+        }
+        data.value = produkList
+        Log.d(TAG, "getProductFromOrder data: ${data.value}")
+
+        return data
     }
 
     fun setFCM() {
