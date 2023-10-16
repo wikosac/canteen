@@ -5,16 +5,13 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
@@ -37,53 +34,22 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_current_orders)
 
-        val currentOrderItems: ArrayList<CurrentOrderItem> = ArrayList()
-        val orderCurrent: List<CurrentOrderItem> = listOf()
-
+        var orderRecords: List<OrderHistoryItem>? = null
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) {
-            currentOrderItems.addAll(orderCurrent.map { it })
-            recyclerView = findViewById(R.id.current_order_recycler_view)
-            recyclerAdapter = RecyclerCurrentOrderAdapter(
-                this, currentOrderList = orderCurrent, this
-            )
-            recyclerView.adapter = recyclerAdapter
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        }
-        currentOrderItems.forEach{ a ->
-            Log.d(TAG, "onCreate orderCurrentItem: ${a.orderItemNames}")
-        }
-
-    }
-
-    private fun loadCurrentOrdersFromDatabase() {
-
-        val db = DatabaseHandler(this)
-        val data = db.readCurrentOrdersData()
-        Log.d(TAG, "loadCurrentOrdersFromDatabase: $data")
-
-        if (data.isEmpty()) {
-            return
+            Log.d(TAG, "onCreate order record: $it")
+            orderRecords = it
+            orderRecords?.let { records ->
+                recyclerAdapter = RecyclerCurrentOrderAdapter(
+                    context = this,
+                    currentOrderList = records,
+                    listener = this
+                )
+                recyclerView.adapter = recyclerAdapter
+            }
         }
 
-        for (i in 0 until data.size) {
-            val currentOrderItem = CurrentOrderItem()
-
-            currentOrderItem.orderID = data[i].orderID
-            currentOrderItem.takeAwayTime = data[i].takeAwayTime
-            currentOrderItem.paymentStatus = data[i].paymentStatus
-            currentOrderItem.orderItemNames = data[i].orderItemNames
-            currentOrderItem.orderItemQuantities = data[i].orderItemQuantities
-            currentOrderItem.totalItemPrice = data[i].totalItemPrice
-            currentOrderItem.tax = data[i].tax
-            currentOrderItem.subTotal = data[i].subTotal
-
-//            currentOrderList.add(currentOrderItem)
-//            currentOrderList.reverse()
-            recyclerAdapter.notifyItemRangeInserted(0, data.size)
-        }
-
-        findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
-            ViewGroup.GONE
+        recyclerView = findViewById(R.id.current_order_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun showQRCode(orderID: String) {

@@ -1,27 +1,26 @@
 package org.d3if2101.canteen.adapters
 
 import android.content.Context
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.d3if2101.canteen.R
-import org.d3if2101.canteen.datamodels.CurrentOrderItem
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
+import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
+import org.d3if2101.canteen.ui.penjual.order.OrderItemAdapter
+import org.d3if2101.canteen.ui.pesanan.CurrentOrderItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class RecyclerCurrentOrderAdapter(
     var context: Context,
-    private var currentOrderList: List<CurrentOrderItem>,
+    private var currentOrderList: List<OrderHistoryItem>,
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerCurrentOrderAdapter.ItemListViewHolder>() {
@@ -31,14 +30,20 @@ class RecyclerCurrentOrderAdapter(
         fun cancelOrder(position: Int)
     }
 
+    fun updateData(newData: List<OrderHistoryItem>) {
+        val diffResult = DiffUtil.calculateDiff(CurrentOrderDiffCallback(currentOrderList, newData))
+        currentOrderList = newData
+        diffResult.dispatchUpdatesTo(this)
+    }
+
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val takeAwayTimeTV: TextView = itemView.findViewById(R.id.current_order_item_take_away_time_tv)
         val paymentStatusTV: TextView = itemView.findViewById(R.id.current_order_item_payment_status_tv)
         val orderIDTV: TextView = itemView.findViewById(R.id.current_order_item_order_id_tv)
-        val tableLayout: TableLayout = itemView.findViewById(R.id.current_order_item_table_layout)
         val totalItemPriceTV: TextView = itemView.findViewById(R.id.current_order_item_total_price_tv)
         val showQRBtn: ExtendedFloatingActionButton = itemView.findViewById(R.id.current_order_item_show_qr_btn)
         val cancelBtn: ExtendedFloatingActionButton = itemView.findViewById(R.id.current_order_item_cancel_btn)
+        val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_current_order_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
@@ -54,68 +59,51 @@ class RecyclerCurrentOrderAdapter(
 
         val currentItem = currentOrderList[position]
 
-        holder.takeAwayTimeTV.text = currentItem.takeAwayTime
-        holder.paymentStatusTV.text = currentItem.paymentStatus
-        holder.orderIDTV.text = currentItem.orderID
-        holder.totalItemPriceTV.text = context.getString(R.string.rupiah, currentItem.totalItemPrice)
-
-        addTable(currentItem, holder.tableLayout)
-
-        holder.showQRBtn.setOnClickListener {
-            listener.showQRCode(currentItem.orderID)
+        with (holder) {
+            takeAwayTimeTV.text = currentItem.date
+            paymentStatusTV.text = currentItem.orderStatus
+            orderIDTV.text = currentItem.orderId
+            totalItemPriceTV.text = currentItem.price
+            showQRBtn.setOnClickListener {
+                listener.showQRCode(currentItem.orderId)
+            }
+            cancelBtn.setOnClickListener {
+                listener.cancelOrder(position)
+            }
+            itemRecyclerView.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = CurrentOrderItemAdapter(currentOrderList)
+            }
         }
-
-        holder.cancelBtn.setOnClickListener {
-            listener.cancelOrder(position)
-        }
-    }
-
-    private fun addTable(currentOrderItem: CurrentOrderItem, table: TableLayout) {
-
-        val items = currentOrderItem.orderItemNames.split(";")
-        val qtys = currentOrderItem.orderItemQuantities.split(";")
-
-        for(i in items.indices) {
-            //adding row in table
-            table.addView(
-                getTableRow(items[i], qtys[i])
-            )
-        }
-    }
-
-    private fun getTableRow(itemName: String, itemQty: String): TableRow {
-        val tbRow = TableRow(context)
-        val tbItemName = TextView(context)
-        val tbQty = TextView(context)
-
-        val typeface = ResourcesCompat.getFont(context, R.font.montserrat_semi_bold)
-
-        //Setting Text
-        tbItemName.text = itemName
-        tbQty.text = itemQty
-
-        //Changing Color
-        tbItemName.setTextColor(Color.parseColor("#1C213F"))
-        tbQty.setTextColor(Color.parseColor("#1C213F"))
-
-        //Changing Font
-        tbItemName.typeface = typeface
-        tbQty.typeface = typeface
-
-        tbRow.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        tbQty.textAlignment = ViewGroup.TEXT_ALIGNMENT_TEXT_END
-
-        //adding item name and quantity in a row
-        tbRow.addView(tbItemName)
-        tbRow.addView(tbQty)
-
-        return tbRow
     }
 
     override fun getItemCount(): Int = currentOrderList.size
+
+    class CurrentOrderDiffCallback(
+        private val oldList: List<OrderHistoryItem>,
+        private val newList: List<OrderHistoryItem>
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            // Implement your logic to check if items are the same.
+            // Typically, you would compare item IDs or unique identifiers.
+            return oldList[oldItemPosition].orderId == newList[newItemPosition].orderId
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            // Implement your logic to check if item contents are the same.
+            // This is used to detect changes within the same item (e.g., properties of the item).
+            return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
 
     companion object {
         const val TAG = "testo"
