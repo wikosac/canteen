@@ -21,11 +21,11 @@ import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
-class OrderItemAdapter(
+class DiProsesItemAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val viewModel: OrderViewModel,
     private var riwayatList: List<OrderHistoryItem>
-) : RecyclerView.Adapter<OrderItemAdapter.RiwayatViewHolder>() {
+) : RecyclerView.Adapter<DiProsesItemAdapter.RiwayatViewHolder>() {
 
     class RiwayatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgUser: ImageView = itemView.findViewById(R.id.img_user)
@@ -49,6 +49,7 @@ class OrderItemAdapter(
         holder.time.text = currentOrderItem.date
         holder.orderId.text = "ID: ${currentOrderItem.orderId}"
         holder.totalPrice.text = currentOrderItem.price
+        holder.btnProcess.text = "FINISH ORDER"
 
         viewModel.getUserFromUID(buyerUID).observe(lifecycleOwner) {
             holder.txtNamaUser.text = " Pembeli: ${it.nama}"
@@ -84,12 +85,12 @@ class OrderItemAdapter(
                 // set Order Diproses
                 AlertDialog.Builder(holder.itemView.context)
                     .setTitle("Peringatan")
-                    .setMessage("Apa User Sudah melakukan Pembayaran?")
+                    .setMessage("Apa Orderan Sudah Selesai ? ")
                     .setPositiveButton("Ya") { _, _ ->
                         // Fungsi Untuk Update "Tertunda: Pembayaran Tunai" -> SET Sukses: Pembayaran Tunai
                         viewModel.updateOrderStateByID(
                             currentOrderItem.orderId,
-                            "Order Diproses",
+                            "Order Selesai",
                             "Sukses: Pembayaran tunai"
                         ).observe(lifecycleOwner) {
                             if (it.message == "Success") {

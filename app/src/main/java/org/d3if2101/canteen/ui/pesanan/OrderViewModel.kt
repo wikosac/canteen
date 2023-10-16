@@ -25,16 +25,11 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
 //        _orders.value = canteenRepository.getOrderRecord()
 //    }
     fun updateOrderStateByID(
-        id: String,
-        orderStatus: String,
-        date: String,
-        price: String,
-        buyerUID: String,
-        qty: Int,
+        orderId: String,
+        orderState: String,
         orderPayment: String,
-        product: List<OrderDetail>
     ): LiveData<Message> =
-        canteenRepository.updateOrderStateByID(id, orderStatus, date, price, buyerUID, qty, orderPayment, product)
+        canteenRepository.updateOrderStateByID(orderId, orderState, orderPayment)
 
     fun getProductFromID(id: String): LiveData<MenuItem> = canteenRepository.getProdukWithID(id)
 

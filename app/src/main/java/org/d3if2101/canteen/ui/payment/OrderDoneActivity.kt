@@ -96,18 +96,21 @@ class OrderDoneActivity : AppCompatActivity() {
         }, 2000)
 
         viewModel.getFirebaseAuthUID().observe(this){
-            userUID = it
+            userUID = it.toString()
+            if (!orderRecordSaved) {
+                GlobalScope.launch {
+                    saveOrderRecordToDatabase() // save to Firebase
+                }
+                orderRecordSaved = true // Set the flag to indicate that it has been executed.
+            }
         }
+
         generateOrderID()
         setCurrentDateAndTime()
         saveCurrentOrderToDatabase() // save Current Order
 
-        if (!orderRecordSaved) {
-            GlobalScope.launch {
-                saveOrderRecordToDatabase() // save to Firebase
-            }
-            orderRecordSaved = true // Set the flag to indicate that it has been executed.
-        }
+
+
 
 
 

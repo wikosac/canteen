@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.ui.penjual.order
 
 import android.app.AlertDialog
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +22,11 @@ import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
-class OrderItemAdapter(
+class SelesaiItemAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val viewModel: OrderViewModel,
     private var riwayatList: List<OrderHistoryItem>
-) : RecyclerView.Adapter<OrderItemAdapter.RiwayatViewHolder>() {
+) : RecyclerView.Adapter<SelesaiItemAdapter.RiwayatViewHolder>() {
 
     class RiwayatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgUser: ImageView = itemView.findViewById(R.id.img_user)
@@ -80,40 +81,7 @@ class OrderItemAdapter(
                 }
             }
 
-            holder.btnProcess.setOnClickListener {
-                // set Order Diproses
-                AlertDialog.Builder(holder.itemView.context)
-                    .setTitle("Peringatan")
-                    .setMessage("Apa User Sudah melakukan Pembayaran?")
-                    .setPositiveButton("Ya") { _, _ ->
-                        // Fungsi Untuk Update "Tertunda: Pembayaran Tunai" -> SET Sukses: Pembayaran Tunai
-                        viewModel.updateOrderStateByID(
-                            currentOrderItem.orderId,
-                            "Order Diproses",
-                            "Sukses: Pembayaran tunai"
-                        ).observe(lifecycleOwner) {
-                            if (it.message == "Success") {
-                                Toast.makeText(
-                                    holder.itemView.context,
-                                    "Sukses Update Order",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            } else {
-                                Toast.makeText(
-                                    holder.itemView.context,
-                                    "Failed Update Order",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                    }
-                    .setNegativeButton("Tidak") { dialogInterface, _ ->
-                        dialogInterface.dismiss()
-                    }.create().show()
-            }
-
-
+            holder.btnProcess.visibility = View.GONE
         }
 
         holder.itemRecyclerView.apply {
