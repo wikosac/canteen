@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="36dp"
             android:layout_marginTop="84dp"
             android:gravity="top"
             android:text="@string/dashboard"
@@ -53,11 +53,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/penjual_card_produk"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="36dp"
+            android:paddingVertical="16dp"
             android:background="@drawable/rectangle_6"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_dashboard">
 
@@ -87,14 +89,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/penjual_card_pendapatan"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:paddingVertical="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/rectangle_6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/penjual_card_produk"
-            app:layout_constraintTop_toTopOf="@+id/penjual_card_produk">
+            app:layout_constraintEnd_toEndOf="@+id/penjual_card_order"
+            app:layout_constraintStart_toStartOf="@+id/penjual_card_produk"
+            app:layout_constraintTop_toBottomOf="@+id/penjual_card_order">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,12 +125,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/penjual_card_order"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="36dp"
+            android:paddingVertical="16dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/rectangle_6"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/penjual_card_produk"
+            app:layout_constraintStart_toStartOf="@+id/penjual_card_produk"
             app:layout_constraintTop_toBottomOf="@+id/penjual_card_produk">
 
             <LinearLayout
@@ -153,43 +158,6 @@
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/penjual_card_rating"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/rectangle_6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/penjual_card_order"
-            app:layout_constraintTop_toBottomOf="@+id/penjual_card_pendapatan">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/rating" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/ulasan_dan_rating"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
