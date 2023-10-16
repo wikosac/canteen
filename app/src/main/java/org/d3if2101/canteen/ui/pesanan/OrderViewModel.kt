@@ -36,4 +36,6 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
     fun getFirebaseAuthUID(): LiveData<String> = canteenRepository.getUIDUser()
 
     fun getUserFromUID(UID: String): LiveData<UserModel> = canteenRepository.getUserWithToken(UID)
+
+    fun getPendapatan(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderPendapatan()
 }

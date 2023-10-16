@@ -28,4 +28,7 @@
     <color name="brown_sand">#E1D7B0</color>
     <color name="grey_formal">#D9D9D9</color>
     <color name="image">#252424</color>
+    <color name="primaryColor">#2196F3</color>
+    <color name="labelBackground">#EEEEEE</color>
+    <color name="labelText">#000000</color>
 </resources>
