@@ -40,7 +40,7 @@ class PendapatanActivity : AppCompatActivity() {
 
     }
 
-    private fun setItemData(itemsItem: List<OrderHistoryItem>) {
+    fun setItemData(itemsItem: List<OrderHistoryItem>) {
         val adapter = PendapatanAdapter(itemsItem)
         binding.rv.adapter = adapter
     }

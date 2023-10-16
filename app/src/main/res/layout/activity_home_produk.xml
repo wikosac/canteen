@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_home_produk_layout"
     android:background="@color/bg_color"
     tools:context="org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk">
 
