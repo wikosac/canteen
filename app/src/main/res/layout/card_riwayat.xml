@@ -32,40 +32,47 @@
                 tools:srcCompat="@tools:sample/avatars"
                 android:contentDescription="TODO" />
 
+
             <TextView
                 android:id="@+id/txt_nama_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="14dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Angel"
-                app:layout_constraintEnd_toStartOf="@+id/txt_id_order"
-                app:layout_constraintTop_toTopOf="@id/img_user" />
-
+                app:layout_constraintStart_toEndOf="@+id/img_user"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_id_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="ID: 20"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_nama_user" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="8dp"
                 android:text="Total: Rp.15000"
                 app:layout_constraintEnd_toEndOf="@id/txt_id_order"
-                app:layout_constraintTop_toBottomOf="@+id/txt_id_order" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txt_nama_user"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nama_user" />
 
             <TextView
                 android:id="@+id/txt_waktu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="Hari ini 12.40"
-                app:layout_constraintEnd_toEndOf="@id/txt_total_price"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_total_price"
                 app:layout_constraintTop_toBottomOf="@id/txt_total_price" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,7 +80,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dp">
+            android:padding="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_product_item"

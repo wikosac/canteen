@@ -99,7 +99,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                     for (dataSnapshot in snapshot.children) {
                         val list = dataSnapshot.getValue(MenuItem::class.java)
                         val idSeller = list!!.sellerID // get sellerID
-                        if (list!!.status){
+                        if (list.status){
                             allItems.add(list)
                         }
                     }

@@ -18,7 +18,7 @@ import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
 import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
-import org.d3if2101.canteen.ui.penjual.rating.RatingActivity
+import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
 class DashboardPenjualActivity : AppCompatActivity() {
 
@@ -42,6 +42,11 @@ class DashboardPenjualActivity : AppCompatActivity() {
         // Inisialisasi Firebase Messaging dan berlangganan topik dalam onCreate
 
         viewModel.setFCM()
+        viewModel.getTokenPref().observe(this) {
+            viewModel.getUserWithToken(it!!).observe(this) { user ->
+                binding.txtGreetingName.text = this.getString(R.string.hi, user.nama)
+            }
+        }
 
         binding.penjualCardProduk.setOnClickListener {
             startActivity(Intent(this@DashboardPenjualActivity, HomeProduk::class.java))
@@ -55,15 +60,11 @@ class DashboardPenjualActivity : AppCompatActivity() {
             startActivity(Intent(this@DashboardPenjualActivity, OrderPenjualActivity::class.java))
         }
 
-
-
     }
 
     private fun loadNavigationDrawer() {
         navView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.drawer_layout)
-
-
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -73,13 +74,13 @@ class DashboardPenjualActivity : AppCompatActivity() {
 //        val navHeaderUserName = navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_user_name)
 //        navHeaderUserName.text = "Teks yang Anda inginkan"
 
-
         val drawerDelay: Long = 150 //delay of the drawer to close
         navView.setNavigationItemSelectedListener {
 
             when (it.itemId) {
                 R.id.nav_profile -> {
-                    // change To Profile
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    startActivity(Intent(this, UserProfileActivity::class.java))
                 }
 
                 R.id.nav_my_orders -> {

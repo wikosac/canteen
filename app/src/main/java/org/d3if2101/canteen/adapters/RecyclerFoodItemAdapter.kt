@@ -89,7 +89,7 @@ class RecyclerFoodItemAdapter (
     }
 
     override fun getFilter(): Filter {
-        return searchFilter;
+        return searchFilter
     }
 
     private val searchFilter = object : Filter() {
@@ -98,7 +98,7 @@ class RecyclerFoodItemAdapter (
             if (constraint!!.isEmpty()) {
                 filteredList.addAll(fullItemList)
             } else {
-                val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                val filterPattern = constraint.toString().lowercase(Locale.ROOT).trim()
 
                 for (item in fullItemList) {
                     if (item.itemName.lowercase(Locale.ROOT).contains(filterPattern)) {
@@ -111,7 +111,7 @@ class RecyclerFoodItemAdapter (
             return results
         }
 
-        override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults?) {
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             itemList.clear()
             itemList.addAll(results!!.values as ArrayList<MenuItem>)
             notifyDataSetChanged()
