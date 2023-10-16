@@ -3,6 +3,7 @@ package org.d3if2101.canteen.ui.pesanan
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,14 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
             .setTitle("Batalkan pesanan")
             .setMessage("Apa kamu yakin batalkan pesanan ini?")
             .setPositiveButton("Ya") { dialogInterface, _ ->
-                viewModel.deleteOrderByID(orderId)
+                viewModel.deleteOrderByID(orderId).observe(this){
+                    if (it.message.lowercase() == "Success") {
+                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
                 dialogInterface.dismiss()
             }
             .setNegativeButton("Tidak") { dialogInterface, _ ->

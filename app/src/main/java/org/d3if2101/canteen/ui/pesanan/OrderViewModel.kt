@@ -36,4 +36,6 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
 
     fun getPendapatan(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderPendapatan()
 
+    fun deleteOrderByID(id: String): LiveData<Message> = canteenRepository.deleteOrderById(id)
+
 }

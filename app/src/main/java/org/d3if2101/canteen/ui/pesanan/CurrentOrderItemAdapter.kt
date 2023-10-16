@@ -19,7 +19,7 @@ class CurrentOrderItemAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName: TextView = itemView.findViewById(R.id.txt_nama_produk)
-        val qty: TextView = itemView.findViewById(R.id.txt_terjual)
+        val qty: TextView = itemView.findViewById(R.id.dateOrder)
         val price: TextView = itemView.findViewById(R.id.txt_total)
     }
 
