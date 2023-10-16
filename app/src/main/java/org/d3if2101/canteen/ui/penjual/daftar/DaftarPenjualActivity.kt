@@ -29,7 +29,7 @@ class DaftarPenjualActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.tvButtonLogin.setOnClickListener { register() }
+        binding.tvButtonRegister.setOnClickListener { register() }
     }
 
     private fun register() {

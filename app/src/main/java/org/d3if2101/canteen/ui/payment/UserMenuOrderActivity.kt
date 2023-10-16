@@ -145,6 +145,7 @@ class UserMenuOrderActivity : AppCompatActivity(),
         intent.putExtra("totalItemPrice", recyclerAdapter.getTotalPrice())
         intent.putExtra("takeAwayTime", orderTakeAwayTV.text.toString())
         startActivity(intent)
+        finish()
     }
 
     override fun onPlusBtnClick(item: CartItem) {

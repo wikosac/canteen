@@ -1,5 +1,6 @@
 package org.d3if2101.canteen.ui.penjual.dashboard
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
@@ -43,8 +46,10 @@ class DashboardPenjualActivity : AppCompatActivity() {
 
         viewModel.setFCM()
         viewModel.getTokenPref().observe(this) {
-            viewModel.getUserWithToken(it!!).observe(this) { user ->
-                binding.txtGreetingName.text = this.getString(R.string.hi, user.nama)
+            if (it != null) {
+                viewModel.getUserWithToken(it).observe(this) { user ->
+                    binding.txtGreetingName.text = this.getString(R.string.hi, user.nama)
+                }
             }
         }
 
@@ -83,14 +88,6 @@ class DashboardPenjualActivity : AppCompatActivity() {
                     startActivity(Intent(this, UserProfileActivity::class.java))
                 }
 
-                R.id.nav_my_orders -> {
-                    startActivity(Intent(this, OrderPenjualActivity::class.java))
-                }
-
-                R.id.nav_orders_history -> { // UBAH MENJADI Pendapatan
-
-                }
-
                 R.id.nav_food_menu -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
@@ -113,10 +110,20 @@ class DashboardPenjualActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        val intent = Intent(this, Login::class.java)
-        startActivity(intent)
-        finish()
-        viewModel.deleteTokenPref()
-        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+        AlertDialog.Builder(this)
+            .setTitle("Peringatan")
+            .setMessage("Apa kamu yakin untuk Log Out?")
+            .setPositiveButton("Ya") { _, _ ->
+                Firebase.auth.signOut()
+
+                viewModel.deleteTokenPref()
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+
+                startActivity(Intent(this, Login::class.java))
+                finish()
+            }
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }.create().show()
     }
 }
