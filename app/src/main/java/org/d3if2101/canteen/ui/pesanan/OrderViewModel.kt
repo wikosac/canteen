@@ -7,7 +7,6 @@ import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.data.repository.CanteenRepository
 import org.d3if2101.canteen.datamodels.MenuItem
-import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {

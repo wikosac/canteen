@@ -7,9 +7,7 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
-import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderDetail
-import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class CurrentOrderItemAdapter(
     private var itemList: List<OrderDetail>,
@@ -18,7 +16,7 @@ class CurrentOrderItemAdapter(
 ) : RecyclerView.Adapter<CurrentOrderItemAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val productName: TextView = itemView.findViewById(R.id.txt_nama_produk)
+        val productName: TextView = itemView.findViewById(R.id.idOrder)
         val qty: TextView = itemView.findViewById(R.id.dateOrder)
         val price: TextView = itemView.findViewById(R.id.txt_total)
     }

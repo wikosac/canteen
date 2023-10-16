@@ -43,7 +43,8 @@
                 android:id="@+id/ivProdukMakanan"
                 android:layout_width="50dp"
                 android:layout_height="75dp"
-                android:src="@drawable/food" />
+                android:src="@drawable/food"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/tv_ProdukMakanan"
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Makanan"
+                android:text="@string/makanan"
                 android:textSize="18sp" />
 
             <ImageView
@@ -59,7 +60,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:src="@drawable/elipsis" />
+                android:src="@drawable/elipsis"
+                android:contentDescription="TODO" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -87,7 +89,8 @@
                 android:id="@+id/ivProdukMinuman"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/drink" />
+                android:src="@drawable/drink"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/tv_ProdukMinuman"
@@ -95,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Minuman"
+                android:text="@string/minuman"
                 android:textSize="18sp" />
 
             <ImageView
@@ -103,7 +106,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:src="@drawable/elipsis" />
+                android:src="@drawable/elipsis"
+                android:contentDescription="TODO" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -131,7 +135,8 @@
                 android:id="@+id/ivProdukCamilan"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/snack" />
+                android:src="@drawable/snack"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/tv_ProdukCamilan"
@@ -139,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="Camilan"
+                android:text="@string/camilan"
                 android:textSize="18sp" />
 
             <ImageView
@@ -147,7 +152,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:src="@drawable/elipsis" />
+                android:src="@drawable/elipsis"
+                android:contentDescription="TODO" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

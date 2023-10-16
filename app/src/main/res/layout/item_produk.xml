@@ -19,7 +19,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="8dp"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@tools:sample/avatars"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tv_Produk"
@@ -33,5 +34,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:padding="8dp"
-        android:src="@drawable/elipsis" />
+        android:src="@drawable/elipsis"
+        android:contentDescription="TODO" />
 </LinearLayout>

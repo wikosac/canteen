@@ -25,7 +25,8 @@
             android:background="@drawable/ivrounded"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="TODO" />
 
     </androidx.cardview.widget.CardView>
 

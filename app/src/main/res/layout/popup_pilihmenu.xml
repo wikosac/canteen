@@ -22,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/tv_Produk"
@@ -75,14 +76,14 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="Edit Item" />
+                android:text="@string/edit_item" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDelete"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="Delete Item" />
+                android:text="@string/delete_item" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

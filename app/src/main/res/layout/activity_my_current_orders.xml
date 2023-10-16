@@ -23,7 +23,8 @@
             android:src="@drawable/ic_arrow_upward"
             app:tint="@color/text_dark_color"
             android:rotation="-90"
-            android:onClick="goBack"/>
+            android:onClick="goBack"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"

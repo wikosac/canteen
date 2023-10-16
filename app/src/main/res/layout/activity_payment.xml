@@ -23,7 +23,8 @@
             android:src="@drawable/ic_arrow_upward"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/text_dark_color" />
+            app:tint="@color/text_dark_color"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/total_payment_tv"

@@ -3,13 +3,10 @@ package org.d3if2101.canteen.ui.penjual.pendapatan
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityPendapatanBinding
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.penjual.order.OrderItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 import java.text.NumberFormat
 import java.util.Locale

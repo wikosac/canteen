@@ -22,7 +22,8 @@
             android:rotation="-90"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="goBack"/>
+            android:onClick="goBack"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
             android:src="@drawable/ic_delete_outline"
             app:tint="@color/text_dark_color"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -23,7 +23,8 @@
             android:rotation="-90"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="goBack"/>
+            android:onClick="goBack"
+            android:contentDescription="TODO" />
 
         <ImageView
             android:id="@+id/user_menu_order_help_iv"
@@ -33,7 +34,8 @@
             android:src="@drawable/ic_user"
             app:tint="@color/text_dark_color"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

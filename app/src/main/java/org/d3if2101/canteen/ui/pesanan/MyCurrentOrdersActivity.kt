@@ -13,7 +13,6 @@ import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.payment.QRCodeFragment
 
 class MyCurrentOrdersActivity : AppCompatActivity(),
     RecyclerCurrentOrderAdapter.OnItemClickListener {

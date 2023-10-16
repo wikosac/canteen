@@ -29,8 +29,6 @@
         <activity android:name=".ui.profile.UserProfileActivity" />
         <activity android:name=".ui.dashboard.DashboardActivity" />
         <activity android:name=".ui.menu.MenuActivity" />
-        <activity android:name=".ui.myCurrentOrder" />
-        <activity android:name=".ui.OrderHistory" />
         <activity android:name=".ui.daftar.Daftar" />
         <activity android:name=".ui.login.Login" />
         <activity android:name=".ui.penjual.login.LoginPenjualActivity" />

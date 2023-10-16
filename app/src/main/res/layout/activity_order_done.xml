@@ -28,7 +28,8 @@
                 android:src="@drawable/ic_arrow_upward"
                 android:rotation="-90"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:visibility="gone"
@@ -38,7 +39,8 @@
                 android:layout_margin="15dp"
                 android:src="@drawable/baseline_qr_code_24"
                 app:layout_constraintEnd_toStartOf="@id/order_done_share_iv"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
             <ImageView
                 android:visibility="gone"
@@ -48,7 +50,8 @@
                 android:layout_margin="15dp"
                 android:src="@drawable/baseline_share_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

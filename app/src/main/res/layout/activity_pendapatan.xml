@@ -13,9 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:backgroundTint="@color/brown_sand"
         android:padding="16dp">
-
-
 
         <TextView
             android:id="@+id/txt_pendapatannya"
@@ -63,7 +62,7 @@
                     android:background="@color/labelBackground"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Total"
+                    android:text="@string/total"
                     android:textColor="@color/labelText"
                     android:textSize="14sp" />
             </TableRow>

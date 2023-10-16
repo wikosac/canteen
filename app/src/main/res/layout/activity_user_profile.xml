@@ -23,12 +23,13 @@
             android:rotation="-90"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="goBack"/>
+            android:onClick="goBack"
+            android:contentDescription="TODO" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="@string/profile_"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:fontFamily="@font/montserrat_semi_bold"
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_gravity="center"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:textSize="14sp"
                     android:textColor="@color/text_light_color"/>
 

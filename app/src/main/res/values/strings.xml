@@ -241,4 +241,13 @@
     <string name="pesan">Pesan</string>
     <string name="semoga_harimu_menyenangkan">Semoga harimu menyenangkan ^_^</string>
     <string name="jumlah_produk">%1$d produk</string>
+    <string name="add_product">Add Product</string>
+    <string name="pilih_kategori_">Pilih Kategori</string>
+    <string name="kantin1">Kantin 1</string>
+    <string name="kantin2">Kantin 2</string>
+    <string name="kantin3">Kantin 3</string>
+    <string name="kantin4">Kantin 4</string>
+    <string name="edit_product">Edit Product</string>
+    <string name="profile_">Profile</string>
+    <string name="delete_item">Delete Item</string>
 </resources>

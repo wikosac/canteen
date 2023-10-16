@@ -75,7 +75,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/fastfood" />
+                    android:src="@drawable/fastfood"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -111,7 +112,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/money" />
+                    android:src="@drawable/money"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -147,7 +149,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/checkout" />
+                    android:src="@drawable/checkout"
+                    android:contentDescription="TODO" />
 
                 <TextView
                     android:layout_width="match_parent"
