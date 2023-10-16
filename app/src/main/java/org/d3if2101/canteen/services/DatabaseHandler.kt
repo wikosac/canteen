@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import android.widget.Toast
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
@@ -88,7 +89,6 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
                 "$CART_ID_PRODUCT VARCHAR(256)" +
                 ");"
 
-
         db?.execSQL(createOrderHistoryTable)
         db?.execSQL(createCurrentOrdersTable)
         db?.execSQL(createCartTable)
@@ -124,6 +124,7 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         cv.put(CART_ITEM_ID_PENJUAL, item.idPenjual)
 
         val result = db.insert(CART_TABLE_NAME, null, cv)
+        Log.d(TAG, "insertCartItem: $result")
         if (result == (-1).toLong()) {
             Toast.makeText(context, "Failed to Insert Data", Toast.LENGTH_SHORT).show()
         }
@@ -387,5 +388,9 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         } catch (e: Exception) {
             Toast.makeText(context, "Unable to remove cards", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    companion object {
+        const val TAG = "DatabaseHandler"
     }
 }

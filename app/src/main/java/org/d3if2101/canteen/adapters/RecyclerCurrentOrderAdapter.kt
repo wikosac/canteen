@@ -2,6 +2,7 @@ package org.d3if2101.canteen.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +11,17 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
+import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class RecyclerCurrentOrderAdapter(
     var context: Context,
-    private var currentOrderList: ArrayList<CurrentOrderItem>,
+    private var currentOrderList: List<CurrentOrderItem>,
     private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerCurrentOrderAdapter.ItemListViewHolder>() {
@@ -74,10 +78,7 @@ class RecyclerCurrentOrderAdapter(
         for(i in items.indices) {
             //adding row in table
             table.addView(
-                getTableRow(
-                    items[i],
-                    qtys[i]
-                )
+                getTableRow(items[i], qtys[i])
             )
         }
     }
@@ -116,4 +117,7 @@ class RecyclerCurrentOrderAdapter(
 
     override fun getItemCount(): Int = currentOrderList.size
 
+    companion object {
+        const val TAG = "testo"
+    }
 }

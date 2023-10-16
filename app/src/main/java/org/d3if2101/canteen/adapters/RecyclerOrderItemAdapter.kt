@@ -78,8 +78,8 @@ class RecyclerOrderItemAdapter(
 
             ++totalItems
             totalPrice += currentItem.itemPrice
-            listener.onPlusBtnClick(currentItem)
             updateOrderDetails()
+//            listener.onPlusBtnClick(currentItem)
         }
 
         holder.itemQuantityDecreaseIV.setOnClickListener {
@@ -99,7 +99,7 @@ class RecyclerOrderItemAdapter(
                 currentItem.quantity--
                 updateOrderDetails()
             }
-            listener.onMinusBtnClick(currentItem)
+//            listener.onMinusBtnClick(currentItem)
         }
     }
 

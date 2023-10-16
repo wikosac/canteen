@@ -80,7 +80,7 @@ class UserMenuOrderActivity : AppCompatActivity(),
     private fun loadOrderDetails() {
         totalItemsTV.text = this.getString(R.string.jumlah_produk, totalItems)
         totalPriceTV.text = this.getString(R.string.rupiah, totalPrice)
-        proceedToPayBtn.text = this.getString(R.string.rupiah, totalPrice)
+        proceedToPayBtn.text = this.getString(R.string.bayar, totalPrice)
     }
 
     private fun loadRecyclerAdapter() {

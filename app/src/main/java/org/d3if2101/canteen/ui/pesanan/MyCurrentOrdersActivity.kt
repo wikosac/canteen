@@ -6,32 +6,53 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
+import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
+import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.payment.QRCodeFragment
 
-class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter.OnItemClickListener {
+class MyCurrentOrdersActivity : AppCompatActivity(),
+    RecyclerCurrentOrderAdapter.OnItemClickListener {
 
-    private val currentOrderList = ArrayList<CurrentOrderItem>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdapter: RecyclerCurrentOrderAdapter
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this)
+    }
+    private val viewModel: OrderViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_current_orders)
 
-        recyclerView = findViewById(R.id.current_order_recycler_view)
-        recyclerAdapter = RecyclerCurrentOrderAdapter(this, currentOrderList, this)
-        recyclerView.adapter = recyclerAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val currentOrderItems: ArrayList<CurrentOrderItem> = ArrayList()
+        val orderCurrent: List<CurrentOrderItem> = listOf()
 
-        loadCurrentOrdersFromDatabase()
+        viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) {
+            currentOrderItems.addAll(orderCurrent.map { it })
+            recyclerView = findViewById(R.id.current_order_recycler_view)
+            recyclerAdapter = RecyclerCurrentOrderAdapter(
+                this, currentOrderList = orderCurrent, this
+            )
+            recyclerView.adapter = recyclerAdapter
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        }
+        currentOrderItems.forEach{ a ->
+            Log.d(TAG, "onCreate orderCurrentItem: ${a.orderItemNames}")
+        }
+
     }
 
     private fun loadCurrentOrdersFromDatabase() {
@@ -44,8 +65,8 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
             return
         }
 
-        for(i in 0 until data.size) {
-            val currentOrderItem =  CurrentOrderItem()
+        for (i in 0 until data.size) {
+            val currentOrderItem = CurrentOrderItem()
 
             currentOrderItem.orderID = data[i].orderID
             currentOrderItem.takeAwayTime = data[i].takeAwayTime
@@ -56,12 +77,13 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
             currentOrderItem.tax = data[i].tax
             currentOrderItem.subTotal = data[i].subTotal
 
-            currentOrderList.add(currentOrderItem)
-            currentOrderList.reverse()
+//            currentOrderList.add(currentOrderItem)
+//            currentOrderList.reverse()
             recyclerAdapter.notifyItemRangeInserted(0, data.size)
         }
-        
-        findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility = ViewGroup.GONE
+
+        findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
+            ViewGroup.GONE
     }
 
     override fun showQRCode(orderID: String) {
@@ -79,17 +101,17 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
             .setTitle("Batalkan pesanan")
             .setMessage("Apa kamu yakin batalkan pesanan ini?")
             .setPositiveButton("Ya") { dialogInterface, _ ->
-                val result =
-                    DatabaseHandler(this).deleteCurrentOrderRecord(currentOrderList[position].orderID)
-                currentOrderList.removeAt(position)
-                recyclerAdapter.notifyItemRemoved(position)
-                recyclerAdapter.notifyItemRangeChanged(position, currentOrderList.size)
-                Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
-
-                if (currentOrderList.isEmpty()) {
-                    findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
-                        ViewGroup.VISIBLE
-                }
+//                val result =
+//                    DatabaseHandler(this).deleteCurrentOrderRecord(orderList[position].orderId)
+//                orderList.removeAt(position)
+//                recyclerAdapter.notifyItemRemoved(position)
+//                recyclerAdapter.notifyItemRangeChanged(position, orderList.size)
+//                Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+//
+//                if (orderList.isEmpty()) {
+//                    findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
+//                        ViewGroup.VISIBLE
+//                }
 
                 dialogInterface.dismiss()
             }
@@ -99,7 +121,9 @@ class MyCurrentOrdersActivity : AppCompatActivity(), RecyclerCurrentOrderAdapter
             .create().show()
     }
 
-    fun goBack(view: View) {onBackPressed()}
+    fun goBack(view: View) {
+        onBackPressed()
+    }
 
     companion object {
         const val TAG = "testo"
