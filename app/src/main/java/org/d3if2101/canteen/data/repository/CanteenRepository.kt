@@ -2,7 +2,6 @@ package org.d3if2101.canteen.data.repository
 
 import android.net.Uri
 import android.util.Log
-import android.widget.NumberPicker.OnValueChangeListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,7 @@ import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.datamodels.MenuItem
+import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class CanteenRepository private constructor(
@@ -46,7 +46,7 @@ class CanteenRepository private constructor(
         return data
     }
 
-    fun getUIDUser() : LiveData<String> {
+    fun getUIDUser(): LiveData<String> {
         val data = MutableLiveData<String>()
         data.value = firebaseAuth.uid.toString()
         return data
@@ -374,6 +374,41 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun updateOrderStateByID(
+        orderId: String,
+        orderState: String,
+        date: String,
+        price: String,
+        buyerUID: String,
+        quantity: Int,
+        orderPayment: String,
+        productIDs: List<OrderDetail>
+    ): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+
+        val orderRef = firebaseDatabase.getReference("orders/$orderId")
+
+        orderRef.updateChildren(
+            mapOf(
+                "orderState" to orderState,
+                "date" to date,
+                "price" to price,
+                "buyerUID" to buyerUID,
+                "orderPayment" to orderPayment,
+                "quantity" to quantity,
+                "productIDs" to productIDs
+            )
+        ).addOnSuccessListener {
+            Log.d(TAG, "Order successfully updated")
+            data.value = Message("Success")
+        }.addOnFailureListener {
+            Log.e(TAG, "Failed to update order")
+            data.value = Message("Error: ${it.message}")
+        }
+
+        return data
+    }
+
     fun getProdukFromDB(): LiveData<List<MenuItem>> {
         val data = MutableLiveData<List<MenuItem>>()
         val produkRef = firebaseDatabase.getReference("produk")
@@ -490,7 +525,7 @@ class CanteenRepository private constructor(
     }
 
     companion object {
-        private const val TAG = "testo"
+        private const val TAG = "CanteenRepository"
 
         @Volatile
         private var instance: CanteenRepository? = null

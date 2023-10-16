@@ -16,7 +16,6 @@ import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderItemAdapter
 import org.d3if2101.canteen.databinding.ActivityUserMenuOrderBinding
 import org.d3if2101.canteen.datamodels.CartItem
-import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import java.text.SimpleDateFormat

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CartItem
-import org.d3if2101.canteen.datamodels.MenuItem
 
 class RecyclerOrderItemAdapter(
     var context: Context,

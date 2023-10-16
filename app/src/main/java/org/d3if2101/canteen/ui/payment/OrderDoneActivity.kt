@@ -15,7 +15,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityOrderDoneBinding
-import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
@@ -26,7 +25,6 @@ import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 
 class OrderDoneActivity : AppCompatActivity() {

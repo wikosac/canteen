@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
-import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
 
 class CurrentOrderItemAdapter(
     private var itemList: List<OrderHistoryItem>

@@ -4,19 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TableLayout
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
-import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
-import org.d3if2101.canteen.ui.penjual.order.OrderItemAdapter
 import org.d3if2101.canteen.ui.pesanan.CurrentOrderItemAdapter
-import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class RecyclerCurrentOrderAdapter(
     var context: Context,

@@ -3,7 +3,6 @@ package org.d3if2101.canteen.ui.penjual.order
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
@@ -29,7 +28,7 @@ class CardHistoryItemAdapter(
         val currentItem = itemList[position]
         holder.productName.text = currentItem.itemName
         holder.qty.text = currentItem.quantity.toString()
-        holder.price.text = currentItem.itemPrice.toString()
+        holder.price.text = "Rp ${currentItem.itemPrice}"
     }
 
     override fun getItemCount(): Int = itemList.size

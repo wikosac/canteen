@@ -1,7 +1,6 @@
 package org.d3if2101.canteen.ui.penjual.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,10 +38,18 @@ class OrderFragment : Fragment() {
             position = it.getInt(ARG_POSITION)
         }
 
-        viewModel.getOrderRecord().observe(viewLifecycleOwner) {
-            setItemData(it)
-            Log.d(TAG, "onViewCreated: $it")
+        viewModel.getFirebaseAuthUID().observe(viewLifecycleOwner) { uid ->
+            viewModel.getOrderRecord().observe(viewLifecycleOwner) { orderHistoryItems ->
+                val sellerItems = orderHistoryItems.filter {
+                    it.sellerUid == uid && it.orderStatus.lowercase()
+                        .contains("successful") && it.orderPayment.lowercase().contains("tertunda")
+                }
+
+                setItemData(sellerItems)
+            }
         }
+
+
     }
 
     private fun setItemData(itemsItem: List<OrderHistoryItem>) {

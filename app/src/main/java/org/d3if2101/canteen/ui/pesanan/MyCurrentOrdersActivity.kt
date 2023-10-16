@@ -3,20 +3,14 @@ package org.d3if2101.canteen.ui.pesanan
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
-import org.d3if2101.canteen.datamodels.CurrentOrderItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
-import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.payment.QRCodeFragment
 
