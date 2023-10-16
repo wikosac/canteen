@@ -65,7 +65,7 @@
     <string name="noPesanan">MQ61823</string>
     <string name="order_status">Order Status:</string>
     <string name="order_successful">Order Successful</string>
-    <string name="pembayaran">Pembayaran</string>
+    <string name="pembayaran">Pembayaran:</string>
     <string name="jenis_pembayaran">Pembayaran: Cash</string>
     <string name="harga_order">Rp.15.000</string>
     <string name="belum_ada_pesanan">Belum Ada Pesanan</string>

@@ -354,6 +354,19 @@ class CanteenRepository private constructor(
         return data
     }
 
+    fun deleteOrderById(orderId: String): LiveData<Message> {
+        val data = MutableLiveData<Message>()
+        val orderRef = firebaseDatabase.getReference("orders")
+        orderRef.child(orderId).removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                data.value = Message("Success")
+            } else {
+                data.value = Message("Failed")
+            }
+        }
+        return data
+    }
+
     fun getProdukWithID(id: String): LiveData<MenuItem> {
         val data = MutableLiveData<MenuItem>()
         val produkRef = firebaseDatabase.getReference("produk")
@@ -510,6 +523,25 @@ class CanteenRepository private constructor(
             })
 
         return orders
+    }
+
+    fun getProductFromOrder(productIds: List<OrderDetail>): LiveData<List<MenuItem>> {
+        val data = MutableLiveData<List<MenuItem>>()
+        val produkList = mutableListOf<MenuItem>()
+
+        for (item in productIds) {
+            Log.d(TAG, "getProductFromOrder productIds: $item")
+
+            getProdukWithID(item.productId).observeForever { menuItem ->
+                Log.d(TAG, "getProductFromOrder menu: $menuItem")
+
+                produkList.add(menuItem)
+            }
+        }
+        data.value = produkList
+        Log.d(TAG, "getProductFromOrder data: ${data.value}")
+
+        return data
     }
 
     fun setFCM() {

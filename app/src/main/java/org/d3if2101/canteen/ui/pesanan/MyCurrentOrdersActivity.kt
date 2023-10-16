@@ -28,7 +28,7 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_current_orders)
 
-        var orderRecords: List<OrderHistoryItem>? = null
+        var orderRecords: List<OrderHistoryItem>?
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) {
             Log.d(TAG, "onCreate order record: $it")
             orderRecords = it
@@ -36,6 +36,8 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
                 recyclerAdapter = RecyclerCurrentOrderAdapter(
                     context = this,
                     currentOrderList = records,
+                    viewModel = viewModel,
+                    lifecycleOwner = this,
                     listener = this
                 )
                 recyclerView.adapter = recyclerAdapter
@@ -46,33 +48,12 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun showQRCode(orderID: String) {
-        //User have to just show the QR Code, and canteen staff have to scan, so user don't have to wait more
-        val bundle = Bundle()
-        bundle.putString("orderID", orderID)
-
-        val dialog = QRCodeFragment()
-        dialog.arguments = bundle
-        dialog.show(supportFragmentManager, "QR Code Generator")
-    }
-
-    override fun cancelOrder(position: Int) {
+    override fun cancelOrder(orderId: String) {
         AlertDialog.Builder(this)
             .setTitle("Batalkan pesanan")
             .setMessage("Apa kamu yakin batalkan pesanan ini?")
             .setPositiveButton("Ya") { dialogInterface, _ ->
-//                val result =
-//                    DatabaseHandler(this).deleteCurrentOrderRecord(orderList[position].orderId)
-//                orderList.removeAt(position)
-//                recyclerAdapter.notifyItemRemoved(position)
-//                recyclerAdapter.notifyItemRangeChanged(position, orderList.size)
-//                Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
-//
-//                if (orderList.isEmpty()) {
-//                    findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
-//                        ViewGroup.VISIBLE
-//                }
-
+                viewModel.deleteOrderByID(orderId)
                 dialogInterface.dismiss()
             }
             .setNegativeButton("Tidak") { dialogInterface, _ ->

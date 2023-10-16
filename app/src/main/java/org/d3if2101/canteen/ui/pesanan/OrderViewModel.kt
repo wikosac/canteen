@@ -10,20 +10,14 @@ import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
-class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {
-
-    private val _orders = MutableLiveData<List<OrderHistoryItem>>()
-    val orders: LiveData<List<OrderHistoryItem>> = _orders
+class OrderViewModel(private val canteenRepository: CanteenRepository): ViewModel() {
 
     fun insertOrderRecord(order: OrderHistoryItem) {
-        canteenRepository.insertOrderRecord(order)
+       canteenRepository.insertOrderRecord(order)
     }
 
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecord()
 
-    //    fun getOrders() {
-//        _orders.value = canteenRepository.getOrderRecord()
-//    }
     fun updateOrderStateByID(
         id: String,
         orderStatus: String,
@@ -41,4 +35,8 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
     fun getFirebaseAuthUID(): LiveData<String> = canteenRepository.getUIDUser()
 
     fun getUserFromUID(UID: String): LiveData<UserModel> = canteenRepository.getUserWithToken(UID)
+
+    fun deleteOrderByID(idOrder: String): LiveData<Message> {
+        return canteenRepository.deleteOrderById(idOrder)
+    }
 }
