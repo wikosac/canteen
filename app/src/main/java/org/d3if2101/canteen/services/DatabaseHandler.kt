@@ -176,9 +176,11 @@ class DatabaseHandler(val context: Context) : SQLiteOpenHelper(context, DATABASE
         try {
             val db = this.writableDatabase
             db.delete(CURRENT_ORDER_TABLE_NAME, null, null)
-            Toast.makeText(context, "All current orders are deleted", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "deleteAllCurrentOrders: Success")
+//            Toast.makeText(context, "All current orders are deleted", Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
-            Toast.makeText(context, "Unable to delete the current orders", Toast.LENGTH_SHORT).show()
+            Log.e(TAG, "deleteAllCurrentOrders: ", e)
+//            Toast.makeText(context, "Unable to delete the current orders", Toast.LENGTH_SHORT).show()
         }
     }
 
