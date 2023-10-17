@@ -104,7 +104,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/tv_button_login"
+        android:id="@+id/tv_button_register"
         style="@style/ButtonYellow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

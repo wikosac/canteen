@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler(Looper.getMainLooper()).postDelayed({ navigate() }, 2000)
-
-
     }
 
     private fun navigate() {

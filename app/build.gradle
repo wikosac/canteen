@@ -86,4 +86,6 @@ dependencies {
 
     implementation "androidx.paging:paging-runtime-ktx:3.2.1"
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
 }

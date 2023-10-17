@@ -11,6 +11,7 @@
     tools:context=".ui.penjual.dashboard.DashboardPenjualActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dashboard_penjual"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

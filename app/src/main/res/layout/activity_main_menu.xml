@@ -82,7 +82,7 @@
                 android:id="@+id/search_menu_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:queryHint="eg, Mango Shake, Burger"
+                android:queryHint="Mie, Teh"
                 android:iconifiedByDefault="false"
                 app:voiceIcon="@drawable/ic_user"/>
 
