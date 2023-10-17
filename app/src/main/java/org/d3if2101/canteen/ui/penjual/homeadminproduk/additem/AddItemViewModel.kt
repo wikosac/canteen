@@ -23,4 +23,23 @@ class AddItemViewModel(private val canteenRepository: CanteenRepository) : ViewM
             deskripsi,
         )
     }
+
+
+    fun editProductbyID(
+        idProduk: String,
+        namaProduk: String,
+        jenis: String,
+        harga: Int,
+        image: Uri,
+        desc: String
+    ): LiveData<Message> {
+        return canteenRepository.editProductByID(
+            idProduk,
+            namaProduk,
+            jenis,
+            harga,
+            image,
+            desc
+        )
+    }
 }

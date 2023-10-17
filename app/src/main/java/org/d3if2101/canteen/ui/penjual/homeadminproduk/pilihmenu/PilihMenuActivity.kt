@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.ui.penjual.homeadminproduk.pilihmenu
 
 import android.content.Intent
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -116,12 +117,9 @@ class PilihMenuActivity : AppCompatActivity() {
 
                     val btnEdit = dialogView.findViewById<Button>(R.id.btnEdit)
                     btnEdit.setOnClickListener {
-                        startActivity(
-                            Intent(
-                                this@PilihMenuActivity,
-                                EditItemActivity::class.java
-                            )
-                        )
+                        val intent = Intent(this@PilihMenuActivity, EditItemActivity::class.java)
+                        intent.putExtra("produkID", data.itemID)
+                        startActivity(intent)
                     }
 
                     val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
