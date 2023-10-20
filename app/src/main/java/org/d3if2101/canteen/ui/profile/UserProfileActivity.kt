@@ -1,5 +1,6 @@
 package org.d3if2101.canteen.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -30,6 +31,10 @@ class UserProfileActivity : AppCompatActivity() {
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnUpdate.setOnClickListener {
+            // Update Profile Activity
+            startActivity(Intent(this@UserProfileActivity, UpdateProfileActivity::class.java))
+        }
         setContent()
     }
 

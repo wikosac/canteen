@@ -1,6 +1,7 @@
 package org.d3if2101.canteen.services
 
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
@@ -17,7 +18,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val title = remoteMessage.notification?.title
         val body = remoteMessage.notification?.body
         Log.d("FCM", "Pesan diterima: Title=$title, Body=$body")
-
         // Kirim pesan ke aktivitas
         sendNotification(title, body)
     }
@@ -29,7 +29,10 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(title)
             .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setDefaults(Notification.DEFAULT_ALL)
+
 
         val notificationManager = NotificationManagerCompat.from(this)
 
@@ -37,9 +40,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             val channel = NotificationChannel(
                 channelId,
                 "Your Notification Channel Name",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
             notificationManager.createNotificationChannel(channel)
+        } else {
+            // Add NOtification
         }
 
         notificationManager.notify(0, notificationBuilder.build())

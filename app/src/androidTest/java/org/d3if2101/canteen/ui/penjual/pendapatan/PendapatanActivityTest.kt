@@ -7,7 +7,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import kotlinx.coroutines.delay
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.junit.Test

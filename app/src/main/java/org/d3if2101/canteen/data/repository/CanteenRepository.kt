@@ -15,7 +15,6 @@ import com.google.firebase.storage.FirebaseStorage
 import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.datamodels.MenuItem
-import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class CanteenRepository private constructor(
@@ -75,6 +74,35 @@ class CanteenRepository private constructor(
         }
         return userData
     }
+
+    fun getUsersPenjual(): LiveData<List<UserModel>> {
+        val userListLiveData = MutableLiveData<List<UserModel>>()
+
+        val usersRef = databaseRef.child("users")
+
+        usersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userList = mutableListOf<UserModel>()
+
+                for (userSnapshot in snapshot.children) {
+                    val userModel = userSnapshot.getValue(UserModel::class.java)
+                    userModel?.let {
+                        if (it.role.lowercase() == "penjual") {
+                            userList.add(it)
+                        }
+                    }
+                }
+
+                userListLiveData.value = userList
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, error.message)
+            }
+        })
+        return userListLiveData
+    }
+
 
     fun getUserWithToken(token: String): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
@@ -394,7 +422,6 @@ class CanteenRepository private constructor(
         orderPayment: String,
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
-
         val orderRef = firebaseDatabase.getReference("orders/$orderId")
 
         orderRef.updateChildren(
@@ -409,6 +436,50 @@ class CanteenRepository private constructor(
             Log.e(TAG, "Failed to update order")
             data.value = Message("Error: ${it.message}")
         }
+
+        return data
+    }
+
+    fun updateProfileUser(
+        nama: String,
+        noTelpon: String,
+        foto: Uri
+    ): LiveData<Message> {
+        // UPLOAD IMAGE FIRST
+        val data = MutableLiveData<Message>()
+        val fileName = nama + foto + System.currentTimeMillis()
+        // Upload gambar ke Firebase Storage
+        val uploadTask = storageReference.reference.child("profile").child(fileName).putFile(foto)
+
+        uploadTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Dapatkan URL download dari gambar
+                uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
+                    if (downloadUrlTask.isSuccessful) {
+                        val downloadUrl = downloadUrlTask.result.toString()
+                        val userRef = firebaseDatabase.getReference("users/${firebaseAuth.uid}")
+                        userRef.updateChildren(
+                            mapOf(
+                                "nama" to nama,
+                                "noTelpon" to noTelpon,
+                                "foto" to downloadUrl
+                            )
+                        ).addOnSuccessListener {
+                            data.value = Message("Success")
+                        }.addOnFailureListener {
+                            data.value = Message("Failed")
+                        }
+                    } else {
+                        data.value = Message("Failed to get download URL")
+                    }
+                }
+            } else {
+                data.value = Message("Failed to upload image")
+            }
+        }
+
+
+
 
         return data
     }
@@ -516,27 +587,8 @@ class CanteenRepository private constructor(
         return orders
     }
 
-    fun getProductFromOrder(productIds: List<OrderDetail>): LiveData<List<MenuItem>> {
-        val data = MutableLiveData<List<MenuItem>>()
-        val produkList = mutableListOf<MenuItem>()
 
-        for (item in productIds) {
-            Log.d(TAG, "getProductFromOrder productIds: $item")
-
-            getProdukWithID(item.productId).observeForever { menuItem ->
-                Log.d(TAG, "getProductFromOrder menu: $menuItem")
-
-                produkList.add(menuItem)
-            }
-        }
-        data.value = produkList
-        Log.d(TAG, "getProductFromOrder data: ${data.value}")
-
-        return data
-    }
-
-
-    fun getOrderPendapatan() : LiveData<List<OrderHistoryItem>> {
+    fun getOrderPendapatan(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()
         databaseRef.child("orders")
             .addValueEventListener(object : ValueEventListener {
@@ -547,7 +599,9 @@ class CanteenRepository private constructor(
                         for (record in snapshot.children) {
                             Log.d(TAG, "onDataChange orders child: $record")
                             val orderRecord = record.getValue(OrderHistoryItem::class.java)
-                            if (orderRecord != null && orderRecord.orderStatus.lowercase().contains("selesai")) {
+                            if (orderRecord != null && orderRecord.orderStatus.lowercase()
+                                    .contains("selesai")
+                            ) {
                                 orderList.add(orderRecord)
                             }
                         }
@@ -563,6 +617,7 @@ class CanteenRepository private constructor(
 
         return orders
     }
+
     fun setFCM() {
         val uidUser = firebaseAuth.uid
         FirebaseMessaging.getInstance().subscribeToTopic(uidUser.toString())

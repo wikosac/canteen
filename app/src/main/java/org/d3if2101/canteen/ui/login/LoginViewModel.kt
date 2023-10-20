@@ -1,5 +1,6 @@
 package org.d3if2101.canteen.ui.login
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -21,9 +22,13 @@ class LoginViewModel(
         return canteenRepository.loginUser(email, pass)
     }
 
-    fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> = canteenRepository.getUser(lifecycleOwner)
+    fun getUserReturnList(): LiveData<List<UserModel>> = canteenRepository.getUsersPenjual()
 
-    fun getUserWithToken(token: String): LiveData<UserModel> = canteenRepository.getUserWithToken(token)
+    fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> =
+        canteenRepository.getUser(lifecycleOwner)
+
+    fun getUserWithToken(token: String): LiveData<UserModel> =
+        canteenRepository.getUserWithToken(token)
 
     fun getTokenPref(): LiveData<String?> = pref.getToken().asLiveData()
 
@@ -46,5 +51,11 @@ class LoginViewModel(
 
 
     fun setFCM() = canteenRepository.setFCM()
+
+    fun updateProfileUser(
+        nama: String,
+        noTelpon: String,
+        foto: Uri
+    ): LiveData<Message> = canteenRepository.updateProfileUser(nama, noTelpon, foto)
 
 }

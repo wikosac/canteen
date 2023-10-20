@@ -98,9 +98,12 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 if (snapshot.exists()) {
                     for (dataSnapshot in snapshot.children) {
                         val list = dataSnapshot.getValue(MenuItem::class.java)
-                        val idSeller = list!!.sellerID // get sellerID
-                        if (list.status){
-                            allItems.add(list)
+                        val idSeller = intent.getStringExtra("idKantin")
+                        if (list!!.sellerID == idSeller) {
+                            if (list.status) {
+                                allItems.add(list)
+
+                            }
                         }
                     }
                     loadMenu(allItems)
@@ -124,24 +127,28 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 R.id.nav_food_menu -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
+
                 R.id.nav_profile -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, UserProfileActivity::class.java))
                     }, drawerDelay)
                 }
+
                 R.id.nav_my_orders -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, MyCurrentOrdersActivity::class.java))
                     }, drawerDelay)
                 }
+
                 R.id.nav_orders_history -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, OrdersHistoryActivity::class.java))
                     }, drawerDelay)
                 }
+
                 R.id.nav_log_out -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     logOutUser()
@@ -303,7 +310,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
     override fun onPlusBtnClick(item: MenuItem) {
         item.quantity += 1
-        db.insertCartItem (
+        db.insertCartItem(
             CartItem(
                 itemID = item.itemID,
                 itemName = item.itemName,
