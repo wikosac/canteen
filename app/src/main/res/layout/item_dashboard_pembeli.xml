@@ -18,8 +18,8 @@
         <ImageView
             android:id="@+id/itemImageView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
             tools:src="@tools:sample/avatars"/>
 
         <TextView

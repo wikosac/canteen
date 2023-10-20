@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,22 +11,21 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/edit_product"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/id_Nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"></LinearLayout>
 
     <ImageView
         android:id="@+id/previewImageView"
@@ -39,11 +37,11 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/image"
+        android:contentDescription="TODO"
         android:src="@drawable/ic_place_holder"
-        app:layout_constraintTop_toBottomOf="@id/id_Nav"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="TODO" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_Nav" />
 
     <org.angmarch.views.NiceSpinner
         android:id="@+id/pilihKategori"
@@ -51,9 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/pilih_kategori"
-        app:layout_constraintTop_toBottomOf="@id/previewImageView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/previewImageView" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_namaItem"
@@ -62,9 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/nama_item"
-        app:layout_constraintTop_toBottomOf="@id/pilihKategori"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/pilihKategori">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nama_Item"
@@ -81,9 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/harga"
-        app:layout_constraintTop_toBottomOf="@id/til_namaItem"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/til_namaItem">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nama_harga"
@@ -100,16 +98,22 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/deskripsi_produk"
-        app:layout_constraintTop_toBottomOf="@id/til_harga"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/til_harga">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/desc"
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:gravity="start|top"
+            android:hint="@string/deskripsi_produk"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLength="200"
+            android:overScrollMode="always"
+            android:scrollbars="vertical" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
