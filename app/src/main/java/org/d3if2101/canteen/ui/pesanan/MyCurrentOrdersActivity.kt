@@ -7,12 +7,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.utils.convertStringToDate
 
 class MyCurrentOrdersActivity : AppCompatActivity(),
     RecyclerCurrentOrderAdapter.OnItemClickListener {
@@ -29,20 +34,35 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         setContentView(R.layout.activity_my_current_orders)
 
         var orderRecords: List<OrderHistoryItem>?
-        viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) {
-            Log.d(TAG, "onCreate order record: $it")
-            orderRecords = it
-            orderRecords?.let { records ->
-                recyclerAdapter = RecyclerCurrentOrderAdapter(
-                    context = this,
-                    currentOrderList = records,
-                    viewModel = viewModel,
-                    lifecycleOwner = this,
-                    listener = this
-                )
-                recyclerView.adapter = recyclerAdapter
+        viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
+            if (orders != null) {
+                // Mengonversi string tanggal ke objek Date
+                val orderRecords = orders.map { order ->
+                    val dateStr = order.date // Gantilah ini dengan cara Anda mengakses tanggal di objek Order
+                    val date = convertStringToDate(dateStr)
+                    Pair(order, date)
+                }
+
+                // Mengurutkan berdasarkan tanggal secara descending
+                val sortedRecords = orderRecords.sortedByDescending { it.second }
+
+                val sortedOrders = sortedRecords.map { it.first }
+
+                // Kemudian Anda bisa menggabungkannya ke dalam adapter
+                lifecycleScope.launch {
+                    recyclerAdapter = RecyclerCurrentOrderAdapter(
+                        context = this@MyCurrentOrdersActivity,
+                        currentOrderList = sortedOrders,
+                        viewModel = viewModel,
+                        lifecycleOwner = this@MyCurrentOrdersActivity,
+                        listener = this@MyCurrentOrdersActivity
+                    )
+
+                    recyclerView.adapter = recyclerAdapter
+                }
             }
         }
+
 
         recyclerView = findViewById(R.id.current_order_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -53,11 +73,13 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
             .setTitle("Batalkan pesanan")
             .setMessage("Apa kamu yakin batalkan pesanan ini?")
             .setPositiveButton("Ya") { dialogInterface, _ ->
-                viewModel.deleteOrderByID(orderId).observe(this){
+                viewModel.deleteOrderByID(orderId).observe(this) {
                     if (it.message.lowercase() == "Success") {
-                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
-                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Berhasil Membatalkan pesan", Toast.LENGTH_SHORT)
+                            .show()
 
                     }
                 }
