@@ -67,6 +67,10 @@ class RecyclerCurrentOrderAdapter(
             holder.cancelBtn.setOnClickListener {
                 listener.cancelOrder(currentItem.orderId)
             }
+        } else if (currentItem.orderPayment == "Sukses: Pembayaran tunai") {
+            holder.cancelBtn.isEnabled = false
+            holder.cancelBtn.text = "Pesanan selesai"
+            holder.cancelBtn.setBackgroundColor(context.getColor(R.color.green))
         } else {
             holder.cancelBtn.isEnabled = false
             holder.cancelBtn.text = "Pesanan diproses"

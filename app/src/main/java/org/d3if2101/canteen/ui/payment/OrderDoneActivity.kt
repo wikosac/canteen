@@ -20,6 +20,7 @@ import org.d3if2101.canteen.datamodels.OrderDetail
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.dashboard.DashboardActivity
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 import java.text.SimpleDateFormat
@@ -239,7 +240,7 @@ class OrderDoneActivity : AppCompatActivity() {
     }
 
     private fun openMenuActivity() {
-        startActivity(Intent(this, MenuActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 

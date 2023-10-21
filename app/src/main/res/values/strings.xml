@@ -35,7 +35,7 @@
     <string name="mie">Mie</string>
     <string name="gorengan">Gorengan</string>
     <string name="pilih_menu">Pilih Menu Andalan Kamu</string>
-    <string name="pilih_semua">Pilih Semua</string>
+    <string name="pilih_semua">Tampilkan Semua</string>
     <string name="nama_item">Nama Item</string>
     <string name="deskripsi_singkat">Deskripsi Singkat</string>
     <string name="harga">Harga</string>
@@ -228,7 +228,7 @@
     <string name="daftar_akun_sebagai_penjual">Daftar akun sebagai penjual</string>
     <string name="daftar_akun_sebagai_pembeli">Daftar akun sebagai pembeli</string>
     <string name="daftar_akun_penjual">Daftar Akun Penjual</string>
-    <string name="tidak_ada_riwayat">Tidak ada dalam Riwayat</string>
+    <string name="tidak_ada_riwayat">Tidak ada riwayat</string>
     <string name="baru">Baru\n</string>
     <string name="diproses">Diproses</string>
     <string name="selesai">Selesai</string>
@@ -249,4 +249,5 @@
     <string name="edit_product">Edit Produk</string>
     <string name="profile_">Profil</string>
     <string name="delete_item">Hapus Item</string>
+    <string name="tidak_ada_data">Tidak ada data</string>
 </resources>

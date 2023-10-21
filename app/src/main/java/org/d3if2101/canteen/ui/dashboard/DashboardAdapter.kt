@@ -45,7 +45,7 @@ class DashboardAdapter(
             } else {
                 Picasso.get()
                     .load(dataList.foto)
-                    .resize(100, 100)
+                    .fit()
                     .into(image)
             }
 

@@ -36,8 +36,12 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         var orderRecords: List<OrderHistoryItem>?
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
             if (orders != null) {
+                val filteredOrders = orders.filter { order ->
+                    !order.orderStatus.contains("selesai", ignoreCase = true)
+                }
+
                 // Mengonversi string tanggal ke objek Date
-                val orderRecords = orders.map { order ->
+                val orderRecords = filteredOrders.map { order ->
                     val dateStr = order.date // Gantilah ini dengan cara Anda mengakses tanggal di objek Order
                     val date = convertStringToDate(dateStr)
                     Pair(order, date)
