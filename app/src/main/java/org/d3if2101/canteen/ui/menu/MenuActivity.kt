@@ -259,6 +259,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             .setTitle("Peringatan")
             .setMessage("Apa kamu yakin untuk Log Out?")
             .setPositiveButton("Ya") { _, _ ->
+                viewModel.unsubFCM()
+
                 Firebase.auth.signOut()
 
                 getSharedPreferences("settings", MODE_PRIVATE).edit().clear().apply()

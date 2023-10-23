@@ -114,8 +114,8 @@ class DashboardPenjualActivity : AppCompatActivity() {
             .setTitle("Peringatan")
             .setMessage("Apa kamu yakin untuk Log Out?")
             .setPositiveButton("Ya") { _, _ ->
+                viewModel.unsubFCM()
                 Firebase.auth.signOut()
-
                 viewModel.deleteTokenPref()
                 Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
 
