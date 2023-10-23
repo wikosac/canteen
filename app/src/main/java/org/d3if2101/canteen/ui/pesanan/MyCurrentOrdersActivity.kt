@@ -1,8 +1,9 @@
 package org.d3if2101.canteen.ui.pesanan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -10,14 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerCurrentOrderAdapter
-import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.utils.convertStringToDate
 
 class MyCurrentOrdersActivity : AppCompatActivity(),
     RecyclerCurrentOrderAdapter.OnItemClickListener {
@@ -33,9 +30,17 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_current_orders)
 
+        recyclerView = findViewById(R.id.current_order_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
             val currentOrders = orders.filter {
                 !it.orderStatus.lowercase().contains("selesai")
+            }.sortedByDescending { it.time }
+            if (currentOrders.isNotEmpty()) {
+                findViewById<LinearLayout>(R.id.current_order_empty_indicator_ll).visibility =
+                    ViewGroup.GONE
+
             }
             if (currentOrders != null) {
                 // Kemudian Anda bisa menggabungkannya ke dalam adapter
@@ -63,9 +68,6 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
                 }
             }
         }
-
-        recyclerView = findViewById(R.id.current_order_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun cancelOrder(orderId: String) {

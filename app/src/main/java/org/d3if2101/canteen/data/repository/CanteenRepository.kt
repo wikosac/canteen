@@ -16,9 +16,6 @@ import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
-import org.d3if2101.canteen.utils.convertStringToDate
-import org.d3if2101.canteen.utils.formatDateToString
-import java.util.Date
 
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
@@ -578,7 +575,7 @@ class CanteenRepository private constructor(
 
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()
-        databaseRef.child("orders")
+        databaseRef.child("orders").orderByChild("time")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
@@ -589,19 +586,9 @@ class CanteenRepository private constructor(
                                 orderList.add(orderRecord)
                             }
                         }
-                        // Mengurutkan berdasarkan tanggal secara descending
-                        val sortedOrders = orderList
-                            .mapNotNull { convertStringToDate(it.date)?.let { date -> Pair(it, date) } }
-                            .sortedByDescending { it.second.time }
-                            .map { it.first }
-
-
-
-                        orders.value = sortedOrders
-                        Log.d(TAG, "Berhasil membaca data dari Firebase")
+                        orders.value = orderList
                     }
                 }
-
 
                 override fun onCancelled(error: DatabaseError) {
                     // Handle errors here
@@ -620,7 +607,7 @@ class CanteenRepository private constructor(
                         val orderList = mutableListOf<OrderHistoryItem>()
                         for (record in snapshot.children) {
                             val orderRecord = record.getValue(OrderHistoryItem::class.java)
-                            if (orderRecord != null ) {
+                            if (orderRecord != null) {
                                 orderList.add(orderRecord)
                             }
                         }
@@ -651,7 +638,7 @@ class CanteenRepository private constructor(
                             Log.d(TAG, "onDataChange orders child: $record")
                             val orderRecord = record.getValue(OrderHistoryItem::class.java)
                             if (orderRecord != null && orderRecord.orderStatus.lowercase()
-                                    .contains("selesai")
+                                    .contains("selesai") && orderRecord.sellerUid == firebaseAuth.uid.toString()
                             ) {
                                 orderList.add(orderRecord)
                             }

@@ -9,7 +9,7 @@ val staticDataSetKategori: List<String> =
     LinkedList(mutableListOf("Pilih Kategori", "Makanan", "Minuman", "Camilan"))
 
 fun convertStringToDate(dateString: String?): Date? {
-    val inputFormat = SimpleDateFormat("MMM dd, yyyy 'pukul' hh:mm a", Locale.US)
+    val inputFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.US)
 
     try {
         return inputFormat.parse(dateString)

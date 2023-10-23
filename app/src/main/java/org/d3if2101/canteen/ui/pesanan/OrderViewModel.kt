@@ -11,9 +11,6 @@ import org.d3if2101.canteen.datamodels.OrderHistoryItem
 
 class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewModel() {
 
-    private val _orders = MutableLiveData<List<OrderHistoryItem>>()
-    val orders: LiveData<List<OrderHistoryItem>> = _orders
-
     fun insertOrderRecord(order: OrderHistoryItem) {
         canteenRepository.insertOrderRecord(order)
     }
@@ -21,7 +18,6 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecord()
 
     fun getOrderRecordPenjual(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecordPenjual()
-
 
     fun updateOrderStateByID(
         orderId: String,

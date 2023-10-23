@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
-import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
 
 class OrdersHistoryActivity : AppCompatActivity() {
@@ -44,9 +40,8 @@ class OrdersHistoryActivity : AppCompatActivity() {
         viewModel.getFirebaseAuthUID().observe(this) { uid ->
             viewModel.getOrderRecord().observe(this) { orderHistoryItems ->
                 val pesananSelesai = orderHistoryItems.filter {
-                    it.buyerUid == uid && it.orderStatus.lowercase()
-                        .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
-                }
+                    it.buyerUid == uid && it.orderStatus.lowercase().contains("selesai")
+                }.sortedByDescending { it.time }
                 Log.d(TAG, "loadOrderHistoryListFromDatabase: $pesananSelesai")
                 orderHistoryList.addAll(pesananSelesai)
                 recyclerAdapter.notifyItemRangeInserted(0, pesananSelesai.size)

@@ -5,6 +5,7 @@ data class OrderHistoryItem(
     var id: Int = 0,
     var orderId: String = "ORDER_ID",
     var date: String = "DATE",
+    var time: Long = 0,
     var orderStatus: String = "ORDER_STATUS",
     var orderPayment: String = "ORDER_PAYMENT",
     var price: String = "ORDER_PRICE",

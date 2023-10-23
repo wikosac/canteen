@@ -21,7 +21,6 @@ import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.dashboard.DashboardActivity
-import org.d3if2101.canteen.ui.menu.MenuActivity
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -47,6 +46,7 @@ class OrderDoneActivity : AppCompatActivity() {
 
     private var orderID = ""
     private var orderDate = ""
+    private var timeInMillis: Long = 0
     private var userUID: String = ""
 
     private lateinit var binding: ActivityOrderDoneBinding
@@ -138,9 +138,12 @@ class OrderDoneActivity : AppCompatActivity() {
 
         val time = "$hour:$minute"
         val date = SimpleDateFormat("HH:mm").parse(time)
-        val orderTime = SimpleDateFormat("hh:mm aa").format(date)
+        val orderTime = SimpleDateFormat("HH:mm").format(date)
 
-        orderDate = "${monthName.substring(0, 3)} %02d, $year pukul $orderTime".format(dayNumber)
+        timeInMillis = c.timeInMillis
+//        Log.d(TAG, "setCurrentDateAndTime: ${c.timeInMillis}")
+
+        orderDate = "%02d ${monthName.substring(0, 3)} $year, $orderTime".format(dayNumber)
         dateAndTimeTV.text = orderDate
     }
 
@@ -164,6 +167,7 @@ class OrderDoneActivity : AppCompatActivity() {
             val itemInsertToFirebase = OrderHistoryItem(
                 buyerUid =  userUID,
                 date = orderDate,
+                time = timeInMillis,
                 orderId = orderID,
                 orderStatus = "Order Successful",
                 orderPayment = paymentMethod,
@@ -239,25 +243,7 @@ class OrderDoneActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getOrderItemNames(): String {
-        //stores all the item names in a single string separated by (;)
-        var itemNames = ""
-        for (item in DatabaseHandler(this).readCartData()) {
-            itemNames += item.itemName + ";"
-        }
-        return itemNames.substring(0, itemNames.length - 1)
-    }
-
-    private fun getOrderItemQty(): String {
-        //stores all the item qty in a single string separated by (;)
-        var itemQty = ""
-        for (item in DatabaseHandler(this).readCartData()) {
-            itemQty += item.quantity.toString() + ";"
-        }
-        return itemQty.substring(0, itemQty.length - 1)
-    }
-
     companion object {
-        const val TAG = "testo"
+        const val TAG = "OrderDone"
     }
 }

@@ -38,11 +38,15 @@ class RecyclerCurrentOrderAdapter(
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val namaKantinTV: TextView = itemView.findViewById(R.id.tv_nama_kantin)
-        val takeAwayTimeTV: TextView = itemView.findViewById(R.id.current_order_item_take_away_time_tv)
-        val paymentStatusTV: TextView = itemView.findViewById(R.id.current_order_item_payment_status_tv)
+        val takeAwayTimeTV: TextView =
+            itemView.findViewById(R.id.current_order_item_take_away_time_tv)
+        val paymentStatusTV: TextView =
+            itemView.findViewById(R.id.current_order_item_payment_status_tv)
         val orderIDTV: TextView = itemView.findViewById(R.id.current_order_item_order_id_tv)
-        val totalItemPriceTV: TextView = itemView.findViewById(R.id.current_order_item_total_price_tv)
-        val cancelBtn: ExtendedFloatingActionButton = itemView.findViewById(R.id.current_order_item_cancel_btn)
+        val totalItemPriceTV: TextView =
+            itemView.findViewById(R.id.current_order_item_total_price_tv)
+        val cancelBtn: ExtendedFloatingActionButton =
+            itemView.findViewById(R.id.current_order_item_cancel_btn)
         val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_current_order_item)
     }
 
@@ -67,18 +71,22 @@ class RecyclerCurrentOrderAdapter(
         holder.orderIDTV.text = currentItem.orderId
         holder.totalItemPriceTV.text = currentItem.price
 
-        if (currentItem.orderPayment == "Tertunda: Pembayaran Tunai") {
-            holder.cancelBtn.setOnClickListener {
-                listener.cancelOrder(currentItem.orderId)
+        when (currentItem.orderStatus) {
+            "Order Diproses" -> {
+                holder.cancelBtn.isEnabled = false
+                holder.cancelBtn.text = "Pesanan diproses"
+                holder.cancelBtn.setBackgroundColor(context.getColor(R.color.grey_formal))
             }
-        } else if (currentItem.orderPayment == "Sukses: Pembayaran tunai") {
-            holder.cancelBtn.isEnabled = false
-            holder.cancelBtn.text = "Pesanan selesai"
-            holder.cancelBtn.setBackgroundColor(context.getColor(R.color.green))
-        } else {
-            holder.cancelBtn.isEnabled = false
-            holder.cancelBtn.text = "Pesanan diproses"
-            holder.cancelBtn.setBackgroundColor(context.getColor(R.color.grey_formal))
+            "Order Selesai" -> {
+                holder.cancelBtn.isEnabled = false
+                holder.cancelBtn.text = "Pesanan selesai"
+                holder.cancelBtn.setBackgroundColor(context.getColor(R.color.green))
+            }
+            else -> {
+                holder.cancelBtn.setOnClickListener {
+                    listener.cancelOrder(currentItem.orderId)
+                }
+            }
         }
 
         holder.itemRecyclerView.apply {
