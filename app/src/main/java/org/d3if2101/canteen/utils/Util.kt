@@ -8,12 +8,18 @@ import java.util.Locale
 val staticDataSetKategori: List<String> =
     LinkedList(mutableListOf("Pilih Kategori", "Makanan", "Minuman", "Camilan"))
 
-fun convertStringToDate(dateString: String): Date? {
-    val format = SimpleDateFormat("MMM dd, yy 'pukul' hh:mm a", Locale.US)
-    return try {
-        format.parse(dateString)
+fun convertStringToDate(dateString: String?): Date? {
+    val inputFormat = SimpleDateFormat("MMM dd, yyyy 'pukul' hh:mm a", Locale.US)
+
+    try {
+        return inputFormat.parse(dateString)
     } catch (e: Exception) {
         e.printStackTrace()
-        null
     }
+
+    return null
+}
+fun formatDateToString(date: Date): String {
+    val outputFormat = SimpleDateFormat("MMM dd, yyyy 'pukul' hh:mm a", Locale.US)
+    return outputFormat.format(date)
 }

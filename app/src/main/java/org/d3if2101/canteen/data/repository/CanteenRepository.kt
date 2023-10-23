@@ -16,6 +16,9 @@ import org.d3if2101.canteen.data.model.Message
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
+import org.d3if2101.canteen.utils.convertStringToDate
+import org.d3if2101.canteen.utils.formatDateToString
+import java.util.Date
 
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
@@ -578,24 +581,28 @@ class CanteenRepository private constructor(
         databaseRef.child("orders")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d(TAG, "onDataChange orders: $snapshot")
                     if (snapshot.exists()) {
                         val orderList = mutableListOf<OrderHistoryItem>()
                         for (record in snapshot.children) {
-                            Log.d(TAG, "onDataChange orders child: $record")
                             val orderRecord = record.getValue(OrderHistoryItem::class.java)
-                            if (orderRecord != null) {
+                            if (orderRecord != null && orderRecord.buyerUid == firebaseAuth.uid.toString()) {
                                 orderList.add(orderRecord)
                             }
                         }
-                        orders.value = orderList
+                        // Mengurutkan berdasarkan tanggal secara descending
+                        val sortedOrders = orderList.sortedByDescending {
+                            convertStringToDate(it.date)?.time
+                        }
+
+                        orders.value = sortedOrders
+                        Log.d(TAG, "Berhasil membaca data dari Firebase")
                     }
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
 
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle errors here
+                }
             })
 
         return orders
@@ -675,7 +682,12 @@ class CanteenRepository private constructor(
             firebaseMessaging: FirebaseMessaging
         ): CanteenRepository =
             instance ?: synchronized(this) {
-                instance ?: CanteenRepository(firebaseAuth, firebaseDatabase, storageReference, firebaseMessaging)
+                instance ?: CanteenRepository(
+                    firebaseAuth,
+                    firebaseDatabase,
+                    storageReference,
+                    firebaseMessaging
+                )
             }.also { instance = it }
     }
 }

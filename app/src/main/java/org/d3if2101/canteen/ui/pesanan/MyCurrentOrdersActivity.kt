@@ -36,24 +36,11 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         var orderRecords: List<OrderHistoryItem>?
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
             if (orders != null) {
-                // Mengonversi string tanggal ke objek Date dan filter data yang valid
-                val validOrders = orders.filter { order ->
-                    val dateStr = order.date
-                    val date = convertStringToDate(dateStr)
-                    date != null
-                }
-
-                // Mengurutkan berdasarkan tanggal secara descending
-                val sortedOrders = validOrders.sortedByDescending { order ->
-                    val dateStr = order.date
-                    convertStringToDate(dateStr)
-                }
-
                 // Kemudian Anda bisa menggabungkannya ke dalam adapter
                 lifecycleScope.launch {
                     recyclerAdapter = RecyclerCurrentOrderAdapter(
                         context = this@MyCurrentOrdersActivity,
-                        currentOrderList = sortedOrders,
+                        currentOrderList = orders,
                         viewModel = viewModel,
                         lifecycleOwner = this@MyCurrentOrdersActivity,
                         listener = this@MyCurrentOrdersActivity
