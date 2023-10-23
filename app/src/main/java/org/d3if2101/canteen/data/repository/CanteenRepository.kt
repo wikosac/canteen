@@ -590,9 +590,12 @@ class CanteenRepository private constructor(
                             }
                         }
                         // Mengurutkan berdasarkan tanggal secara descending
-                        val sortedOrders = orderList.sortedByDescending {
-                            convertStringToDate(it.date)
-                        }
+                        val sortedOrders = orderList
+                            .mapNotNull { convertStringToDate(it.date)?.let { date -> Pair(it, date) } }
+                            .sortedByDescending { it.second.time }
+                            .map { it.first }
+
+
 
                         orders.value = sortedOrders
                         Log.d(TAG, "Berhasil membaca data dari Firebase")
