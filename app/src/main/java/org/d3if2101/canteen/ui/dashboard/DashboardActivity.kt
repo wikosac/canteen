@@ -71,16 +71,17 @@ class DashboardActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExit = false }, 2000)
     }
 
-    private fun navTo(idKantin: String) {
+    private fun navTo(idKantin: String, namaKantin: String) {
         val intent = Intent(this, MenuActivity::class.java)
         intent.putExtra("idKantin", idKantin)
+        intent.putExtra("namaKantin", namaKantin)
         startActivity(intent)
     }
 
     private fun setRV(dataList: List<UserModel>) {
         val adapter = DashboardAdapter(dataList, object : DashboardAdapter.OnItemClickCallback {
             override fun onItemClick(data: UserModel) {
-                navTo(data.uid) // Sending And Intent to MenuActivity
+                navTo(data.uid, data.nama) // Sending And Intent to MenuActivity
             }
         })
         binding.rv.adapter = adapter
@@ -127,7 +128,7 @@ class DashboardActivity : AppCompatActivity() {
             true
         }
 
-        findViewById<ImageView>(R.id.nav_drawer_opener_iv).setOnClickListener {
+        binding.navDrawerOpenerIv.setOnClickListener {
             if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
             } else {

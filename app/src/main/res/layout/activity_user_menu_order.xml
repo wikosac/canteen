@@ -224,8 +224,7 @@
                     android:textSize="15sp"
                     android:textAlignment="textEnd"
                     android:textColor="@color/primary"
-                    android:fontFamily="@font/montserrat_semi_bold"
-                    android:onClick="changeOrderTakeAwayTime"/>
+                    android:fontFamily="@font/montserrat_semi_bold"/>
 
             </LinearLayout>
 
