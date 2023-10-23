@@ -591,7 +591,7 @@ class CanteenRepository private constructor(
                         }
                         // Mengurutkan berdasarkan tanggal secara descending
                         val sortedOrders = orderList.sortedByDescending {
-                            convertStringToDate(it.date)?.time
+                            convertStringToDate(it.date)
                         }
 
                         orders.value = sortedOrders
