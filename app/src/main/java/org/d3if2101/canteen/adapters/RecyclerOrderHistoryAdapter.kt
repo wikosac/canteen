@@ -15,11 +15,11 @@ class RecyclerOrderHistoryAdapter(
 ) : RecyclerView.Adapter<RecyclerOrderHistoryAdapter.ItemListViewHolder>() {
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dateTV = itemView.findViewById<TextView>(R.id.order_history_item_date_tv)
-        val orderIDTV = itemView.findViewById<TextView>(R.id.order_history_item_order_id_tv)
-        val orderStatusTV = itemView.findViewById<TextView>(R.id.order_history_item_order_status_tv)
-        val orderPaymentTV = itemView.findViewById<TextView>(R.id.order_history_item_order_payment_tv)
-        val priceTV = itemView.findViewById<TextView>(R.id.order_history_item_price_tv)
+        val dateTV: TextView = itemView.findViewById(R.id.order_history_item_date_tv)
+        val orderIDTV: TextView = itemView.findViewById(R.id.order_history_item_order_id_tv)
+        val orderStatusTV: TextView = itemView.findViewById(R.id.order_history_item_order_status_tv)
+        val orderPaymentTV: TextView = itemView.findViewById(R.id.order_history_item_order_payment_tv)
+        val priceTV: TextView = itemView.findViewById(R.id.order_history_item_price_tv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {

@@ -34,7 +34,6 @@
         <activity android:name=".ui.menu.MenuActivity" />
         <activity android:name=".ui.daftar.Daftar" />
         <activity android:name=".ui.login.Login" />
-        <activity android:name=".ui.penjual.login.LoginPenjualActivity" />
         <activity android:name=".ui.penjual.dashboard.DashboardPenjualActivity" />
         <activity android:name=".ui.penjual.homeadminproduk.pilihmenu.PilihMenuActivity" />
         <activity android:name=".ui.penjual.pendapatan.PendapatanActivity" />

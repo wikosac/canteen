@@ -1,26 +1,32 @@
 package org.d3if2101.canteen.ui.pesanan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerOrderHistoryAdapter
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.services.DatabaseHandler
+import org.d3if2101.canteen.ui.ViewModelFactory
 
 class OrdersHistoryActivity : AppCompatActivity() {
 
     private var orderHistoryList = ArrayList<OrderHistoryItem>()
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdapter: RecyclerOrderHistoryAdapter
-
-    private lateinit var deleteRecordsIV : ImageView
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(this)
+    }
+    private val viewModel: OrderViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,57 +37,33 @@ class OrdersHistoryActivity : AppCompatActivity() {
         recyclerView.adapter = recyclerAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        deleteRecordsIV = findViewById(R.id.order_history_delete_records_iv)
-        deleteRecordsIV.setOnClickListener { deleteOrderHistoryRecords() }
-
         loadOrderHistoryListFromDatabase()
     }
 
     private fun loadOrderHistoryListFromDatabase() {
-        val db = DatabaseHandler(this)
-        val data = db.readOrderData()
+        viewModel.getFirebaseAuthUID().observe(this) { uid ->
+            viewModel.getOrderRecord().observe(this) { orderHistoryItems ->
+                val pesananSelesai = orderHistoryItems.filter {
+                    it.buyerUid == uid && it.orderStatus.lowercase()
+                        .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
+                }
+                Log.d(TAG, "loadOrderHistoryListFromDatabase: $pesananSelesai")
+                orderHistoryList.addAll(pesananSelesai)
+                recyclerAdapter.notifyItemRangeInserted(0, pesananSelesai.size)
 
-        if(data.size == 0) {
-            deleteRecordsIV.visibility = ViewGroup.INVISIBLE
-            return
-        }
-
-        findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility = ViewGroup.GONE
-        for(i in 0 until data.size) {
-            val item = OrderHistoryItem()
-            item.date = data[i].date
-            item.orderId = data[i].orderId
-            item.orderStatus = data[i].orderStatus
-            item.orderPayment = data[i].orderPayment
-            item.price = data[i].price
-            orderHistoryList.add(item)
-            orderHistoryList.reverse()
-            recyclerAdapter.notifyItemRangeInserted(0, data.size)
+                if (pesananSelesai.isNotEmpty()) {
+                    findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility =
+                        ViewGroup.GONE
+                }
+            }
         }
     }
 
-    private fun deleteOrderHistoryRecords() {
-        AlertDialog.Builder(this)
-            .setMessage("Apa kamu yakin hapus semua riwayat pesanan?")
-            .setPositiveButton("Ya") { dialogInterface, _ ->
-                val db = DatabaseHandler(this)
-                db.dropOrderHistoryTable()
-                deleteRecordsIV.visibility = ViewGroup.INVISIBLE
-                findViewById<LinearLayout>(R.id.order_history_empty_indicator_ll).visibility =
-                    ViewGroup.VISIBLE
-
-
-                val size = orderHistoryList.size
-                orderHistoryList.clear()
-                recyclerAdapter.notifyItemRangeRemoved(0, size)
-
-                dialogInterface.dismiss()
-            }
-            .setNegativeButton("Tidak") { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            .create().show()
+    fun goBack(view: View) {
+        onBackPressed()
     }
 
-    fun goBack(view: View) {onBackPressed()}
+    companion object {
+        const val TAG = "testo"
+    }
 }

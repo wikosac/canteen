@@ -186,7 +186,6 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:backgroundTint="#D83838"
-            app:icon="@drawable/ic_cancel"
             app:iconTint="@color/white"
             app:iconSize="20dp"
             app:iconPadding="0dp"

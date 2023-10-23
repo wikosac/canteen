@@ -31,6 +31,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerFoodItemAdapter
 import org.d3if2101.canteen.databinding.ActivityMainMenuBinding
@@ -57,7 +59,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
     private var allItems = ArrayList<MenuItem>()
     private var searchIsActive = false
-    private var doubleBackToExit = false
+    private var dataIsEmpty = false
     private val db = DatabaseHandler(this)
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(this.application)
@@ -78,6 +80,10 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         setMenu()
         loadNavigationDrawer()
         loadSearchTask()
+
+        GlobalScope.launch {
+            if (dataIsEmpty) binding.txtEmptyView.visibility = View.VISIBLE
+        }
 
         viewModel.getUserWithToken(user.uid).observe(this@MenuActivity) {
             binding.topWishNameTv.text = this.getString(R.string.hi, it.nama)
@@ -107,6 +113,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                         }
                     }
                     loadMenu(allItems)
+                } else {
+                    dataIsEmpty = true
                 }
             }
 
@@ -167,6 +175,7 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         if (searchIsActive) {
             //menyembunyikan tampilan di atas itemm
             recyclerFoodAdapter.filter.filter("")
@@ -183,14 +192,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             drawerLayout.closeDrawer(GravityCompat.START)
             return
         }
-        if (doubleBackToExit) {
-            super.onBackPressed()
-            return
-        }
-        doubleBackToExit = true
-        Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show()
-        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExit = false }, 2000)
-
     }
 
     private fun loadMenu(listItems: ArrayList<MenuItem>) {
@@ -216,6 +217,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 }
             }
         }
+
+        if (listItems.isNotEmpty()) binding.txtEmptyView.visibility = View.GONE
     }
 
     private fun loadSearchTask() {
