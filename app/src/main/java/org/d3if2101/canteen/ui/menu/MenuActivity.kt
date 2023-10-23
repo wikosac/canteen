@@ -78,7 +78,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
         db.clearCartTable()
         setMenu()
-        loadNavigationDrawer()
         loadSearchTask()
 
         GlobalScope.launch {
@@ -89,8 +88,8 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
             binding.topWishNameTv.text = this.getString(R.string.hi, it.nama)
         }
 
+        binding.topNamaKantinTv.text = intent.getStringExtra("namaKantin")
         binding.btnCart.setOnClickListener { showBottomDialog() }
-//            binding.menuUserIcon.setOnClickListener { openUserProfileActivity() }
     }
 
     companion object {
@@ -163,14 +162,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
                 }
             }
             true
-        }
-
-        findViewById<ImageView>(R.id.nav_drawer_opener_iv).setOnClickListener {
-            if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START)
-            } else {
-                drawerLayout.openDrawer(GravityCompat.START)
-            }
         }
     }
 

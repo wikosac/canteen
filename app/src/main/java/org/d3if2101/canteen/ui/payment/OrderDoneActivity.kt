@@ -59,7 +59,7 @@ class OrderDoneActivity : AppCompatActivity() {
         super.onBackPressed()
         val db = DatabaseHandler(this)
         db.deleteAllCurrentOrders()
-        val intent = Intent(this, MenuActivity::class.java)
+        val intent = Intent(this, DashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
@@ -109,11 +109,6 @@ class OrderDoneActivity : AppCompatActivity() {
         generateOrderID()
         setCurrentDateAndTime()
         saveCurrentOrderToDatabase() // save Current Order
-
-
-
-
-
 
         findViewById<LinearLayout>(R.id.order_done_cancel_order_ll).setOnClickListener { cancelCurrentOrder() }
 

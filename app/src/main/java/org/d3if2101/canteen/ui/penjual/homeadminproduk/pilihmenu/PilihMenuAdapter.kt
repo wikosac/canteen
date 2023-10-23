@@ -45,7 +45,7 @@ class PilihMenuAdapter(
                 .resize(100, 100)
                 .into(image)
 
-            tvName.text = "Product : ${dataList.itemName}"
+            tvName.text = "Produk : ${dataList.itemName}"
             tvHarga.text = "Harga : ${dataList.itemPrice}"
             setState.isChecked = dataList.status
             Log.d("PILIH MENU ADAPTER", dataList.status.toString())

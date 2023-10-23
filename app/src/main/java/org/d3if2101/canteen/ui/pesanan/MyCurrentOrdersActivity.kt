@@ -33,24 +33,36 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_current_orders)
 
-        var orderRecords: List<OrderHistoryItem>?
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
-            if (orders != null) {
+            val currentOrders = orders.filter {
+                !it.orderStatus.lowercase().contains("selesai")
+            }
+            if (currentOrders != null) {
                 // Kemudian Anda bisa menggabungkannya ke dalam adapter
                 lifecycleScope.launch {
                     recyclerAdapter = RecyclerCurrentOrderAdapter(
                         context = this@MyCurrentOrdersActivity,
-                        currentOrderList = orders,
+                        currentOrderList = currentOrders,
                         viewModel = viewModel,
                         lifecycleOwner = this@MyCurrentOrdersActivity,
                         listener = this@MyCurrentOrdersActivity
                     )
 
-                    recyclerView.adapter = recyclerAdapter
+                    // Kemudian Anda bisa menggabungkannya ke dalam adapter
+                    lifecycleScope.launch {
+                        recyclerAdapter = RecyclerCurrentOrderAdapter(
+                            context = this@MyCurrentOrdersActivity,
+                            currentOrderList = currentOrders,
+                            viewModel = viewModel,
+                            lifecycleOwner = this@MyCurrentOrdersActivity,
+                            listener = this@MyCurrentOrdersActivity
+                        )
+
+                        recyclerView.adapter = recyclerAdapter
+                    }
                 }
             }
         }
-
 
         recyclerView = findViewById(R.id.current_order_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -84,6 +96,6 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
     }
 
     companion object {
-        const val TAG = "testo"
+        const val TAG = "CurrentOrders"
     }
 }

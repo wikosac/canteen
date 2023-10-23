@@ -50,7 +50,7 @@ class DashboardAdapter(
             }
 
 
-            tvName.text = "Kantin ${dataList.nama}"
+            tvName.text = dataList.nama
 
             itemView.setOnClickListener {
                 onItemClickCallback.onItemClick(dataList)

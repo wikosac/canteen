@@ -37,6 +37,7 @@ class RecyclerCurrentOrderAdapter(
     }
 
     class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val namaKantinTV: TextView = itemView.findViewById(R.id.tv_nama_kantin)
         val takeAwayTimeTV: TextView = itemView.findViewById(R.id.current_order_item_take_away_time_tv)
         val paymentStatusTV: TextView = itemView.findViewById(R.id.current_order_item_payment_status_tv)
         val orderIDTV: TextView = itemView.findViewById(R.id.current_order_item_order_id_tv)
@@ -58,6 +59,9 @@ class RecyclerCurrentOrderAdapter(
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
         val currentItem = currentOrderList[position]
 
+        viewModel.getUserFromUID(currentItem.sellerUid).observe(lifecycleOwner) {
+            holder.namaKantinTV.text = it.nama
+        }
         holder.takeAwayTimeTV.text = currentItem.date
         holder.paymentStatusTV.text = currentItem.orderPayment
         holder.orderIDTV.text = currentItem.orderId

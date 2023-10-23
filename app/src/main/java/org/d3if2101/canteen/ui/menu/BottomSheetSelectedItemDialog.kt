@@ -45,9 +45,8 @@ open class BottomSheetSelectedItemDialog: BottomSheetDialogFragment() {
                 dismiss()
                 startActivity(intent)
             } else {
-                Toast.makeText(context, "Please select at-least 1 item", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Pilih setidaknya 1 item!", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 }

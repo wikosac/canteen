@@ -109,13 +109,13 @@ class UserMenuOrderActivity : AppCompatActivity(),
         recyclerAdapter.notifyItemRangeInserted(0, orderedItems.size)
     }
 
-    fun changeOrderTakeAwayTime(view: View) {
-        val c = Calendar.getInstance()
-        val hour = c.get(Calendar.HOUR)
-        val minute = c.get(Calendar.MINUTE)
-        val timePickerDialog = TimePickerDialog(this, this, hour, minute, true)
-        timePickerDialog.show()
-    }
+//    fun changeOrderTakeAwayTime(view: View) {
+//        val c = Calendar.getInstance()
+//        val hour = c.get(Calendar.HOUR)
+//        val minute = c.get(Calendar.MINUTE)
+//        val timePickerDialog = TimePickerDialog(this, this, hour, minute, true)
+//        timePickerDialog.show()
+//    }
 
     override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
         val time = "$hourOfDay:$minute"

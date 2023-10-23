@@ -64,6 +64,6 @@ class OrdersHistoryActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TAG = "testo"
+        const val TAG = "OrdersHistory"
     }
 }
