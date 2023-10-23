@@ -39,6 +39,8 @@ class DashboardActivity : AppCompatActivity() {
         binding.rv.layoutManager = LinearLayoutManager(this)
         drawerLayout = binding.drawerLayout
 
+        viewModel.setFCM()
+
         viewModel.getTokenPref().observe(this) { token ->
             viewModel.getUserWithToken(token!!).observe(this) {
                 binding.txtGreeting.text = "Selamat datang, ${it.nama}"

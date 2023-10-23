@@ -20,7 +20,8 @@ import org.d3if2101.canteen.datamodels.OrderHistoryItem
 class CanteenRepository private constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDatabase: FirebaseDatabase,
-    private val storageReference: FirebaseStorage
+    private val storageReference: FirebaseStorage,
+    private val firebaseMessaging: FirebaseMessaging
 ) {
     private val databaseRef = firebaseDatabase.reference
     private val uidUser = MutableLiveData<String>()
@@ -145,7 +146,20 @@ class CanteenRepository private constructor(
     }
 
     fun signOut() {
-        firebaseAuth.signOut()
+        val user = firebaseAuth.currentUser
+        if (user != null) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(user.uid)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("FCM", "Berhenti berlangganan dari topik '${user.uid}' berhasil.")
+                    } else {
+                        Log.e("FCM", "Gagal berhenti berlangganan dari topik '${user.uid}'.")
+                    }
+                }
+            firebaseAuth.signOut()
+        } else {
+            Log.d("FCM", "Tidak ada pengguna yang masuk (sign in).")
+        }
     }
 
     fun inputUserToDatabase(
@@ -619,8 +633,11 @@ class CanteenRepository private constructor(
     }
 
     fun setFCM() {
-        val uidUser = firebaseAuth.uid
-        FirebaseMessaging.getInstance().subscribeToTopic(uidUser.toString())
+        // Mendapatkan UID pengguna
+        val uidUser = FirebaseAuth.getInstance().uid
+
+        // Mendaftar ke topik dengan UID pengguna
+        firebaseMessaging.subscribeToTopic(uidUser.toString())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("FCM", "Berlangganan ke topik '${uidUser}' berhasil.")
@@ -630,6 +647,22 @@ class CanteenRepository private constructor(
             }
     }
 
+    fun unsubFCM() {
+        // Mendapatkan UID pengguna
+        val uidUser = FirebaseAuth.getInstance().uid
+
+        // Mendaftar ke topik dengan UID pengguna
+        firebaseMessaging.unsubscribeFromTopic(uidUser.toString())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("FCM", "Unsubscribe ke topik '${uidUser}' berhasil.")
+                } else {
+                    Log.e("FCM", "Gagal Unsubscribe ke topik 'penjual'.")
+                }
+            }
+    }
+
+
     companion object {
         private const val TAG = "CanteenRepository"
 
@@ -638,10 +671,11 @@ class CanteenRepository private constructor(
         fun getInstance(
             firebaseAuth: FirebaseAuth,
             firebaseDatabase: FirebaseDatabase,
-            storageReference: FirebaseStorage
+            storageReference: FirebaseStorage,
+            firebaseMessaging: FirebaseMessaging
         ): CanteenRepository =
             instance ?: synchronized(this) {
-                instance ?: CanteenRepository(firebaseAuth, firebaseDatabase, storageReference)
+                instance ?: CanteenRepository(firebaseAuth, firebaseDatabase, storageReference, firebaseMessaging)
             }.also { instance = it }
     }
 }

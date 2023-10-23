@@ -52,6 +52,8 @@ class LoginViewModel(
 
     fun setFCM() = canteenRepository.setFCM()
 
+    fun unsubFCM() = canteenRepository.unsubFCM()
+
     fun updateProfileUser(
         nama: String,
         noTelpon: String,
