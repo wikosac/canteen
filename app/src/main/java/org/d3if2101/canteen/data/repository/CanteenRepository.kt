@@ -608,6 +608,33 @@ class CanteenRepository private constructor(
         return orders
     }
 
+    fun getOrderRecordPenjual(): LiveData<List<OrderHistoryItem>> {
+        val orders = MutableLiveData<List<OrderHistoryItem>>()
+        databaseRef.child("orders")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val orderList = mutableListOf<OrderHistoryItem>()
+                        for (record in snapshot.children) {
+                            val orderRecord = record.getValue(OrderHistoryItem::class.java)
+                            if (orderRecord != null ) {
+                                orderList.add(orderRecord)
+                            }
+                        }
+                        orders.value = orderList
+                        Log.d(TAG, "BERHASIL GET ORDER RECORD PENJUAL")
+                    }
+                }
+
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, error.message)
+                }
+            })
+
+        return orders
+    }
+
 
     fun getOrderPendapatan(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()

@@ -40,7 +40,7 @@ class SelesaiFragment : Fragment() {
         }
 
         viewModel.getFirebaseAuthUID().observe(viewLifecycleOwner) { uid ->
-            viewModel.getOrderRecord().observe(viewLifecycleOwner) { orderHistoryItems ->
+            viewModel.getOrderRecordPenjual().observe(viewLifecycleOwner) { orderHistoryItems ->
                 val sellerItems = orderHistoryItems.filter {
                     it.sellerUid == uid && it.orderStatus.lowercase()
                         .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
