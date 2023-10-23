@@ -34,12 +34,15 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
         setContentView(R.layout.activity_my_current_orders)
 
         viewModel.getOrderRecord().observe(this@MyCurrentOrdersActivity) { orders ->
-            if (orders != null) {
+            val currentOrders = orders.filter {
+                !it.orderStatus.lowercase().contains("selesai")
+            }
+            if (currentOrders != null) {
                 // Kemudian Anda bisa menggabungkannya ke dalam adapter
                 lifecycleScope.launch {
                     recyclerAdapter = RecyclerCurrentOrderAdapter(
                         context = this@MyCurrentOrdersActivity,
-                        currentOrderList = orders,
+                        currentOrderList = currentOrders,
                         viewModel = viewModel,
                         lifecycleOwner = this@MyCurrentOrdersActivity,
                         listener = this@MyCurrentOrdersActivity
@@ -49,7 +52,7 @@ class MyCurrentOrdersActivity : AppCompatActivity(),
                     lifecycleScope.launch {
                         recyclerAdapter = RecyclerCurrentOrderAdapter(
                             context = this@MyCurrentOrdersActivity,
-                            currentOrderList = orders,
+                            currentOrderList = currentOrders,
                             viewModel = viewModel,
                             lifecycleOwner = this@MyCurrentOrdersActivity,
                             listener = this@MyCurrentOrdersActivity

@@ -39,7 +39,7 @@ class OrderFragment : Fragment() {
         }
 
         viewModel.getFirebaseAuthUID().observe(viewLifecycleOwner) { uid ->
-            viewModel.getOrderRecord().observe(viewLifecycleOwner) { orderHistoryItems ->
+            viewModel.getSellerOrderRecord().observe(viewLifecycleOwner) { orderHistoryItems ->
                 val sellerItems = orderHistoryItems.filter {
                     it.sellerUid == uid && it.orderStatus.lowercase()
                         .contains("successful") && it.orderPayment.lowercase().contains("tertunda")

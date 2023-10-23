@@ -42,7 +42,7 @@ class OrdersHistoryActivity : AppCompatActivity() {
 
     private fun loadOrderHistoryListFromDatabase() {
         viewModel.getFirebaseAuthUID().observe(this) { uid ->
-            viewModel.getOrderPendapatan().observe(this) { orderHistoryItems ->
+            viewModel.getOrderRecord().observe(this) { orderHistoryItems ->
                 val pesananSelesai = orderHistoryItems.filter {
                     it.buyerUid == uid && it.orderStatus.lowercase()
                         .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
@@ -64,6 +64,6 @@ class OrdersHistoryActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TAG = "testo"
+        const val TAG = "OrdersHistory"
     }
 }

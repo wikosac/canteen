@@ -1,20 +1,26 @@
 package org.d3if2101.canteen.ui.dashboard
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.databinding.ActivityDashboardBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import org.d3if2101.canteen.ui.pesanan.MyCurrentOrdersActivity
@@ -41,10 +47,9 @@ class DashboardActivity : AppCompatActivity() {
 
         viewModel.setFCM()
 
-        viewModel.getTokenPref().observe(this) { token ->
-            viewModel.getUserWithToken(token!!).observe(this) {
-                binding.txtGreeting.text = "Selamat datang, ${it.nama}"
-            }
+        val user = FirebaseAuth.getInstance().currentUser!!
+        viewModel.getUserWithToken(user.uid).observe(this) {
+            binding.txtGreeting.text = "Selamat datang, ${it.nama}"
         }
         viewModel.getUserReturnList().observe(this) {
             setRV(it)
@@ -109,7 +114,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 R.id.nav_log_out -> {
                     drawerLayout.closeDrawer(GravityCompat.START)
-//                    logOutUser()
+                    logOutUser()
                 }
             }
             true
@@ -122,6 +127,29 @@ class DashboardActivity : AppCompatActivity() {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
         }
+    }
+
+    private fun logOutUser() {
+        AlertDialog.Builder(this)
+            .setTitle("Peringatan")
+            .setMessage("Apa kamu yakin untuk Log Out?")
+            .setPositiveButton("Ya") { _, _ ->
+                viewModel.unsubFCM()
+
+                Firebase.auth.signOut()
+
+                getSharedPreferences("settings", MODE_PRIVATE).edit().clear().apply()
+                getSharedPreferences("user_profile_details", MODE_PRIVATE).edit().clear().apply()
+
+                viewModel.deleteTokenPref()
+                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+
+                startActivity(Intent(this, Login::class.java))
+                finish()
+            }
+            .setNegativeButton("Tidak") { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }.create().show()
     }
 
     companion object {

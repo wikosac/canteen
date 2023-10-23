@@ -78,7 +78,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
 
         db.clearCartTable()
         setMenu()
-        loadNavigationDrawer()
         loadSearchTask()
 
         GlobalScope.launch {

@@ -635,6 +635,36 @@ class CanteenRepository private constructor(
         return orders
     }
 
+    fun getSellerOrderRecord(): LiveData<List<OrderHistoryItem>> {
+        val orders = MutableLiveData<List<OrderHistoryItem>>()
+        databaseRef.child("orders")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val orderList = mutableListOf<OrderHistoryItem>()
+                        for (record in snapshot.children) {
+                            val orderRecord = record.getValue(OrderHistoryItem::class.java)
+                            if (orderRecord != null && orderRecord.sellerUid == firebaseAuth.uid.toString()) {
+                                orderList.add(orderRecord)
+                            }
+                        }
+                        // Mengurutkan berdasarkan tanggal secara descending
+                        val sortedOrders = orderList.sortedByDescending {
+                            convertStringToDate(it.date)?.time
+                        }
+                        orders.value = sortedOrders
+                        Log.d(TAG, "Berhasil membaca data dari Firebase")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle errors here
+                }
+            })
+        return orders
+    }
+
+
     fun getOrderPendapatan(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()
         databaseRef.child("orders")
