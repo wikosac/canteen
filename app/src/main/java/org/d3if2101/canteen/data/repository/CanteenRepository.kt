@@ -50,8 +50,8 @@ class CanteenRepository private constructor(
     }
 
     fun getUIDUser(): LiveData<String> {
-        val data = MutableLiveData<String>()
         Log.d(TAG, "${firebaseAuth.uid}")
+        val data = MutableLiveData<String>()
         data.value = firebaseAuth.uid.toString()
         return data
     }
@@ -106,7 +106,6 @@ class CanteenRepository private constructor(
         })
         return userListLiveData
     }
-
 
     fun getUserWithToken(token: String): LiveData<UserModel> {
         val userData = MutableLiveData<UserModel>()
@@ -576,6 +575,34 @@ class CanteenRepository private constructor(
             }
     }
 
+    fun getCurrentOders(): LiveData<List<OrderHistoryItem>> {
+        val orders = MutableLiveData<List<OrderHistoryItem>>()
+        databaseRef.child("orders")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+//                    Log.d(TAG, "onDataChange orders: $snapshot")
+                    if (snapshot.exists()) {
+                        val orderList = mutableListOf<OrderHistoryItem>()
+                        for (record in snapshot.children) {
+//                            Log.d(TAG, "onDataChange orders child: $record")
+                            record.getValue(OrderHistoryItem::class.java)?.let {
+                                if (it.buyerUid == firebaseAuth.uid) {
+                                    orderList.add(it)
+                                }
+                            }
+                        }
+                        orders.value = orderList
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        return orders
+    }
+
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()
         databaseRef.child("orders")
@@ -607,7 +634,6 @@ class CanteenRepository private constructor(
 
         return orders
     }
-
 
     fun getOrderPendapatan(): LiveData<List<OrderHistoryItem>> {
         val orders = MutableLiveData<List<OrderHistoryItem>>()

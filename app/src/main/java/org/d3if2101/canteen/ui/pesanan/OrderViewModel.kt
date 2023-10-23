@@ -18,6 +18,8 @@ class OrderViewModel(private val canteenRepository: CanteenRepository) : ViewMod
         canteenRepository.insertOrderRecord(order)
     }
 
+    fun getCurrentOrders(): LiveData<List<OrderHistoryItem>> = canteenRepository.getCurrentOders()
+
     fun getOrderRecord(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderRecord()
 
     fun getOrderPendapatan(): LiveData<List<OrderHistoryItem>> = canteenRepository.getOrderPendapatan()

@@ -42,7 +42,7 @@ class OrdersHistoryActivity : AppCompatActivity() {
 
     private fun loadOrderHistoryListFromDatabase() {
         viewModel.getFirebaseAuthUID().observe(this) { uid ->
-            viewModel.getOrderRecord().observe(this) { orderHistoryItems ->
+            viewModel.getOrderPendapatan().observe(this) { orderHistoryItems ->
                 val pesananSelesai = orderHistoryItems.filter {
                     it.buyerUid == uid && it.orderStatus.lowercase()
                         .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
