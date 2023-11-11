@@ -1,137 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.daftar.Daftar"
-    android:orientation="vertical"
-    android:padding="20dp">
+    tools:context=".ui.daftar.Daftar">
 
-    <TextView
-        android:id="@+id/tv_daftar_title"
-        style="@style/Daftar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="@string/daftar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/tv_sub_daftar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        style="@style/SUbTitle"
-        android:text="@string/daftar_akun_sebagai_pembeli"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_nama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="@string/nama"
-        style="@style/TextInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_user">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_nama"
+        <TextView
+            android:id="@+id/tv_daftar_title"
+            style="@style/Daftar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextInputEditText" />
+            android:layout_marginTop="70dp"
+            android:text="@string/daftar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_sub_daftar"
+            style="@style/SUbTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/daftar_akun_sebagai_pembeli"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_nama"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="@string/nama"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_user">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_nama"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="@string/email"
-        style="@style/TextInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_email">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextInputEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="30dp"
+            android:hint="@string/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_email">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_telepon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="@string/no_telepon"
-        style="@style/TextInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_phone">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_email"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_telepon"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_telepon"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            style="@style/TextInputEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="30dp"
+            android:hint="@string/no_telepon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_phone">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_sandi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="@string/kata_sandi"
-        style="@style/TextInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_sandi">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_telepon"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_password"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_sandi"
+            style="@style/TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            style="@style/TextInputEditText" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="30dp"
+            android:hint="@string/kata_sandi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:startIconDrawable="@drawable/ic_sandi">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/tv_button_login"
-        style="@style/ButtonYellow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/buat_akun"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_password"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tv_sudah_ada_akun"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sudah_punya_akun_login"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        style="@style/SUbTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_button_login"
+            style="@style/ButtonYellow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/buat_akun"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_daftar_penjual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/daftar_sebagai_penjual"
-        android:layout_marginTop="48dp"
-        android:gravity="center"
-        style="@style/SUbTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_sudah_ada_akun"
+            style="@style/SUbTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/sudah_punya_akun_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_daftar_penjual"
+            style="@style/SUbTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:text="@string/daftar_sebagai_penjual"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

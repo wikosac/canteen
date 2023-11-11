@@ -122,48 +122,6 @@ class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickLis
         })
     }
 
-    private fun loadNavigationDrawer() {
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        val drawerDelay: Long = 150
-        binding.navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_food_menu -> {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                }
-
-                R.id.nav_profile -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, UserProfileActivity::class.java))
-                    }, drawerDelay)
-                }
-
-                R.id.nav_my_orders -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, MyCurrentOrdersActivity::class.java))
-                    }, drawerDelay)
-                }
-
-                R.id.nav_orders_history -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, OrdersHistoryActivity::class.java))
-                    }, drawerDelay)
-                }
-
-                R.id.nav_log_out -> {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    logOutUser()
-                }
-            }
-            true
-        }
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
         if (searchIsActive) {

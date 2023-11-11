@@ -8,19 +8,16 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.dashboard.DashboardActivity">
 
-    <androidx.cardview.widget.CardView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/dashboard_cardview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:contentPadding="16dp">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dashboard_pembeli"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/nav_drawer_opener_iv"
@@ -65,7 +62,7 @@
                 tools:listitem="@layout/item_dashboard_pembeli" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

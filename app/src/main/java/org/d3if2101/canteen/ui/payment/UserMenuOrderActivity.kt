@@ -20,6 +20,7 @@ import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.menu.MenuActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class UserMenuOrderActivity : AppCompatActivity(),
     RecyclerOrderItemAdapter.OnItemClickListener,
@@ -119,10 +120,10 @@ class UserMenuOrderActivity : AppCompatActivity(),
 
     override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
         val time = "$hourOfDay:$minute"
-        val f24Hours = SimpleDateFormat("HH:mm")
+        val f24Hours = SimpleDateFormat("HH:mm", Locale("id", "ID"))
         try {
             val date = f24Hours.parse(time)
-            val f12Hours = SimpleDateFormat("hh:mm aa")
+            val f12Hours = SimpleDateFormat("hh:mm", Locale("id", "ID"))
             orderTakeAwayTV.text = f12Hours.format(date)
         } catch (e: Exception) {}
     }

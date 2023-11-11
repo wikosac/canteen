@@ -195,10 +195,6 @@
                 android:layout_marginTop="25dp"
                 android:text="@string/waktu_pemesanan"
                 android:textSize="15sp"
-                android:textColor="@color/text_dark_color"
-                android:fontFamily="@font/montserrat_semi_bold"
-                app:drawableTint="@color/primary"
-                app:drawableEndCompat="@drawable/ic_time"
                 android:drawablePadding="5dp"/>
 
             <LinearLayout
@@ -219,7 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="12dp"
                     android:text="@string/waktu_order"
                     android:textSize="15sp"
                     android:textAlignment="textEnd"
