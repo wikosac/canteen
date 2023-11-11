@@ -131,7 +131,7 @@ class DashboardActivity : AppCompatActivity() {
     private fun logOutUser() {
         AlertDialog.Builder(this)
             .setTitle("Peringatan")
-            .setMessage("Apa kamu yakin untuk Log Out?")
+            .setMessage("Apa kamu yakin untuk keluar?")
             .setPositiveButton("Ya") { _, _ ->
                 viewModel.unsubFCM()
 
@@ -141,7 +141,7 @@ class DashboardActivity : AppCompatActivity() {
                 getSharedPreferences("user_profile_details", MODE_PRIVATE).edit().clear().apply()
 
                 viewModel.deleteTokenPref()
-                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Berhasil keluar", Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this, Login::class.java))
                 finish()

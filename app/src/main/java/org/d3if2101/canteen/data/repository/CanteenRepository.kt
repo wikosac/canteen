@@ -67,7 +67,7 @@ class CanteenRepository private constructor(
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            Log.e(TAG, error.message)
+                            Log.e(TAG, "getUser: ${error.message}")
                         }
                     }
                 )
@@ -98,7 +98,7 @@ class CanteenRepository private constructor(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, error.message)
+                Log.e(TAG, "getUsersPenjual: ${error.message}")
             }
         })
         return userListLiveData
@@ -116,7 +116,7 @@ class CanteenRepository private constructor(
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, error.message)
+                    Log.e(TAG, "getUserWithToken: ${error.message}")
                 }
             }
         )
@@ -133,14 +133,14 @@ class CanteenRepository private constructor(
                         Log.d(TAG, "uidUser: ${uidUser.value}")
 
                         Log.d(TAG, task.result.toString())
-                        data.value = Message("Success")
+                        data.value = Message("Berhasil")
                     } else {
                         Log.d(TAG, task.exception?.message.toString())
-                        data.value = Message("Failed")
+                        data.value = Message("Gagal")
                     }
                 }
         } catch (e: Exception) {
-            Log.e(TAG, e.printStackTrace().toString())
+            Log.e(TAG, "loginUser: ${e.printStackTrace()}")
         }
         return data
     }
@@ -160,6 +160,23 @@ class CanteenRepository private constructor(
         } else {
             Log.d("FCM", "Tidak ada pengguna yang masuk (sign in).")
         }
+    }
+
+    fun sendPasswordResetEmail(email: String): LiveData<Message> {
+        val message = MutableLiveData<Message>()
+        try {
+            firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        message.value = Message("Email berhasil dikirim")
+                    } else {
+                        message.value = Message("Email gagal dikirim")
+                    }
+                }
+        } catch (e: Exception) {
+            Log.e(TAG, "sendPassResetEmail: ${e.printStackTrace()}")
+        }
+        return message
     }
 
     fun inputUserToDatabase(
@@ -618,7 +635,7 @@ class CanteenRepository private constructor(
 
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, error.message)
+                    Log.e(TAG, "getOrderRecordPenjual: ${error.message}")
                 }
             })
 

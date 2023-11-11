@@ -250,4 +250,8 @@
     <string name="profile_">Profil</string>
     <string name="delete_item">Hapus Item</string>
     <string name="tidak_ada_data">Tidak ada data</string>
+    <string name="lupa_kata_sandi">Lupa kata sandi?</string>
+    <string name="desc_reset">Masukkan email yang akan dikirimi link untuk menyetel ulang kata sandi</string>
+    <string name="kirim">Kirim</string>
+    <string name="kembali">Kembali</string>
 </resources>

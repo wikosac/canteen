@@ -112,12 +112,12 @@ class DashboardPenjualActivity : AppCompatActivity() {
     private fun logout() {
         AlertDialog.Builder(this)
             .setTitle("Peringatan")
-            .setMessage("Apa kamu yakin untuk Log Out?")
+            .setMessage("Apa kamu yakin untuk keluar?")
             .setPositiveButton("Ya") { _, _ ->
                 viewModel.unsubFCM()
                 Firebase.auth.signOut()
                 viewModel.deleteTokenPref()
-                Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Berhasil keluar", Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this, Login::class.java))
                 finish()

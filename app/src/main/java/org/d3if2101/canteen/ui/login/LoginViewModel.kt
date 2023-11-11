@@ -22,6 +22,8 @@ class LoginViewModel(
         return canteenRepository.loginUser(email, pass)
     }
 
+    fun resetPass(email: String): LiveData<Message> = canteenRepository.sendPasswordResetEmail(email)
+
     fun getUserReturnList(): LiveData<List<UserModel>> = canteenRepository.getUsersPenjual()
 
     fun getUser(lifecycleOwner: LifecycleOwner): LiveData<UserModel> =

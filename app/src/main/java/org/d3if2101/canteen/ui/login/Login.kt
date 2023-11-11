@@ -30,8 +30,12 @@ class Login : AppCompatActivity() {
         binding.tvTidakAdaAkun.setOnClickListener {
             startActivity(Intent(this, Daftar::class.java))
         }
+        binding.tvLupaSandi.setOnClickListener {
+            startActivity(Intent(this, ResetPasswordActivity::class.java))
+        }
 
         binding.tvButtonLogin.setOnClickListener { login() }
+
     }
 
     private fun login() {
@@ -40,7 +44,7 @@ class Login : AppCompatActivity() {
 
         viewModel.loginUser(email, sandi).observe(this) { msg ->
             message = msg.message
-            if (message == "Success") moveTo()
+            if (message == "Berhasil") moveTo()
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }

@@ -53,6 +53,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TAG = "testo"
+        const val TAG = "MainActivity"
     }
 }
