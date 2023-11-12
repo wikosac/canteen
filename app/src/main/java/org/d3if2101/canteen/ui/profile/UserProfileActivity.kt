@@ -12,7 +12,6 @@ import org.d3if2101.canteen.data.model.UserModel
 import org.d3if2101.canteen.databinding.ActivityUserProfileBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.LoginViewModel
-import org.d3if2101.canteen.ui.profile.UpdateProfileActivity
 
 class UserProfileActivity : AppCompatActivity() {
 

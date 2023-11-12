@@ -360,7 +360,16 @@ class CanteenRepository private constructor(
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // Product exists, update its fields
-                    updateProduct(idProduk, namaProduk, jenis, harga, image, desc, imageStringURL, data)
+                    updateProduct(
+                        idProduk,
+                        namaProduk,
+                        jenis,
+                        harga,
+                        image,
+                        desc,
+                        imageStringURL,
+                        data
+                    )
                 } else {
                     // Product doesn't exist, handle this case
                     data.value = Message("Product with ID $idProduk does not exist.")
@@ -404,7 +413,8 @@ class CanteenRepository private constructor(
                         data.value = Message("Success")
                     } else {
                         Log.e(TAG, "Data gagal diupdate")
-                        data.value = Message("Failed to update product: ${dbTask.exception?.message}")
+                        data.value =
+                            Message("Failed to update product: ${dbTask.exception?.message}")
                     }
                 }
         } else {
@@ -435,7 +445,8 @@ class CanteenRepository private constructor(
                                         data.value = Message("Success")
                                     } else {
                                         Log.e(TAG, "Data gagal diupdate")
-                                        data.value = Message("Failed to update product: ${dbTask.exception?.message}")
+                                        data.value =
+                                            Message("Failed to update product: ${dbTask.exception?.message}")
                                     }
                                 }
                         } else {
@@ -528,9 +539,10 @@ class CanteenRepository private constructor(
         // UPLOAD IMAGE FIRST
         val data = MutableLiveData<Message>()
         val fileName = nama + foto + System.currentTimeMillis()
-        if(foto!= null) {
+        if (foto != null) {
             // Upload gambar ke Firebase Storage
-            val uploadTask = storageReference.reference.child("profile").child(fileName).putFile(foto!!)
+            val uploadTask =
+                storageReference.reference.child("profile").child(fileName).putFile(foto)
 
             uploadTask.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -559,13 +571,12 @@ class CanteenRepository private constructor(
                 }
             }
         } else {
-            val downloadUrl = imageUrl
             val userRef = firebaseDatabase.getReference("users/${firebaseAuth.uid}")
             userRef.updateChildren(
                 mapOf(
                     "nama" to nama,
                     "noTelpon" to noTelpon,
-                    "foto" to downloadUrl
+                    "foto" to imageUrl
                 )
             ).addOnSuccessListener {
                 data.value = Message("Success")
@@ -731,7 +742,7 @@ class CanteenRepository private constructor(
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Log.e(TAG, error.message)
                 }
 
             })

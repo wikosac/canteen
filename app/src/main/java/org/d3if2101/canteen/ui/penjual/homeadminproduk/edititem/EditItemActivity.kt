@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.auth.User
 import com.squareup.picasso.Picasso
 import org.angmarch.views.NiceSpinner
 import org.d3if2101.canteen.R
@@ -17,7 +16,6 @@ import org.d3if2101.canteen.databinding.ActivityEditItemBinding
 import org.d3if2101.canteen.datamodels.MenuItem
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
-import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemActivity
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemViewModel
 import java.util.LinkedList
 

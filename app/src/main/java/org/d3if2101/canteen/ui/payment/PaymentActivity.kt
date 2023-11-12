@@ -12,7 +12,6 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.adapters.RecyclerSavedCardsAdapter
 import org.d3if2101.canteen.datamodels.SavedCardItem

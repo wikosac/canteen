@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.d3if2101.canteen.databinding.FragmentOrderBinding
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.penjual.order.selesai.SelesaiItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class AmbilPesananFragment : Fragment() {

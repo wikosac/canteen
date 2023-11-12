@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityUpdateProfileBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
-import org.d3if2101.canteen.ui.dashboard.DashboardActivity
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.additem.AddItemActivity
 

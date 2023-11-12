@@ -1,15 +1,13 @@
 package org.d3if2101.canteen.ui.penjual.order
 
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityQrGenerateBinding
 
 class QrGenerateActivity : AppCompatActivity() {
