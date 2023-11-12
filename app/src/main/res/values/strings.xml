@@ -254,4 +254,13 @@
     <string name="desc_reset">Masukkan email yang akan dikirimi link untuk menyetel ulang kata sandi</string>
     <string name="kirim">Kirim</string>
     <string name="kembali">Kembali</string>
+    <string name="dialog_desc">Aplikasi ini mungkin tidak berfungsi dengan benar tanpa izin yang diminta, buka pengaturan aplikasi untuk mengubah izin.</string>
+    <string name="batal">Batal</string>
+    <string name="buka_pengaturan">Buka Pengaturan</string>
+    <string name="izin_diperlukan">Izin diperlukan</string>
+    <string name="returned_from_app_settings_to_activity">Izin notifikasi %1$s</string>
+    <string name="diberikan">diberikan</string>
+    <string name="ditolak">ditolak</string>
+    <string name="aplikasi_ini_membutuhkan_izin_notifikasi">Aplikasi ini membutuhkan izin notifikasi</string>
+    <string name="selamat_datang">Selamat datang, %1$s</string>
 </resources>

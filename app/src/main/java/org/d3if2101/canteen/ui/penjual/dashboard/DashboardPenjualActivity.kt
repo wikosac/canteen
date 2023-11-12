@@ -1,21 +1,30 @@
 package org.d3if2101.canteen.ui.penjual.dashboard
 
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.DEFAULT_SETTINGS_REQ_CODE
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.databinding.ActivityDashboardPenjualBinding
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.dashboard.DashboardActivity
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
@@ -23,7 +32,7 @@ import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
 import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
-class DashboardPenjualActivity : AppCompatActivity() {
+class DashboardPenjualActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: ActivityDashboardPenjualBinding
     private lateinit var toggle: ActionBarDrawerToggle
@@ -65,6 +74,14 @@ class DashboardPenjualActivity : AppCompatActivity() {
             startActivity(Intent(this@DashboardPenjualActivity, OrderPenjualActivity::class.java))
         }
 
+        // Check if the notification permission is granted
+        if (!permissionCheck()) {
+            ActivityCompat.requestPermissions(
+                this,
+                DashboardActivity.REQUIRED_PERMISSIONS,
+                DashboardActivity.REQUEST_CODE_PERMISSIONS
+            )
+        }
     }
 
     private fun loadNavigationDrawer() {
@@ -125,5 +142,62 @@ class DashboardPenjualActivity : AppCompatActivity() {
             .setNegativeButton("Tidak") { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }.create().show()
+    }
+
+    private fun permissionCheck() = DashboardActivity.REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            EasyPermissions.requestPermissions(
+                this,
+                getString(R.string.aplikasi_ini_membutuhkan_izin_notifikasi),
+                DashboardActivity.REQUEST_CODE_PERMISSIONS,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+        }
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(this)
+                .title(getString(R.string.izin_diperlukan))
+                .rationale(getString(R.string.dialog_desc))
+                .negativeButtonText(getString(R.string.batal))
+                .positiveButtonText(getString(R.string.buka_pengaturan))
+                .build().show()
+        } else {
+            requestNotificationPermission()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        Toast.makeText(this, "Izin diberikan!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == DEFAULT_SETTINGS_REQ_CODE) {
+            // Do something after user returned from app settings screen, like showing a Toast.
+            Toast.makeText(
+                this,
+                getString(
+                    R.string.returned_from_app_settings_to_activity,
+                    if (permissionCheck()) getString(R.string.diberikan) else getString(R.string.ditolak)
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

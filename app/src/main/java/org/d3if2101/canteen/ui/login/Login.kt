@@ -35,7 +35,6 @@ class Login : AppCompatActivity() {
         }
 
         binding.tvButtonLogin.setOnClickListener { login() }
-
     }
 
     private fun login() {

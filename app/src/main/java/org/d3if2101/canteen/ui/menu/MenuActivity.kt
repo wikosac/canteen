@@ -4,8 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +39,6 @@ import org.d3if2101.canteen.services.DatabaseHandler
 import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
-import org.d3if2101.canteen.ui.pesanan.MyCurrentOrdersActivity
-import org.d3if2101.canteen.ui.pesanan.OrdersHistoryActivity
-import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
 class MenuActivity : AppCompatActivity(), RecyclerFoodItemAdapter.OnItemClickListener {
 
