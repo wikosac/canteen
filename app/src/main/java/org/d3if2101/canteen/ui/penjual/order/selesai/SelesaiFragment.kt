@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui.penjual.order
+package org.d3if2101.canteen.ui.penjual.order.selesai
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import org.d3if2101.canteen.ui.ViewModelFactory
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 
-class ProsesFragment : Fragment() {
+class SelesaiFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderBinding
     private var position: Int = 1
@@ -43,7 +43,7 @@ class ProsesFragment : Fragment() {
             viewModel.getOrderRecordPenjual().observe(viewLifecycleOwner) { orderHistoryItems ->
                 val sellerItems = orderHistoryItems.filter {
                     it.sellerUid == uid && it.orderStatus.lowercase()
-                        .contains("diproses") && it.orderPayment.lowercase().contains("sukses")
+                        .contains("selesai") && it.orderPayment.lowercase().contains("sukses")
                 }
 
                 setItemData(sellerItems)
@@ -54,7 +54,7 @@ class ProsesFragment : Fragment() {
     }
 
     private fun setItemData(itemsItem: List<OrderHistoryItem>) {
-        val adapter = DiProsesItemAdapter(this, viewModel, itemsItem)
+        val adapter = SelesaiItemAdapter(this, viewModel, itemsItem)
         binding.rvOrderItem.adapter = adapter
     }
 

@@ -59,7 +59,8 @@ class LoginViewModel(
     fun updateProfileUser(
         nama: String,
         noTelpon: String,
-        foto: Uri
-    ): LiveData<Message> = canteenRepository.updateProfileUser(nama, noTelpon, foto)
+        foto: Uri? = null,
+        imageIntent: String = ""
+    ): LiveData<Message> = canteenRepository.updateProfileUser(nama, noTelpon, foto, imageIntent)
 
 }

@@ -348,57 +348,105 @@ class CanteenRepository private constructor(
         namaProduk: String,
         jenis: String,
         harga: Int,
-        image: Uri,
-        desc: String
+        image: Uri? = null,
+        desc: String,
+        imageStringURL: String = ""
     ): LiveData<Message> {
         val data = MutableLiveData<Message>()
-        val fileName = namaProduk + image + System.currentTimeMillis()
-        val uploadTask = storageReference.reference.child(jenis).child(fileName).putFile(image)
 
-        uploadTask.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // Dapatkan URL download dari gambar
-                uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
-                    if (downloadUrlTask.isSuccessful) {
-                        val downloadUrl = downloadUrlTask.result.toString()
-
-                        Log.d(TAG, downloadUrl)
-
-                        val uniqueID = firebaseDatabase.reference.push().key
-
-                        val produk = MenuItem(
-                            sellerID = firebaseAuth.uid.toString(),
-                            itemID = uniqueID.toString(),
-                            imageUrl = downloadUrl,
-                            itemName = namaProduk,
-                            itemPrice = harga,
-                            itemShortDesc = desc,
-                            itemTag = jenis,
-                            itemStars = 5.0F,
-                            quantity = 0
-                        )
-
-                        firebaseDatabase.getReference("produk").child(idProduk)
-                            .setValue(produk)
-                            .addOnCompleteListener { dbTask ->
-                                if (dbTask.isSuccessful) {
-                                    Log.d(TAG, "Data berhasil ditambahkan")
-                                    data.value = Message("Success")
-                                } else {
-                                    Log.e(TAG, "Data gagal ditambahkan")
-                                    data.value = Message("Failed")
-                                }
-                            }
-                    } else {
-                        data.value = Message("Failed to get download URL")
-                    }
+        // Check if idProduk exists in the database
+        val produkReference = firebaseDatabase.getReference("produk").child(idProduk)
+        produkReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Product exists, update its fields
+                    updateProduct(idProduk, namaProduk, jenis, harga, image, desc, imageStringURL, data)
+                } else {
+                    // Product doesn't exist, handle this case
+                    data.value = Message("Product with ID $idProduk does not exist.")
                 }
-            } else {
-                data.value = Message("Failed to upload image")
             }
-        }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                data.value = Message("Failed to check product existence: ${databaseError.message}")
+            }
+        })
 
         return data
+    }
+
+    private fun updateProduct(
+        idProduk: String,
+        namaProduk: String,
+        jenis: String,
+        harga: Int,
+        image: Uri? = null,
+        desc: String,
+        imageStringURL: String = "",
+        data: MutableLiveData<Message>
+    ) {
+        val fileName = namaProduk + image + System.currentTimeMillis()
+
+        if (image == null) {
+            // Update fields without uploading a new image
+            val produkUpdates = HashMap<String, Any>()
+            produkUpdates["imageUrl"] = imageStringURL
+            produkUpdates["itemName"] = namaProduk
+            produkUpdates["itemPrice"] = harga
+            produkUpdates["itemShortDesc"] = desc
+            produkUpdates["itemTag"] = jenis
+
+            firebaseDatabase.getReference("produk").child(idProduk)
+                .updateChildren(produkUpdates)
+                .addOnCompleteListener { dbTask ->
+                    if (dbTask.isSuccessful) {
+                        Log.d(TAG, "Data berhasil diupdate")
+                        data.value = Message("Success")
+                    } else {
+                        Log.e(TAG, "Data gagal diupdate")
+                        data.value = Message("Failed to update product: ${dbTask.exception?.message}")
+                    }
+                }
+        } else {
+            // Your existing code for uploading and updating the product with a new image
+            val uploadTask = storageReference.reference.child(jenis).child(fileName).putFile(image)
+            uploadTask.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Dapatkan URL download dari gambar
+                    uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
+                        if (downloadUrlTask.isSuccessful) {
+                            val downloadUrl = downloadUrlTask.result.toString()
+
+                            Log.d(TAG, downloadUrl)
+
+                            // Update product fields including the new image URL
+                            val produkUpdates = HashMap<String, Any>()
+                            produkUpdates["imageUrl"] = downloadUrl
+                            produkUpdates["itemName"] = namaProduk
+                            produkUpdates["itemPrice"] = harga
+                            produkUpdates["itemShortDesc"] = desc
+                            produkUpdates["itemTag"] = jenis
+
+                            firebaseDatabase.getReference("produk").child(idProduk)
+                                .updateChildren(produkUpdates)
+                                .addOnCompleteListener { dbTask ->
+                                    if (dbTask.isSuccessful) {
+                                        Log.d(TAG, "Data berhasil diupdate")
+                                        data.value = Message("Success")
+                                    } else {
+                                        Log.e(TAG, "Data gagal diupdate")
+                                        data.value = Message("Failed to update product: ${dbTask.exception?.message}")
+                                    }
+                                }
+                        } else {
+                            data.value = Message("Failed to get download URL")
+                        }
+                    }
+                } else {
+                    data.value = Message("Failed to upload image")
+                }
+            }
+        }
     }
 
     fun deleteProductByID(idProduk: String): LiveData<Message> {
@@ -474,40 +522,58 @@ class CanteenRepository private constructor(
     fun updateProfileUser(
         nama: String,
         noTelpon: String,
-        foto: Uri
+        foto: Uri? = null,
+        imageUrl: String
     ): LiveData<Message> {
         // UPLOAD IMAGE FIRST
         val data = MutableLiveData<Message>()
         val fileName = nama + foto + System.currentTimeMillis()
-        // Upload gambar ke Firebase Storage
-        val uploadTask = storageReference.reference.child("profile").child(fileName).putFile(foto)
+        if(foto!= null) {
+            // Upload gambar ke Firebase Storage
+            val uploadTask = storageReference.reference.child("profile").child(fileName).putFile(foto!!)
 
-        uploadTask.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // Dapatkan URL download dari gambar
-                uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
-                    if (downloadUrlTask.isSuccessful) {
-                        val downloadUrl = downloadUrlTask.result.toString()
-                        val userRef = firebaseDatabase.getReference("users/${firebaseAuth.uid}")
-                        userRef.updateChildren(
-                            mapOf(
-                                "nama" to nama,
-                                "noTelpon" to noTelpon,
-                                "foto" to downloadUrl
-                            )
-                        ).addOnSuccessListener {
-                            data.value = Message("Success")
-                        }.addOnFailureListener {
-                            data.value = Message("Failed")
+            uploadTask.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Dapatkan URL download dari gambar
+                    uploadTask.result.storage.downloadUrl.addOnCompleteListener { downloadUrlTask ->
+                        if (downloadUrlTask.isSuccessful) {
+                            val downloadUrl = downloadUrlTask.result.toString()
+                            val userRef = firebaseDatabase.getReference("users/${firebaseAuth.uid}")
+                            userRef.updateChildren(
+                                mapOf(
+                                    "nama" to nama,
+                                    "noTelpon" to noTelpon,
+                                    "foto" to downloadUrl
+                                )
+                            ).addOnSuccessListener {
+                                data.value = Message("Success")
+                            }.addOnFailureListener {
+                                data.value = Message("Failed")
+                            }
+                        } else {
+                            data.value = Message("Failed to get download URL")
                         }
-                    } else {
-                        data.value = Message("Failed to get download URL")
                     }
+                } else {
+                    data.value = Message("Failed to upload image")
                 }
-            } else {
-                data.value = Message("Failed to upload image")
+            }
+        } else {
+            val downloadUrl = imageUrl
+            val userRef = firebaseDatabase.getReference("users/${firebaseAuth.uid}")
+            userRef.updateChildren(
+                mapOf(
+                    "nama" to nama,
+                    "noTelpon" to noTelpon,
+                    "foto" to downloadUrl
+                )
+            ).addOnSuccessListener {
+                data.value = Message("Success")
+            }.addOnFailureListener {
+                data.value = Message("Failed")
             }
         }
+
 
 
 
@@ -525,7 +591,7 @@ class CanteenRepository private constructor(
                 val produkList = mutableListOf<MenuItem>()
                 val dataSnapshot = task.result
 
-                Log.d(TAG, firebaseAuthID.toString())
+                Log.d(TAG, firebaseAuthID)
 
                 // Periksa apakah DataSnapshot ada
                 if (dataSnapshot.exists()) {

@@ -65,6 +65,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_nama_user" />
 
             <TextView
+                android:id="@+id/txt_method_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="METHOD_PAYMENT"
+                app:layout_constraintEnd_toEndOf="@id/txt_id_order"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txt_total_price"
+                app:layout_constraintTop_toBottomOf="@+id/txt_total_price" />
+
+            <TextView
                 android:id="@+id/txt_waktu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,8 +83,8 @@
                 android:layout_marginBottom="8dp"
                 android:text="Hari ini 12.40"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txt_total_price"
-                app:layout_constraintTop_toBottomOf="@id/txt_total_price" />
+                app:layout_constraintStart_toStartOf="@+id/txt_method_payment"
+                app:layout_constraintTop_toBottomOf="@id/txt_method_payment" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,7 +115,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/processOrderButton"
+            android:id="@+id/btnGenerateQR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -113,7 +124,32 @@
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
             android:paddingBottom="8dp"
-            android:text="Proses Orderan"
+            android:visibility="gone"
+            android:text="Lihat Kode QR"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/qrCodeImageView"
+            android:layout_width="200dp"
+            android:layout_margin="16dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/processOrderButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="16dp"
+            android:textAllCaps="false"
+            android:paddingTop="8dp"
+            android:layout_marginTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="Konfirmasi Pesanan"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

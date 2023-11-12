@@ -117,7 +117,7 @@ class PilihMenuActivity : AppCompatActivity() {
                     val btnEdit = dialogView.findViewById<Button>(R.id.btnEdit)
                     btnEdit.setOnClickListener {
                         val intent = Intent(this@PilihMenuActivity, EditItemActivity::class.java)
-                        intent.putExtra("produkID", data.itemID)
+                        intent.putExtra("data_menuItem", data)
                         startActivity(intent)
                     }
 

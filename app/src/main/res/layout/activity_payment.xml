@@ -96,7 +96,52 @@
                         android:id="@+id/cash_payment_radio_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
+                        android:checked="false"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:onClick="chooseModeOfPayment" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:elevation="0dp"
+                android:onClick="chooseModeOfPayment"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="@string/qris_payment"
+                        android:src="@drawable/ic_payment_qris" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/qris_payment"
+                        android:textColor="@color/text_dark_color"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/qris_payment_radio_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:onClick="chooseModeOfPayment" />
@@ -104,14 +149,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/payment_bhim_upi_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:padding="15dp"
-                android:visibility="invisible"
-                android:text="@string/Bayar" />
 
             <Button
                 android:id="@+id/confirm_payment_btn"

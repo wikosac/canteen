@@ -33,6 +33,7 @@ class OrderPenjualActivity : AppCompatActivity() {
             R.string.baru,
             R.string.diproses,
             R.string.selesai,
+            R.string.ambil_pesanan
         )
     }
 }

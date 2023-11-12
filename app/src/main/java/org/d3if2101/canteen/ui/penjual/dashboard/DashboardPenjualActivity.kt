@@ -29,6 +29,7 @@ import org.d3if2101.canteen.ui.login.Login
 import org.d3if2101.canteen.ui.login.LoginViewModel
 import org.d3if2101.canteen.ui.penjual.homeadminproduk.HomeProduk
 import org.d3if2101.canteen.ui.penjual.order.OrderPenjualActivity
+import org.d3if2101.canteen.ui.penjual.order.QrGenerateActivity
 import org.d3if2101.canteen.ui.penjual.pendapatan.PendapatanActivity
 import org.d3if2101.canteen.ui.profile.UserProfileActivity
 
@@ -72,6 +73,11 @@ class DashboardPenjualActivity : AppCompatActivity(), EasyPermissions.Permission
 
         binding.penjualCardOrder.setOnClickListener {
             startActivity(Intent(this@DashboardPenjualActivity, OrderPenjualActivity::class.java))
+        }
+
+        binding.qrisCard.setOnClickListener {
+            startActivity(Intent(this@DashboardPenjualActivity, QrGenerateActivity::class.java))
+
         }
 
         // Check if the notification permission is granted

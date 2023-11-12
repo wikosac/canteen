@@ -1,6 +1,7 @@
-package org.d3if2101.canteen.ui.penjual.order
+package org.d3if2101.canteen.ui.penjual.order.order
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +25,7 @@ import kotlinx.coroutines.withContext
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
+import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class OrderItemAdapter(
@@ -35,6 +42,9 @@ class OrderItemAdapter(
         val totalPrice: TextView = itemView.findViewById(R.id.txt_total_price)
         val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_product_item)
         val btnProcess: Button = itemView.findViewById(R.id.processOrderButton)
+        val methodPayment: TextView = itemView.findViewById(R.id.txt_method_payment)
+        val btnGenerateQR: Button  = itemView.findViewById(R.id.btnGenerateQR)
+        val qrCodeImageView: ImageView = itemView.findViewById(R.id.qrCodeImageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiwayatViewHolder {
@@ -46,9 +56,22 @@ class OrderItemAdapter(
     override fun onBindViewHolder(holder: RiwayatViewHolder, position: Int) {
         val currentOrderItem = riwayatList[position]
         val buyerUID = currentOrderItem.buyerUid
+        val methodPayment = currentOrderItem.methodPayment
         holder.time.text = currentOrderItem.date
         holder.orderId.text = currentOrderItem.orderId
         holder.totalPrice.text = currentOrderItem.price
+        holder.methodPayment.text = methodPayment
+
+        if (methodPayment.equals("qris")){
+            holder.btnGenerateQR.visibility = View.VISIBLE
+        }
+
+        holder.btnGenerateQR.setOnClickListener {
+            holder.qrCodeImageView.visibility = View.VISIBLE
+            val qrInfo = "payment=true"
+            val qrCodeBitmap = generateQRCode(qrInfo)
+            holder.qrCodeImageView.setImageBitmap(qrCodeBitmap)
+        }
 
         viewModel.getUserFromUID(buyerUID).observe(lifecycleOwner) {
             holder.txtNamaUser.text = "Pembeli: ${it.nama}"
@@ -80,6 +103,13 @@ class OrderItemAdapter(
                 }
             }
 
+            var orderPayment = ""
+            if (currentOrderItem.methodPayment.equals("qris")){
+                orderPayment = "Sukses: Pembayaran QRIS"
+            } else {
+                orderPayment = "Sukses: Pembayaran Tunai"
+            }
+
             holder.btnProcess.setOnClickListener {
                 // set Order Diproses
                 AlertDialog.Builder(holder.itemView.context)
@@ -90,7 +120,7 @@ class OrderItemAdapter(
                         viewModel.updateOrderStateByID(
                             currentOrderItem.orderId,
                             "Order Diproses",
-                            "Sukses: Pembayaran tunai"
+                            orderPayment
                         ).observe(lifecycleOwner) {
                             if (it.message == "Success") {
                                 Toast.makeText(
@@ -119,6 +149,18 @@ class OrderItemAdapter(
         holder.itemRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = CardHistoryItemAdapter(cartItem)
+        }
+    }
+
+    private fun generateQRCode(data: String): Bitmap? {
+        val multiFormater = MultiFormatWriter()
+        return try {
+            val bitMatrix: BitMatrix = multiFormater.encode(data, BarcodeFormat.QR_CODE, 500, 500)
+            val barcodeEncoder = BarcodeEncoder()
+            barcodeEncoder.createBitmap(bitMatrix)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+            null
         }
     }
 

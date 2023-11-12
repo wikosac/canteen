@@ -1,11 +1,13 @@
-package org.d3if2101.canteen.ui.penjual.order
+package org.d3if2101.canteen.ui.penjual.order.selesai
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import kotlinx.coroutines.withContext
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
+import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class SelesaiItemAdapter(
@@ -33,6 +36,7 @@ class SelesaiItemAdapter(
         val totalPrice: TextView = itemView.findViewById(R.id.txt_total_price)
         val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_product_item)
         val btnProcess: Button = itemView.findViewById(R.id.processOrderButton)
+        val methodPayment: TextView = itemView.findViewById(R.id.txt_method_payment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiwayatViewHolder {
@@ -47,9 +51,12 @@ class SelesaiItemAdapter(
         holder.time.text = currentOrderItem.date
         holder.orderId.text = "ID: ${currentOrderItem.orderId}"
         holder.totalPrice.text = currentOrderItem.price
+        holder.btnProcess.text = "BERITAHU PEMBELI ORDER BISA DIAMBIL"
+
+        holder.methodPayment.text = "Metode bayar: ${currentOrderItem.methodPayment}"
 
         viewModel.getUserFromUID(buyerUID).observe(lifecycleOwner) {
-            holder.txtNamaUser.text = " Pembeli: ${it.nama}"
+            holder.txtNamaUser.text = "Pembeli: ${it.nama}"
         }
 
         // Use Glide to load an image
@@ -77,8 +84,45 @@ class SelesaiItemAdapter(
                     }
                 }
             }
+            var orderPayment = ""
+            if (currentOrderItem.methodPayment.equals("qris")){
+                orderPayment = "Sukses: Pembayaran QRIS"
+            } else {
+                orderPayment = "Sukses: Pembayaran Tunai"
+            }
 
-            holder.btnProcess.visibility = View.GONE
+            holder.btnProcess.setOnClickListener {
+                // set Order Diproses
+                AlertDialog.Builder(holder.itemView.context)
+                    .setTitle("Peringatan")
+                    .setMessage("Apa Orderan Sudah Selesai ? ")
+                    .setPositiveButton("Ya") { _, _ ->
+                        // Fungsi Untuk Update "Tertunda: Pembayaran Tunai" -> SET Sukses: Pembayaran Tunai
+                        viewModel.updateOrderStateByID(
+                            currentOrderItem.orderId,
+                            "Ambil Pesanan",
+                            orderPayment
+                        ).observe(lifecycleOwner) {
+                            if (it.message == "Success") {
+                                Toast.makeText(
+                                    holder.itemView.context,
+                                    "Sukses Update Order",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    holder.itemView.context,
+                                    "Failed Update Order",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                    }
+                    .setNegativeButton("Tidak") { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    }.create().show()
+            }
         }
 
         holder.itemRecyclerView.apply {

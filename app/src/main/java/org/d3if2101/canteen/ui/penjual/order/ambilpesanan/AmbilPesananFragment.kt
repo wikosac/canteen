@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui.penjual.order
+package org.d3if2101.canteen.ui.penjual.order.ambilpesanan
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.d3if2101.canteen.databinding.FragmentOrderBinding
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
 import org.d3if2101.canteen.ui.ViewModelFactory
+import org.d3if2101.canteen.ui.penjual.order.selesai.SelesaiItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
-class OrderFragment : Fragment() {
+class AmbilPesananFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderBinding
-    private var position: Int = 0
+    private var position: Int = 1
 
     private val factory: ViewModelFactory by lazy {
         ViewModelFactory.getInstance(requireActivity().application)
@@ -42,7 +43,7 @@ class OrderFragment : Fragment() {
             viewModel.getOrderRecordPenjual().observe(viewLifecycleOwner) { orderHistoryItems ->
                 val sellerItems = orderHistoryItems.filter {
                     it.sellerUid == uid && it.orderStatus.lowercase()
-                        .contains("successful") && it.orderPayment.lowercase().contains("tertunda")
+                        .contains("ambil") && it.orderPayment.lowercase().contains("sukses")
                 }
 
                 setItemData(sellerItems)
@@ -53,7 +54,7 @@ class OrderFragment : Fragment() {
     }
 
     private fun setItemData(itemsItem: List<OrderHistoryItem>) {
-        val adapter = OrderItemAdapter(this, viewModel, itemsItem)
+        val adapter = AmbilPesananAdapter(this, viewModel, itemsItem)
         binding.rvOrderItem.adapter = adapter
     }
 

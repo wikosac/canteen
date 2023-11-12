@@ -1,5 +1,9 @@
 package org.d3if2101.canteen.datamodels
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MenuItem(
     var sellerID: String = "SELLER_ID",
     var itemID: String = "ITEM_ID",
@@ -11,4 +15,4 @@ data class MenuItem(
     var itemStars: Float = 5.0F,
     var quantity: Int = 0,
     var status: Boolean = true
-)
+) : Parcelable

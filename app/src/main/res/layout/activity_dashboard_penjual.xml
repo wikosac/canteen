@@ -96,6 +96,7 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/penjual_card_pendapatan"
                     android:layout_width="match_parent"
@@ -168,7 +169,49 @@
                             android:textAlignment="center" />
 
                     </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/qris_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="36dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/rectangle_6"
+                    android:paddingVertical="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/penjual_card_pendapatan"
+                    app:layout_constraintStart_toStartOf="@+id/penjual_card_pendapatan"
+                    app:layout_constraintTop_toBottomOf="@+id/penjual_card_pendapatan">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="TODO"
+                            android:src="@drawable/ic_payment_qris" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/qris_payment"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

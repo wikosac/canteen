@@ -1,4 +1,4 @@
-package org.d3if2101.canteen.ui.penjual.order
+package org.d3if2101.canteen.ui.penjual.order.proses
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -19,6 +19,7 @@ import kotlinx.coroutines.withContext
 import org.d3if2101.canteen.R
 import org.d3if2101.canteen.datamodels.CartItem
 import org.d3if2101.canteen.datamodels.OrderHistoryItem
+import org.d3if2101.canteen.ui.penjual.order.CardHistoryItemAdapter
 import org.d3if2101.canteen.ui.pesanan.OrderViewModel
 
 class DiProsesItemAdapter(
@@ -35,6 +36,7 @@ class DiProsesItemAdapter(
         val totalPrice: TextView = itemView.findViewById(R.id.txt_total_price)
         val itemRecyclerView: RecyclerView = itemView.findViewById(R.id.rv_product_item)
         val btnProcess: Button = itemView.findViewById(R.id.processOrderButton)
+        val methodPayment: TextView = itemView.findViewById(R.id.txt_method_payment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RiwayatViewHolder {
@@ -49,10 +51,12 @@ class DiProsesItemAdapter(
         holder.time.text = currentOrderItem.date
         holder.orderId.text = "ID: ${currentOrderItem.orderId}"
         holder.totalPrice.text = currentOrderItem.price
-        holder.btnProcess.text = "FINISH ORDER"
+        holder.btnProcess.text = "ORDER DIPROSES"
+
+        holder.methodPayment.text = "Metode bayar: ${currentOrderItem.methodPayment}"
 
         viewModel.getUserFromUID(buyerUID).observe(lifecycleOwner) {
-            holder.txtNamaUser.text = " Pembeli: ${it.nama}"
+            holder.txtNamaUser.text = "Pembeli: ${it.nama}"
         }
 
         // Use Glide to load an image
@@ -81,6 +85,13 @@ class DiProsesItemAdapter(
                 }
             }
 
+            var orderPayment = ""
+            if (currentOrderItem.methodPayment.lowercase().equals("qris")) {
+                orderPayment = "Sukses: Pembayaran QRIS"
+            } else {
+                orderPayment = "Sukses: Pembayaran Tunai"
+            }
+
             holder.btnProcess.setOnClickListener {
                 // set Order Diproses
                 AlertDialog.Builder(holder.itemView.context)
@@ -91,7 +102,7 @@ class DiProsesItemAdapter(
                         viewModel.updateOrderStateByID(
                             currentOrderItem.orderId,
                             "Order Selesai",
-                            "Sukses: Pembayaran tunai"
+                            orderPayment
                         ).observe(lifecycleOwner) {
                             if (it.message == "Success") {
                                 Toast.makeText(

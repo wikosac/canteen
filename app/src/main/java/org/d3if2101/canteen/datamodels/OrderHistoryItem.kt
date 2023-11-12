@@ -15,7 +15,8 @@ data class OrderHistoryItem(
     var review: String = "REVIEW",
     var quantity: Int = 0,
     var sendNotification: Boolean = false,
-    var productIDs: List<OrderDetail> = listOf(OrderDetail())
+    var productIDs: List<OrderDetail> = listOf(OrderDetail()),
+    var methodPayment: String = "METHOD_PAYMENT"
 )
 
 data class OrderDetail(

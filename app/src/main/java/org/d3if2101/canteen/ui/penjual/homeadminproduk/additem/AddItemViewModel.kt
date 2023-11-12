@@ -30,8 +30,9 @@ class AddItemViewModel(private val canteenRepository: CanteenRepository) : ViewM
         namaProduk: String,
         jenis: String,
         harga: Int,
-        image: Uri,
-        desc: String
+        image: Uri? = null,
+        desc: String,
+        imageStringURL: String = ""
     ): LiveData<Message> {
         return canteenRepository.editProductByID(
             idProduk,
@@ -39,7 +40,8 @@ class AddItemViewModel(private val canteenRepository: CanteenRepository) : ViewM
             jenis,
             harga,
             image,
-            desc
+            desc,
+            imageStringURL
         )
     }
 }

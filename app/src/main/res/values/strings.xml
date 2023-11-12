@@ -103,7 +103,7 @@
     <string name="pilih_kategori">PILIH KATEGORI</string>
     <string name="tolak">Tolak</string>
     <string name="terima">Terima</string>
-    <string name="upload_image">Unggah Gambar</string>
+    <string name="upload_image">Unggah Produk</string>
     <string name="stock">Stok</string>
     <string name="tax">Pajak</string>
     <string name="show_this_qr_code_to_your_office_canteen">Tunjukkan kode QR ini ke kantin kantor Anda\n</string>
@@ -229,7 +229,7 @@
     <string name="daftar_akun_sebagai_pembeli">Daftar akun sebagai pembeli</string>
     <string name="daftar_akun_penjual">Daftar Akun Penjual</string>
     <string name="tidak_ada_riwayat">Tidak ada riwayat</string>
-    <string name="baru">Baru\n</string>
+    <string name="baru">Orderan Baru</string>
     <string name="diproses">Diproses</string>
     <string name="selesai">Selesai</string>
     <string name="riwayat_pesanan">Riwayat Pesanan</string>
@@ -263,4 +263,6 @@
     <string name="ditolak">ditolak</string>
     <string name="aplikasi_ini_membutuhkan_izin_notifikasi">Aplikasi ini membutuhkan izin notifikasi</string>
     <string name="selamat_datang">Selamat datang, %1$s</string>
+    <string name="qris_payment">QRIS</string>
+    <string name="ambil_pesanan">Ambil Pesanan</string>
 </resources>

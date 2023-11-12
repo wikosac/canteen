@@ -48,6 +48,7 @@ class OrderDoneActivity : AppCompatActivity() {
     private var orderDate = ""
     private var timeInMillis: Long = 0
     private var userUID: String = ""
+    private var method: String = ""
 
     private lateinit var binding: ActivityOrderDoneBinding
     private val factory: ViewModelFactory by lazy {
@@ -82,6 +83,8 @@ class OrderDoneActivity : AppCompatActivity() {
 
         paymentMethod = intent?.getStringExtra("paymentMethod").toString()
         takeAwayTime = intent?.getStringExtra("takeAwayTime").toString()
+        method = intent?.getStringExtra("method").toString()
+
 
 
         findViewById<TextView>(R.id.order_done_total_amount_tv).text =
@@ -162,25 +165,32 @@ class OrderDoneActivity : AppCompatActivity() {
             orderDetail.qtyOrder = data[i].orderItemQuantities.toInt()
             productId.add(orderDetail)
         }
+        var orderStatus = ""
         val totalQty = productId.sumOf { it.qtyOrder }
+        if(method.equals("qris")){
+            orderStatus = "Order Diproses"
+        } else {
+            orderStatus = "Order Successful"
+        }
         data.forEach { data ->
             val itemInsertToFirebase = OrderHistoryItem(
                 buyerUid =  userUID,
                 date = orderDate,
                 time = timeInMillis,
                 orderId = orderID,
-                orderStatus = "Order Successful",
+                orderStatus = orderStatus,
                 orderPayment = paymentMethod,
                 quantity = totalQty,
                 price = this.getString(R.string.rupiah, totalItemPrice),
                 sellerUid = data.idPenjual,
-                productIDs = productId
+                productIDs = productId,
+                methodPayment = method
             )
             viewModel.insertOrderRecord(itemInsertToFirebase)
             val item = OrderHistoryItem(
                 date = orderDate,
                 orderId = orderID,
-                orderStatus = "Order Successful",
+                orderStatus = orderStatus,
                 orderPayment = paymentMethod,
                 price = this.getString(R.string.rupiah, totalItemPrice),
                 productIDs = productId
