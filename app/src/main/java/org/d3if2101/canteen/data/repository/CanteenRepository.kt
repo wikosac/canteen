@@ -721,7 +721,7 @@ class CanteenRepository private constructor(
                             Log.d(TAG, "onDataChange orders child: $record")
                             val orderRecord = record.getValue(OrderHistoryItem::class.java)
                             if (orderRecord != null && orderRecord.orderStatus.lowercase()
-                                    .contains("selesai") && orderRecord.sellerUid == firebaseAuth.uid.toString()
+                                    .contains("ambil") && orderRecord.sellerUid == firebaseAuth.uid.toString()
                             ) {
                                 orderList.add(orderRecord)
                             }
